@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--本地的数据库连接驱动地址-->
+    <classPathEntry
+            location="D:\OfficeWave\configdata\repository\mysql\mysql-connector-java\5.1.26\mysql-connector-java-5.1.26.jar"/>
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="mergeable" value="false"></property>
+        <!--数据库连接地址-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/user"
+                        userId="root"
+                        password="root">
+        </jdbcConnection>
+        <!--生成实体类（注意修改包路径）-->
+        <javaModelGenerator targetPackage="com.exp.model" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!--生成mapper.xml-->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!--生成mapper.java（注意修改包路径）-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.keyi.mapper"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+
+            <!--数据库中的表名称和对应的实体类名称-->
+        </javaClientGenerator>
+        <table tableName="user" domainObjectName="User"></table>
+
+    </context>
+</generatorConfiguration>
