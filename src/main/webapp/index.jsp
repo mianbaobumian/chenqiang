@@ -8,6 +8,29 @@
                 font-family: microsoft yahei;
             }
         </style>
+        <script>
+            /**
+             * 打开选项卡
+             * @param text  选项卡标题
+             * @param url   请求打开路径
+             */
+            function openTab(text,url,icon) {
+                //判断当前选项卡是否存在
+                if($('#tabs').tabs('exists',text)){
+                    //如果存在 显示
+                    $("#tabs").tabs("select",text);
+                }else{
+                    //如果不存在 则新建一个
+                    $("#tabs").tabs('add',{
+                        title:text,
+                        closable:true,      //是否允许选项卡摺叠。
+                        iconCls:icon,    //显示图标
+                        content:"<iframe frameborder=0 scrolling='auto' style='width:100%;height:100%' src='${pageContext.request.contextPath}/admin/"+url+"'></iframe>"
+                        //url 远程加载所打开的url
+                    })
+                }
+            }
+        </script>
     </head>
     <body class="easyui-layout">
         <div region="north" style="height: 78px; background-color: #E0ECFF">
@@ -25,35 +48,35 @@
         <div region="west" style="width: 200px" title="导航菜单" split="true">
             <div class="easyui-accordion" data-options="fit:true,border:false">
                 <div title="订单管理" data-options="selected:true,iconCls:'icon-item'" style="padding: 10px">
-                    <a href="#" class="easyui-linkbutton"
+                    <a href="javascript:openTab('订货单管理','dingdan_manage.jsp','icon-man')" class="easyui-linkbutton"
                        data-options="plain:true,iconCls:'icon-man'" style="width: 150px">订货单管理</a>
-                    <a href="#" class="easyui-linkbutton"
+                    <a href="javascript:openTab('退货管理','huowu_rollback.jsp','icon-undo')" class="easyui-linkbutton"
                        data-options="plain:true,iconCls:'icon-undo'" style="width: 150px">退货管理</a>
-                    <a href="#" class="easyui-linkbutton"
-                       data-options="plain:true,iconCls:'icon-man'" style="width: 150px">物流查询</a>
+                    <a href="javascript:openTab('物流查询','wuliu_search.jsp','icon-search')" class="easyui-linkbutton"
+                       data-options="plain:true,iconCls:'icon-search'" style="width: 150px">物流查询</a>
                 </div>
                 <div title="库存管理" data-options="iconCls:'icon-bkgl'" style="padding:10px;">
-                    <a href="#" class="easyui-linkbutton"
+                    <a href="javascript:openTab('库存管理','kucun_manage.jsp','icon-man')" class="easyui-linkbutton"
                        data-options="plain:true,iconCls:'icon-man'" style="width: 150px;">库存管理</a>
                 </div>
                 <div title="采购管理" data-options="iconCls:'icon-bklb'" style="padding:10px">
-                    <a href="#" class="easyui-linkbutton"
+                    <a href="javascript:openTab('采购商品管理','caigoushangping_manage.jsp','icon-man')" class="easyui-linkbutton"
                        data-options="plain:true,iconCls:'icon-man'" style="width: 150px;">采购商品管理</a>
-                    <a href="#" class="easyui-linkbutton"
+                    <a href="javascript:openTab('采购商品审核','caigoushangping_check.jsp','icon-man')" class="easyui-linkbutton"
                        data-options="plain:true,iconCls:'icon-edit'" style="width: 150px;">采购商品审核</a>
-                    <a href="#" class="easyui-linkbutton"
+                    <a href="javascript:openTab('查询供应商','gongyingshang_search.jsp','icon-search')" class="easyui-linkbutton"
                        data-options="plain:true,iconCls:'icon-search'" style="width: 150px;">查询供应商</a>
                 </div>
                 <div title="财务管理" data-options="iconCls:'icon-plgl'" style="padding:10px">
-                    <a href="#" class="easyui-linkbutton"
+                    <a href="javascript:openTab('财务明细查询','caiwumingxi_search.jsp','icon-search')" class="easyui-linkbutton"
                        data-options="plain:true,iconCls:'icon-search'" style="width: 150px">财务明细查询</a>
-                    <a href="#" class="easyui-linkbutton"
+                    <a href="javascript:openTab('收付款管理','sufukun_manage.jsp','icon-man')" class="easyui-linkbutton"
                        data-options="plain:true,iconCls:'icon-man'" style="width: 150px;">收付款管理</a>
                 </div>
                 <div title="系统管理" data-options="iconCls:'icon-system'" style="padding:10px">
-                    <a href="#" class="easyui-linkbutton"
+                    <a href="javascript:openTab('用户管理','yonghu_manage.jsp','icon-man')" class="easyui-linkbutton"
                        data-options="plain:true,iconCls:'icon-man'" style="width: 150px">用户管理</a>
-                    <a href="#" class="easyui-linkbutton"
+                    <a href="javascript:openTab('商品信息管理','shangpinginfo_manage.jsp','icon-remove')" class="easyui-linkbutton"
                        data-options="plain:true,iconCls:'icon-remove'" style="width: 150px;">商品信息管理</a>
                 </div>
             </div>

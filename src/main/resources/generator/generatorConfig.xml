@@ -6,30 +6,34 @@
 <generatorConfiguration>
     <!--本地的数据库连接驱动地址-->
     <classPathEntry
-            location="D:\OfficeWave\configdata\repository\mysql\mysql-connector-java\5.1.26\mysql-connector-java-5.1.26.jar"/>
+            location="D:\maven\maven_lib\mysql\mysql-connector-java\5.1.46\mysql-connector-java-5.1.46.jar"/>
     <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
         <property name="beginningDelimiter" value="`"/>
         <property name="endingDelimiter" value="`"/>
         <property name="mergeable" value="false"></property>
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
         <!--数据库连接地址-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/user"
+                        connectionURL="jdbc:mysql://39.108.87.27:3306/chenqiang"
                         userId="root"
-                        password="root">
+                        password="Z123456z">
         </jdbcConnection>
         <!--生成实体类（注意修改包路径）-->
-        <javaModelGenerator targetPackage="com.exp.model" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.keyi.chenqiang.user.model" targetProject="D:\homework\chenqiang\src\main\java\com\keyi\chenqiang\user\model">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
         <!--生成mapper.xml-->
-        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+        <sqlMapGenerator targetPackage="com.keyi.chenqiang.user.dao" targetProject="D:\homework\chenqiang\src\main\java\com\keyi\chenqiang\user\dao">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
         <!--生成mapper.java（注意修改包路径）-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.keyi.mapper"
-                             targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.keyi.chenqiang.user.dao"
+                             targetProject="D:\homework\chenqiang\src\main\java\com\keyi\chenqiang\user\dao">
             <property name="enableSubPackages" value="true"/>
 
             <!--数据库中的表名称和对应的实体类名称-->
