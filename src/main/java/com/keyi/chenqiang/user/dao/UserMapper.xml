@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.keyi.chenqiang.user.dao.UserMapper" >
+
+  <delete id="deleteByUserId" parameterType="java.lang.String" >
+    delete from tb_user
+    where user_id = #{user_id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.keyi.chenqiang.user.model.User" >
+    insert into user (user_id, user_name, user_type,value_flag
+      )
+    values (#{user_id,jdbcType=VARCHAR}, #{user_name,jdbcType=VARCHAR}, #{user_type,jdbcType=VARCHAR},'1'
+      )
+  </insert>
+  <update id="updateByUserId" parameterType="com.keyi.chenqiang.user.model.User" >
+    update user
+    set username = #{user_name,jdbcType=VARCHAR},
+      usertype = #{user_type,jdbcType=VARCHAR},
+      value_flag = #{value_flag,jdbcType=VARCHAR}
+    where userid = #{user_id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByUserId" resultType="com.keyi.chenqiang.user.dao.UserDao" parameterType="java.lang.String" >
+    select user_id, user_name, user_type
+    from tb_user
+    where userid = #{user_id,jdbcType=VARCHAR}
+  </select>
+  <select id="listByPage" resultType="com.keyi.chenqiang.user.dao.UserDao" >
+    select user_id, user_name, user_type
+    from tb_user
+    limit #{start} ,#{end}
+  </select>
+  <select id="getTotal" resultType="java.lang.Integer">
+        SELECT COUNT(1) from tb_user
+    </select>
+</mapper>
