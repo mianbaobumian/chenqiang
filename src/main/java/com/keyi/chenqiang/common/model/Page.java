@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * 分页
  */
-public class PageBean<T> {
+public class Page<T> {
 
     private int currPage;   //当前页数
     private int pageSize;   //每页显示的个数
@@ -14,11 +14,11 @@ public class PageBean<T> {
     private int end;
     private List<T> result; //分页查询的结果
 
-    PageBean(){
+    Page(){
 
     }
 
-    public PageBean(int currPage, int pageSize) {
+    public Page(int currPage, int pageSize) {
         this.currPage = currPage;
         this.pageSize = pageSize;
         this.start = (currPage-1)*pageSize;
@@ -75,7 +75,7 @@ public class PageBean<T> {
 
     @Override
     public String toString() {
-        return "PageBean{" +
+        return "Page{" +
                 "currPage=" + currPage +
                 ", pageSize=" + pageSize +
                 ", total=" + total +

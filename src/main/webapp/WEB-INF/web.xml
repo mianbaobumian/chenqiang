@@ -48,9 +48,13 @@
   <!-- 拦截设置 -->
   <servlet-mapping>
     <servlet-name>dispatcherServlet</servlet-name>
-    <url-pattern>/</url-pattern>
+    <url-pattern>*.do</url-pattern>
   </servlet-mapping>
 
+  <servlet-mapping>
+    <servlet-name>dispatcherServlet</servlet-name>
+    <url-pattern>*.html</url-pattern>
+  </servlet-mapping>
 
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
