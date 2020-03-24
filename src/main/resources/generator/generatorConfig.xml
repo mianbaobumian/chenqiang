@@ -17,28 +17,28 @@
         </commentGenerator>
         <!--数据库连接地址-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://39.108.87.27:3306/chenqiang"
+                        connectionURL="jdbc:mysql://39.108.87.27:3306/chenqiang?characterEncoding=utf8"
                         userId="root"
                         password="Z123456z">
         </jdbcConnection>
         <!--生成实体类（注意修改包路径）-->
-        <javaModelGenerator targetPackage="com.keyi.chenqiang.user.model" targetProject="D:\homework\chenqiang\src\main\java\com\keyi\chenqiang\user\model">
+        <javaModelGenerator targetPackage="com.keyi.chenqiang.jsjl.model" targetProject="D:\homework\chenqiang\src\main\java\com\keyi\chenqiang\jsjl\model">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
         <!--生成mapper.xml-->
-        <sqlMapGenerator targetPackage="com.keyi.chenqiang.user.dao" targetProject="D:\homework\chenqiang\src\main\java\com\keyi\chenqiang\user\dao">
+        <sqlMapGenerator targetPackage="com.keyi.chenqiang.jsjl.dao" targetProject="D:\homework\chenqiang\src\main\java\com\keyi\chenqiang\jsjl\dao">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
         <!--生成mapper.java（注意修改包路径）-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.keyi.chenqiang.user.dao"
-                             targetProject="D:\homework\chenqiang\src\main\java\com\keyi\chenqiang\user\dao">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.keyi.chenqiang.jsjl.dao"
+                             targetProject="D:\homework\chenqiang\src\main\java\com\keyi\chenqiang\jsjl\dao">
             <property name="enableSubPackages" value="true"/>
 
             <!--数据库中的表名称和对应的实体类名称-->
         </javaClientGenerator>
-        <table tableName="user" domainObjectName="User"></table>
+        <table tableName="tb_dd_mx" domainObjectName="DdMx"></table>
 
     </context>
 </generatorConfiguration>
