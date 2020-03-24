@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.keyi.chenqiang.kc.dao.KcMapper" >
+  <resultMap id="BaseResultMap" type="com.keyi.chenqiang.kc.model.Kc" >
+    <id column="item_id" property="itemId" jdbcType="VARCHAR" />
+    <result column="rksj" property="rksj" jdbcType="DATE" />
+    <result column="kcs" property="kcs" jdbcType="DOUBLE" />
+    <result column="zhgxsj" property="zhgxsj" jdbcType="DATE" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_kc
+    where item_id = #{itemId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.keyi.chenqiang.kc.model.Kc" >
+    insert into tb_kc (item_id, rksj, kcs, 
+      zhgxsj)
+    values (#{itemId,jdbcType=VARCHAR}, #{rksj,jdbcType=DATE}, #{kcs,jdbcType=DOUBLE}, 
+      #{zhgxsj,jdbcType=DATE})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.keyi.chenqiang.kc.model.Kc" >
+    update tb_kc
+    set rksj = #{rksj,jdbcType=DATE},
+      kcs = #{kcs,jdbcType=DOUBLE},
+      zhgxsj = #{zhgxsj,jdbcType=DATE}
+    where item_id = #{itemId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select item_id, rksj, kcs, zhgxsj
+    from tb_kc
+    where item_id = #{itemId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select item_id, rksj, kcs, zhgxsj
+    from tb_kc
+  </select>
+</mapper>

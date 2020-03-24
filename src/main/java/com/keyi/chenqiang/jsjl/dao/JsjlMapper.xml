@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.keyi.chenqiang.jsjl.dao.JsjlDao" >
+  <resultMap id="BaseResultMap" type="com.keyi.chenqiang.jsjl.model.Jsjl" >
+    <id column="jylsh" property="jylsh" jdbcType="VARCHAR" />
+    <result column="jyrq" property="jyrq" jdbcType="DATE" />
+    <result column="skfs" property="skfs" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="ddh" property="ddh" jdbcType="VARCHAR" />
+    <result column="zfje" property="zfje" jdbcType="DOUBLE" />
+    <result column="czr" property="czr" jdbcType="VARCHAR" />
+    <result column="bz" property="bz" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_jsjl
+    where jylsh = #{jylsh,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.keyi.chenqiang.jsjl.model.Jsjl" >
+    insert into tb_jsjl (jylsh, jyrq, skfs, 
+      user_id, ddh, zfje, czr, 
+      bz)
+    values (#{jylsh,jdbcType=VARCHAR}, #{jyrq,jdbcType=DATE}, #{skfs,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=VARCHAR}, #{ddh,jdbcType=VARCHAR}, #{zfje,jdbcType=DOUBLE}, #{czr,jdbcType=VARCHAR}, 
+      #{bz,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.keyi.chenqiang.jsjl.model.Jsjl" >
+    update tb_jsjl
+    set jyrq = #{jyrq,jdbcType=DATE},
+      skfs = #{skfs,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      ddh = #{ddh,jdbcType=VARCHAR},
+      zfje = #{zfje,jdbcType=DOUBLE},
+      czr = #{czr,jdbcType=VARCHAR},
+      bz = #{bz,jdbcType=VARCHAR}
+    where jylsh = #{jylsh,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select jylsh, jyrq, skfs, user_id, ddh, zfje, czr, bz
+    from tb_jsjl
+    where jylsh = #{jylsh,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select jylsh, jyrq, skfs, user_id, ddh, zfje, czr, bz
+    from tb_jsjl
+  </select>
+</mapper>

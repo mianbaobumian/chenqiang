@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.keyi.chenqiang.item.dao.ItemDao" >
+  <resultMap id="BaseResultMap" type="com.keyi.chenqiang.item.model.item" >
+    <id column="item_id" property="itemId" jdbcType="VARCHAR" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="lb" property="lb" jdbcType="VARCHAR" />
+    <result column="zt" property="zt" jdbcType="VARCHAR" />
+    <result column="ysj" property="ysj" jdbcType="DOUBLE" />
+    <result column="cbj" property="cbj" jdbcType="DOUBLE" />
+    <result column="hy" property="hy" jdbcType="VARCHAR" />
+    <result column="spms" property="spms" jdbcType="VARCHAR" />
+    <result column="bz" property="bz" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_item
+    where item_id = #{itemId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.keyi.chenqiang.item.model.item" >
+    insert into tb_item (item_id, item_name, lb, 
+      zt, ysj, cbj, hy, 
+      spms, bz)
+    values (#{itemId,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}, #{lb,jdbcType=VARCHAR}, 
+      #{zt,jdbcType=VARCHAR}, #{ysj,jdbcType=DOUBLE}, #{cbj,jdbcType=DOUBLE}, #{hy,jdbcType=VARCHAR}, 
+      #{spms,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.keyi.chenqiang.item.model.item" >
+    update tb_item
+    set item_name = #{itemName,jdbcType=VARCHAR},
+      lb = #{lb,jdbcType=VARCHAR},
+      zt = #{zt,jdbcType=VARCHAR},
+      ysj = #{ysj,jdbcType=DOUBLE},
+      cbj = #{cbj,jdbcType=DOUBLE},
+      hy = #{hy,jdbcType=VARCHAR},
+      spms = #{spms,jdbcType=VARCHAR},
+      bz = #{bz,jdbcType=VARCHAR}
+    where item_id = #{itemId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select item_id, item_name, lb, zt, ysj, cbj, hy, spms, bz
+    from tb_item
+    where item_id = #{itemId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select item_id, item_name, lb, zt, ysj, cbj, hy, spms, bz
+    from tb_item
+  </select>
+</mapper>
