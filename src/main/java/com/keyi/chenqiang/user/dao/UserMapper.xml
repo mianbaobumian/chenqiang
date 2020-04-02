@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.keyi.chenqiang.user.dao.UserMapper" >
+<mapper namespace="com.keyi.chenqiang.user.dao.UserDao" >
 
   <delete id="deleteByUserId" parameterType="java.lang.String" >
     delete from tb_user
@@ -19,15 +19,23 @@
       value_flag = #{value_flag,jdbcType=VARCHAR}
     where userid = #{user_id,jdbcType=VARCHAR}
   </update>
-  <select id="selectByUserId" resultType="com.keyi.chenqiang.user.dao.UserDao" parameterType="java.lang.String" >
+  <select id="selectByUserId" resultType="com.keyi.chenqiang.user.model.User" parameterType="java.lang.String" >getTotal
     select user_id, user_name, user_type
     from tb_user
     where userid = #{user_id,jdbcType=VARCHAR}
   </select>
-  <select id="listByPage" resultType="com.keyi.chenqiang.user.dao.UserDao" >
-    select user_id, user_name, user_type
-    from tb_user
-    limit #{start} ,#{end}
+  <select id="listByPage" resultType="com.keyi.chenqiang.user.model.User" >
+    SELECT
+        a.user_id,
+        a.user_name,
+        ( SELECT dmmc FROM tb_dic_zddm WHERE dmlb = 'YHLX' AND a.user_type = dmz ) user_type,
+    CASE
+        WHEN a.value_flag = '1' THEN
+        '有效' ELSE '无效'
+        END value_flag
+    FROM
+        tb_user a
+    LIMIT #{start} ,#{end}
   </select>
   <select id="getTotal" resultType="java.lang.Integer">
         SELECT COUNT(1) from tb_user

@@ -2,9 +2,10 @@ package com.keyi.chenqiang.user.dao;
 
 import com.keyi.chenqiang.user.model.User;
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
 import java.util.List;
-
+@MapperScan
 public interface UserDao {
 
     int deleteByUserId(String user_id);

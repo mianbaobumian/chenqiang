@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="[%d](%C{1}:%M:%L)-%m%n" />
+		</Console>
+		<RollingFile name="RollingFile" fileName="logs/chenqiang.log"
+			filePattern="logs/$${date:yyyy-MM}/ybpt-%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout
+				pattern="[%d][%-5p](%C{50}:%M:%L)-%m%n" />
+			<SizeBasedTriggeringPolicy size="300 MB" />
+		</RollingFile>
+	</appenders>
+	<loggers>
+	
+		<root level="debug">
+	       	 <appender-ref ref="Console" />   
+			<appender-ref ref="RollingFile"/>   
+		</root>
+	</loggers>
+</configuration>  

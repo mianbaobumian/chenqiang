@@ -6,14 +6,17 @@ import com.alibaba.fastjson.JSONObject;
 import com.keyi.chenqiang.common.model.Page;
 import com.keyi.chenqiang.user.model.User;
 import com.keyi.chenqiang.user.service.UserService;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,13 +28,22 @@ public class UserController
     @Resource
     private UserService userService;
 
+    @RequestMapping("userIndex")
+    public ModelAndView openUserIndex(@RequestParam Map<String, Object> paramMap) {
+        return new ModelAndView("admin/yonghu_manage");
+    }
+
+
     // 分页查询博客类别
     @RequestMapping("list")
     @ResponseBody
-    public Map<String, Object> listUser(@RequestParam Map<String, Object> paramMap){
+    //, @RequestParam Map<String, Object> paramMap
+    public Map<String, Object> listUser( HttpServletRequest httpRequest){
         Map<String, Object> result = new HashMap<String, Object>();
-        String page_num=paramMap.get("page").toString();
-        String rows=paramMap.get("rows").toString();
+       /* String page_num=paramMap.get("page").toString();
+        String rows=paramMap.get("rows").toString();*/
+        String page_num=httpRequest.getParameter("page").toString();
+        String rows=httpRequest.getParameter("rows").toString();
         try
         {
             //定义分页bean
@@ -46,7 +58,7 @@ public class UserController
 //            result.put("total", count);
 //            result.put("data", list);
 
-            result.put("rows", page);
+            result.put("rows", page.getResult());
             result.put("total", page.getTotal());
 
             //使用自定义工具类向response中写入数据
@@ -58,4 +70,10 @@ public class UserController
         }
         return result;
     }
+
+    @RequestMapping("addUser")
+    public ModelAndView openAddUser(@RequestParam Map<String, Object> paramMap) {
+        return new ModelAndView("admin/yonghu_add");
+    }
+
 }

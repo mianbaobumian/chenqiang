@@ -31,7 +31,20 @@
                 iconCls: 'icon-add',    //图标
                 text: '添加',            //名称
                 handler: function () {  //回调函数
-                    alert("添加");
+                    $("#win").window({
+                        title : '添加用户',
+                        width : 850,
+                        height : 495,
+                        href:'${pageContext.request.contextPath}/admin/User/addUser.do',
+                        cache:false,
+                        onLoad: function() {
+                        },
+                        onClose : function() {
+                            $(this).dialog('destroy');
+                            $(this).remove();
+
+                        }
+                    });
                 }
             },'-',{
                 iconCls: 'icon-edit',
@@ -55,16 +68,18 @@
             //同列属性，但是这些列将会冻结在左侧,z大小不会改变，当宽度大于250时，会显示滚动条，但是冻结的列不在滚动条内
             frozenColumns:[[
                 {field:'checkbox',checkbox:true},    //复选框
-                {field:'id',title:'编号',width:200}    //id字段
+                {field:'user_id',title:'编号',width:200}    //id字段
             ]],
             columns:[[
-                {field:'typeName',title:'用户姓名',width:300},   //typeName 字段
-                {field:'orderNum',title:'用户类别',width:300},   //orderNum 字段
+                {field:'user_name',title:'用户姓名',width:200},   //typeName 字段
+                {field:'user_type',title:'用户类别',width:200},   //orderNum 字段
+                {field:'value_flag',title:'有效标志',width:200},   //orderNum 字段
             ]],
         });
     });
 </script>
 <body>
+<div id="win"></div>
 <table id="dg"></table>
 </body>
 </html>

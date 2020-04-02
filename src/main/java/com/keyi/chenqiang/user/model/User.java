@@ -13,6 +13,18 @@ public class User implements Serializable
 
     private String user_type;
 
+    private String value_flag;
+
+    public String getValue_flag()
+    {
+        return value_flag;
+    }
+
+    public void setValue_flag(String value_flag)
+    {
+        this.value_flag = value_flag;
+    }
+
     public String getUser_id()
     {
         return user_id;

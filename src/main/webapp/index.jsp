@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>网上订货系统</title>
-        <%@include file="/common/head.jsp" %>
+        <%@include file="/WEB-INF/pages/common/head.jsp" %>
         <style type="text/css">
             body {
                 font-family: microsoft yahei;
@@ -21,11 +21,12 @@
                     $("#tabs").tabs("select",text);
                 }else{
                     //如果不存在 则新建一个
+                    console.log("${pageContext.request.contextPath}/"+url+"'");
                     $("#tabs").tabs('add',{
                         title:text,
                         closable:true,      //是否允许选项卡摺叠。
                         iconCls:icon,    //显示图标
-                        content:"<iframe frameborder=0 scrolling='auto' style='width:100%;height:100%' src='${pageContext.request.contextPath}/admin/"+url+"'></iframe>"
+                        content:"<iframe frameborder=0 scrolling='auto' style='width:100%;height:100%' src='${pageContext.request.contextPath}/"+url+"'></iframe>"
                         //url 远程加载所打开的url
                     })
                 }
@@ -74,7 +75,7 @@
                        data-options="plain:true,iconCls:'icon-man'" style="width: 150px;">收付款管理</a>
                 </div>
                 <div title="系统管理" data-options="iconCls:'icon-system'" style="padding:10px">
-                    <a href="javascript:openTab('用户管理','yonghu_manage.jsp','icon-man')" class="easyui-linkbutton"
+                    <a href="javascript:openTab('用户管理','admin/User/userIndex.do','icon-man')" class="easyui-linkbutton"
                        data-options="plain:true,iconCls:'icon-man'" style="width: 150px">用户管理</a>
                     <a href="javascript:openTab('商品信息管理','shangpinginfo_manage.jsp','icon-remove')" class="easyui-linkbutton"
                        data-options="plain:true,iconCls:'icon-remove'" style="width: 150px;">商品信息管理</a>
