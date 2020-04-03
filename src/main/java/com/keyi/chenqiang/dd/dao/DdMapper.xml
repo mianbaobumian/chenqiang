@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.keyi.chenqiang.dd.dao.ddMapper" >
+<mapper namespace="com.keyi.chenqiang.dd.dao.DdDao" >
   <resultMap id="BaseResultMap" type="com.keyi.chenqiang.dd.model.Dd" >
     <id column="ddh" property="ddh" jdbcType="VARCHAR" />
     <result column="jyrq" property="jyrq" jdbcType="DATE" />

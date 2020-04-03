@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.keyi.chenqiang.jsjl.dao.DdMxMapper" >
-  <resultMap id="BaseResultMap" type="com.keyi.chenqiang.jsjl.model.DdMx" >
+<mapper namespace="com.keyi.chenqiang.dd.dao.DdMxMapper" >
+  <resultMap id="BaseResultMap" type="com.keyi.chenqiang.dd.model.DdMx" >
     <id column="mxlsh" property="mxlsh" jdbcType="VARCHAR" />
     <result column="ddh" property="ddh" jdbcType="VARCHAR" />
     <result column="item_id" property="itemId" jdbcType="VARCHAR" />
@@ -11,13 +11,13 @@
     delete from tb_dd_mx
     where mxlsh = #{mxlsh,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.keyi.chenqiang.jsjl.model.DdMx" >
+  <insert id="insert" parameterType="com.keyi.chenqiang.dd.model.DdMx" >
     insert into tb_dd_mx (mxlsh, ddh, item_id, 
       sl)
     values (#{mxlsh,jdbcType=VARCHAR}, #{ddh,jdbcType=VARCHAR}, #{itemId,jdbcType=VARCHAR}, 
       #{sl,jdbcType=INTEGER})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.keyi.chenqiang.jsjl.model.DdMx" >
+  <update id="updateByPrimaryKey" parameterType="com.keyi.chenqiang.dd.model.DdMx" >
     update tb_dd_mx
     set ddh = #{ddh,jdbcType=VARCHAR},
       item_id = #{itemId,jdbcType=VARCHAR},

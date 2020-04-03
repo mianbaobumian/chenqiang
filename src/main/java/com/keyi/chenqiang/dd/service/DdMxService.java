@@ -1,11 +1,14 @@
-package com.keyi.chenqiang.dd.dao;
+package com.keyi.chenqiang.dd.service;
 
 import com.keyi.chenqiang.dd.model.DdMx;
-import org.mybatis.spring.annotation.MapperScan;
 
 import java.util.List;
-@MapperScan
-public interface DdMxMapper {
+
+/**
+ * @Author:Leib
+ * @Date 2020/4/3 11:33
+ */
+public interface DdMxService {
     int deleteByPrimaryKey(String mxlsh);
 
     int insert(DdMx record);
