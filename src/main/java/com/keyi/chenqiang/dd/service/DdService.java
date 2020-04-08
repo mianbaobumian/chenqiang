@@ -1,11 +1,14 @@
-package com.keyi.chenqiang.dd.dao;
+package com.keyi.chenqiang.dd.service;
 
 import com.keyi.chenqiang.dd.model.Dd;
-import org.mybatis.spring.annotation.MapperScan;
 
 import java.util.List;
-@MapperScan
-public interface DdDao {
+
+/**
+ * @Author:Leib
+ * @Date 2020/4/3 11:29
+ */
+public interface DdService {
     int deleteByPrimaryKey(String Ddh);
 
     int insert(Dd record);

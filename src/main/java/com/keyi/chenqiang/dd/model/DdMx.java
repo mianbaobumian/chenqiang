@@ -1,5 +1,8 @@
-package com.keyi.chenqiang.jsjl.model;
+package com.keyi.chenqiang.dd.model;
 
+import lombok.Data;
+
+@Data
 public class DdMx {
     private String mxlsh;
 

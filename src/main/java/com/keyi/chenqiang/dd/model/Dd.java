@@ -1,7 +1,9 @@
 package com.keyi.chenqiang.dd.model;
 
-import java.util.Date;
+import lombok.Data;
 
+import java.util.Date;
+@Data
 public class Dd {
     private String ddh;
 
