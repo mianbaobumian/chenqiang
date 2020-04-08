@@ -30,18 +30,15 @@ public class UserController
 
     @RequestMapping("userIndex")
     public ModelAndView openUserIndex(@RequestParam Map<String, Object> paramMap) {
-        return new ModelAndView("admin/yonghu_manage");
+        return new ModelAndView("admin/user_list");
     }
 
 
     // 分页查询博客类别
     @RequestMapping("list")
     @ResponseBody
-    //, @RequestParam Map<String, Object> paramMap
     public Map<String, Object> listUser( HttpServletRequest httpRequest){
         Map<String, Object> result = new HashMap<String, Object>();
-       /* String page_num=paramMap.get("page").toString();
-        String rows=paramMap.get("rows").toString();*/
         String page_num=httpRequest.getParameter("page").toString();
         String rows=httpRequest.getParameter("rows").toString();
         try
@@ -50,19 +47,9 @@ public class UserController
             Page<User> page = new Page<User>(Integer.parseInt(page_num),Integer.parseInt(rows));
             //拿到分页结果已经记录总数的page
             page = userService.listByPage(page);
-//            JSONObject result = new JSONObject();
-//            //通过fastJson序列化list为jsonArray
-//            String jsonArray = JSON.toJSONString(page.getResult());
-//            JSONArray array = JSONArray.parseArray(jsonArray);
-//            //将序列化结果放入json对象中
-//            result.put("total", count);
-//            result.put("data", list);
-
             result.put("rows", page.getResult());
             result.put("total", page.getTotal());
 
-            //使用自定义工具类向response中写入数据
-            // ResponseUtil.write(response, result);
         }catch (Exception e){
             logger.error(e.getMessage(), e);
             result.put("code", "500");

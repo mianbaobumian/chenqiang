@@ -7,4 +7,6 @@ public interface UserService
 {
     //分页查询
     Page<User> listByPage(Page<User> page);
+
+    User queryUserByUserId(String user_id);
 }

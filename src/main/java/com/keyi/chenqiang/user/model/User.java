@@ -11,9 +11,21 @@ public class User implements Serializable
 
     private String user_name;
 
+    private String user_password;
+
     private String user_type;
 
     private String value_flag;
+
+    public String getUser_password()
+    {
+        return user_password;
+    }
+
+    public void setUser_password(String user_password)
+    {
+        this.user_password = user_password;
+    }
 
     public String getValue_flag()
     {

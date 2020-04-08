@@ -19,11 +19,14 @@
       value_flag = #{value_flag,jdbcType=VARCHAR}
     where userid = #{user_id,jdbcType=VARCHAR}
   </update>
-  <select id="selectByUserId" resultType="com.keyi.chenqiang.user.model.User" parameterType="java.lang.String" >getTotal
-    select user_id, user_name, user_type
+
+  <select id="selectByUserId" resultType="com.keyi.chenqiang.user.model.User" parameterType="java.lang.String" >
+    select user_id, user_name,user_password,user_type
     from tb_user
-    where userid = #{user_id,jdbcType=VARCHAR}
+    where user_id = #{user_id,jdbcType=VARCHAR}
+    and value_flag='1'
   </select>
+
   <select id="listByPage" resultType="com.keyi.chenqiang.user.model.User" >
     SELECT
         a.user_id,

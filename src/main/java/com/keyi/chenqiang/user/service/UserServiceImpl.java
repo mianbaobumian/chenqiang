@@ -18,12 +18,6 @@ public class UserServiceImpl implements UserService
     @Resource
     private UserDao userDao;
 
-  /*  @Resource(name = "userDao")
-    public void setDao(UserDao dao) {
-        userDao = dao;
-
-    }*/
-
     @Override
     public Page<User> listByPage(Page<User> page)
     {
@@ -32,5 +26,11 @@ public class UserServiceImpl implements UserService
         //查询记录总数
         page.setTotal(userDao.getTotal());
         return page;
+    }
+
+    @Override
+    public User queryUserByUserId(String user_id)
+    {
+        return userDao.selectByUserId(user_id);
     }
 }
