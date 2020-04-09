@@ -33,6 +33,6 @@ public class DdController {
             System.out.println(d);
         }
 
-        return "admin/dingdan_manage";
+        return "dd/dingdan_manage";
     }
 }

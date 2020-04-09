@@ -5,18 +5,20 @@ import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.annotation.MapperScan;
 
 import java.util.List;
+import java.util.Map;
+
 @MapperScan
 public interface UserDao {
 
     int deleteByUserId(String user_id);
 
-    int insert(User record);
+    int saveUserInfo(Map<String, String> map);
 
     User selectByUserId(String user_id);
 
-    List<User> listByPage(@Param("start")Integer start,@Param("end") Integer end);
+    List<User> listByPage(Map<String, Object> map);
 
-    int updateByUserId(User record);
+    int updateByUserId(Map<String, String> map);
 
     int getTotal();
 }

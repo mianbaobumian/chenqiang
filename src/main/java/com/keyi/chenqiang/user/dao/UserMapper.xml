@@ -6,38 +6,49 @@
     delete from tb_user
     where user_id = #{user_id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.keyi.chenqiang.user.model.User" >
-    insert into user (user_id, user_name, user_type,value_flag
+  <insert id="saveUserInfo" parameterType="java.util.HashMap" >
+    insert into tb_user (user_id, user_name,user_password,user_type,value_flag
       )
-    values (#{user_id,jdbcType=VARCHAR}, #{user_name,jdbcType=VARCHAR}, #{user_type,jdbcType=VARCHAR},'1'
+    values (#{user_id,jdbcType=VARCHAR}, #{user_name,jdbcType=VARCHAR}, #{user_password,jdbcType=VARCHAR},#{user_type,jdbcType=VARCHAR},#{value_flag,jdbcType=VARCHAR}
       )
   </insert>
-  <update id="updateByUserId" parameterType="com.keyi.chenqiang.user.model.User" >
-    update user
-    set username = #{user_name,jdbcType=VARCHAR},
-      usertype = #{user_type,jdbcType=VARCHAR},
+  <update id="updateByUserId" parameterType="java.util.HashMap" >
+    update tb_user
+    set user_name = #{user_name,jdbcType=VARCHAR},
+      user_type = #{user_type,jdbcType=VARCHAR},
+      user_password=#{user_password,jdbcType=VARCHAR},
       value_flag = #{value_flag,jdbcType=VARCHAR}
-    where userid = #{user_id,jdbcType=VARCHAR}
+    where user_id = #{user_id,jdbcType=VARCHAR}
   </update>
 
   <select id="selectByUserId" resultType="com.keyi.chenqiang.user.model.User" parameterType="java.lang.String" >
-    select user_id, user_name,user_password,user_type
+    select user_id, user_name,user_password,user_type,value_flag
     from tb_user
     where user_id = #{user_id,jdbcType=VARCHAR}
-    and value_flag='1'
   </select>
 
-  <select id="listByPage" resultType="com.keyi.chenqiang.user.model.User" >
+  <select id="listByPage" resultType="java.util.HashMap" >
     SELECT
         a.user_id,
         a.user_name,
         ( SELECT dmmc FROM tb_dic_zddm WHERE dmlb = 'YHLX' AND a.user_type = dmz ) user_type,
-    CASE
-        WHEN a.value_flag = '1' THEN
-        '有效' ELSE '无效'
-        END value_flag
+        a.user_password,
+        a.value_flag
     FROM
         tb_user a
+    WHERE 1=1
+    <if test="user_id !=null and user_id !=''">
+        and a.user_id = #{user_id,jdbcType=VARCHAR}
+    </if>
+    <if test="user_name !=null and user_name !=''">
+        and a.user_name like concat('%',concat(#{user_name,jdbcType=VARCHAR},'%'))
+    </if>
+ <!--   <if test="field.toString() == 'user_type' ">
+      and a.user_type =#{value,jdbcType=VARCHAR}
+    </if>
+    <if test="field.toString() == 'value_flag' ">
+      and a.value_flag =#{value,jdbcType=VARCHAR}
+    </if>-->
     LIMIT #{start} ,#{end}
   </select>
   <select id="getTotal" resultType="java.lang.Integer">

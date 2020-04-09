@@ -34,19 +34,19 @@ public class UserController
     }
 
 
-    // 分页查询博客类别
+    // 分页查询
     @RequestMapping("list")
     @ResponseBody
-    public Map<String, Object> listUser( HttpServletRequest httpRequest){
+    public Map<String, Object> listUser(@RequestParam Map<String, Object> paramMap){
         Map<String, Object> result = new HashMap<String, Object>();
-        String page_num=httpRequest.getParameter("page").toString();
-        String rows=httpRequest.getParameter("rows").toString();
+        String page_num=paramMap.get("page").toString();
+        String rows=paramMap.get("rows").toString();
         try
         {
             //定义分页bean
             Page<User> page = new Page<User>(Integer.parseInt(page_num),Integer.parseInt(rows));
             //拿到分页结果已经记录总数的page
-            page = userService.listByPage(page);
+            page = userService.listByPage(page,paramMap);
             result.put("rows", page.getResult());
             result.put("total", page.getTotal());
 
@@ -58,9 +58,76 @@ public class UserController
         return result;
     }
 
-    @RequestMapping("addUser")
+    @RequestMapping("addUserPage")
     public ModelAndView openAddUser(@RequestParam Map<String, Object> paramMap) {
-        return new ModelAndView("admin/yonghu_add");
+        return new ModelAndView("admin/user_add");
     }
 
+    @RequestMapping("addUser")
+    @ResponseBody
+    public Map<String, Object> addUser(@RequestParam Map<String, String> paramMap){
+        Map<String, Object> result = new HashMap<String, Object>();
+        try
+        {
+            String str=userService.saveUserInfo(paramMap);
+            result.put("msg",str);
+            if("success".equals(str)){
+                result.put("status",200);
+            }else {
+                result.put("status",500);
+            }
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            result.put("status", 500);
+            result.put("msg", "查询出错,请联系管理员!");
+        }
+        return result;
+    }
+
+    @RequestMapping("updateUserPage")
+    public ModelAndView openUpdateUser(@RequestParam Map<String, Object> paramMap) {
+        return new ModelAndView("admin/user_edit");
+    }
+
+    @RequestMapping("updateUser")
+    @ResponseBody
+    public Map<String, Object> updateUser(@RequestParam Map<String, String> paramMap){
+        Map<String, Object> result = new HashMap<String, Object>();
+        try
+        {
+            String str=userService.updateUserInfo(paramMap);
+            result.put("msg",str);
+            if("success".equals(str)){
+                result.put("status",200);
+            }else {
+                result.put("status",500);
+            }
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            result.put("status", 500);
+            result.put("msg", "查询出错,请联系管理员!");
+        }
+        return result;
+    }
+
+    @RequestMapping("deleteUser")
+    @ResponseBody
+    public Map<String, Object> deleteUser(@RequestParam Map<String, String> paramMap){
+        Map<String, Object> result = new HashMap<String, Object>();
+        try
+        {
+            String str=userService.deleteUser(paramMap);
+            result.put("msg",str);
+            if("success".equals(str)){
+                result.put("status",200);
+            }else {
+                result.put("status",500);
+            }
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            result.put("status", 500);
+            result.put("msg", "查询出错,请联系管理员!");
+        }
+        return result;
+    }
 }

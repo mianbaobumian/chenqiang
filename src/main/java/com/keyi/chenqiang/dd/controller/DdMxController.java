@@ -24,6 +24,6 @@ public class DdMxController {
 
     @RequestMapping("ddMxIndex")
     public ModelAndView openDdIndex(@RequestParam Map<String, Object> paramMap) {
-        return new ModelAndView("admin/dingdanMx_manage");
+        return new ModelAndView("dd/dingdanMx_manage");
     }
 }

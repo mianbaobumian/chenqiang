@@ -39,7 +39,7 @@ public class LoginController
 		try
 		{
 			User user=userService.queryUserByUserId(username);
-			if(user==null){
+			if(user==null||"0".equals(user.getValue_flag())){
 				map.put("msg", "account_error");
 			}else if(!password.equals(user.getUser_password())){
 				map.put("msg", "password_error");
