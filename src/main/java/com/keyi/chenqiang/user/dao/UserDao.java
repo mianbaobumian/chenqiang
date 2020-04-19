@@ -20,5 +20,5 @@ public interface UserDao {
 
     int updateByUserId(Map<String, String> map);
 
-    int getTotal();
+    int getTotal(Map<String, Object> map);
 }

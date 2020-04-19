@@ -25,20 +25,10 @@ public class UserServiceImpl implements UserService
     {
         paramMap.put("start",(page.getCurrPage()-1)*page.getPageSize());
         paramMap.put("end",page.getPageSize());
-        Object field=paramMap.get("field");
-        Object value=paramMap.get("value");
-        if(!StringUtils.isEmpty(field)){
-            if("user_id".equals(field.toString())){
-                paramMap.put("user_id",value.toString());
-            }
-            if("user_name".equals(field.toString())){
-                paramMap.put("user_name",value.toString());
-            }
-        }
         //查询分页结果
         page.setResult(userDao.listByPage(paramMap));
         //查询记录总数
-        page.setTotal(userDao.getTotal());
+        page.setTotal(userDao.getTotal(paramMap));
         return page;
     }
 

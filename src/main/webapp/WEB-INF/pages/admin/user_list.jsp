@@ -36,6 +36,38 @@
 		    </div>
 		</c:if>
 	</c:forEach>--%>
+    <div id="search_user" style="padding:3px">
+        <%--        <input id="search_text_user" class="easyui-searchbox"
+                    data-options="searcher:doSearch_user,prompt:'请输入...',menu:'#menu_user'"
+                    style="width:250px;vertical-align: middle;">
+                </input>
+                <div id="menu_user" style="width:120px">
+                    <div data-options="name:'user_id'">用户名</div>
+                    <div data-options="name:'user_name'">用户姓名</div>
+        &lt;%&ndash;			<div data-options="name:'user_type'">用户类别</div>
+                    <div data-options="name:'value_flag'">有效标志</div>&ndash;%&gt;
+                </div>--%>
+        <span>用户名:</span>
+        <input id="user_id" style="line-height:26px;border:1px solid #ccc">
+        <span>用户姓名:</span>
+        <input id="user_name" style="line-height:26px;border:1px solid #ccc">
+        <span>用户类别:</span>
+        <select id="user_type" class="easyui-combobox" name="user_type" panelHeight="auto" data-options="width:150,
+                        editable:false,required:true">
+            <option value="">未选择</option>
+            <option value="1">订货方</option>
+            <option value="2">管理人员</option>
+        </select>
+        <span>有效标志:</span>
+        <select id="value_flag" class="easyui-combobox" name="value_flag" panelHeight="auto" data-options="width:150,
+                        editable:false,required:true">
+            <option value="">未选择</option>
+            <option value="1">有效用户</option>
+            <option value="0">无效用户</option>
+        </select>
+        <a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="doSearch_user()">查询</a>
+    </div>
+
 	<div style="float: left;">
 		<a href="#" class="easyui-linkbutton" plain="true" icon="icon-add" onclick="user_add()">新增</a>
 	</div>
@@ -50,21 +82,7 @@
 	
 	<div style="float: left;">  
 		<a href="#" class="easyui-linkbutton" plain="true" icon="icon-reload" onclick="user_reload()">刷新</a>  
-	</div>  
-	
-    <div id="search_user" style="float: right;">
-        <input id="search_text_user" class="easyui-searchbox"  
-            data-options="searcher:doSearch_user,prompt:'请输入...',menu:'#menu_user'"  
-            style="width:250px;vertical-align: middle;">
-        </input>
-        <div id="menu_user" style="width:120px"> 
-			<div data-options="name:'user_id'">用户名</div>
-			<div data-options="name:'user_name'">用户姓名</div>
-<%--			<div data-options="name:'user_type'">用户类别</div>
-			<div data-options="name:'value_flag'">有效标志</div>--%>
-		</div>     
-    </div>  
-
+	</div>
 </div>  
 
 <div id="userEditWindow" class="easyui-window" title="编辑用户" data-options="modal:true,closed:true,resizable:true,
@@ -76,35 +94,25 @@
 
 
 <script>
-function doSearch_user(value,name){ //用户输入用户名,点击搜素,触发此函数  
-	if(value == null || value == ''){
-		$("#userList").datagrid({
-	        title:'用户列表', singleSelect:false, collapsible:true, pagination:true, rownumbers:true, method:'post',
-			nowrap:true, toolbar:"toolbar_user", url:'${pageContext.request.contextPath}/admin/User/list.do', method:'post', loadMsg:'数据加载中......',
-			fitColumns:true,
-	        columns : [ [ 
-				{field : 'ck', checkbox:true },
-				{field : 'user_id', width : 150, align:'center', title : '用户名'},
-				{field : 'user_name', width : 150, align : 'center', title : '用户姓名'},
-				{field : 'user_password', width : 150, align : 'center', title : '用户密码'},
-				{field : 'value_flag', width : 150, title : '用户状态', align:'center', formatter:formatUserStatus}
-	        ] ],  
-	    });
-	}else{
-		$("#userList").datagrid({  
-	        title:'用户列表', singleSelect:false, collapsible:true, pagination:true, rownumbers:true, method:'post',
-			nowrap:true, toolbar:"toolbar_user", url:'${pageContext.request.contextPath}/admin/User/list.do',
-			queryParams: {field:name, value:value},
-			loadMsg:'数据加载中......', fitColumns:true,
-	        columns : [ [
-				{field : 'ck', checkbox:true },
-				{field : 'user_id', width : 150, align:'center', title : '用户名'},
-				{field : 'user_name', width : 150, align : 'center', title : '用户姓名'},
-				{field : 'user_password', width : 150, align : 'center', title : '用户密码'},
-				{field : 'value_flag', width : 150, title : '用户状态', align:'center', formatter:formatUserStatus}
-	        ] ],  
-	    });
-	}
+function doSearch_user(user_id,user_name,user_type,value_flag){ //用户输入用户名,点击搜素,触发此函数
+    var user_id=$('#user_id').val();
+    var user_name=$('#user_name').val();
+    var user_type=$('#user_type').val();
+    var value_flag=$('#value_flag').val();
+    $("#userList").datagrid({
+        title:'用户列表', singleSelect:false, collapsible:true, pagination:true, rownumbers:true, method:'post',
+        nowrap:true, toolbar:"toolbar_user", url:'${pageContext.request.contextPath}/admin/User/list.do',
+        queryParams: {user_id:user_id, user_name:user_name,user_type:user_type,value_flag:value_flag},
+        loadMsg:'数据加载中......', fitColumns:true,
+        columns : [ [
+            {field : 'ck', checkbox:true },
+            {field : 'user_id', width : 150, align:'center', title : '用户名'},
+            {field : 'user_name', width : 150, align : 'center', title : '用户姓名'},
+            {field : 'user_password', width : 150, align : 'center', title : '用户密码'},
+            {field : 'user_type', width : 150, title : '用户类型', align:'center'},
+            {field : 'value_flag', width : 150, title : '用户状态', align:'center', formatter:formatUserStatus}
+        ] ],
+    });
 }
 
 function formatUserStatus(value){

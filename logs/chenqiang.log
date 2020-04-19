@@ -1,0 +1,19 @@
+[2020-03-31 16:09:59,837][DEBUG](Log4j2Test:main:13)-log4j2日志输出：This is debug message.
+[2020-03-31 16:09:59,837][INFO ](Log4j2Test:main:15)-log4j2日志输出：This is info message.
+[2020-03-31 16:09:59,837][ERROR](Log4j2Test:main:17)-log4j2日志输出：This is error message.
+[2020-03-31 16:09:59,837][DEBUG](Log4j2Test:main:13)-log4j2日志输出：This is debug message.
+[2020-03-31 16:09:59,837][INFO ](Log4j2Test:main:15)-log4j2日志输出：This is info message.
+[2020-03-31 16:09:59,837][ERROR](Log4j2Test:main:17)-log4j2日志输出：This is error message.
+[2020-03-31 16:09:59,837][DEBUG](Log4j2Test:main:13)-log4j2日志输出：This is debug message.
+[2020-03-31 16:09:59,837][INFO ](Log4j2Test:main:15)-log4j2日志输出：This is info message.
+[2020-03-31 16:09:59,837][ERROR](Log4j2Test:main:17)-log4j2日志输出：This is error message.
+[2020-04-02 22:43:02,724][INFO ](com.alibaba.druid.support.logging.Log4j2Impl:info:106)-{dataSource-1} inited
+[2020-04-02 22:43:02,901][DEBUG](org.apache.ibatis.logging.LogFactory:setImplementation:135)-Logging initialized using 'class org.apache.ibatis.logging.log4j2.Log4j2Impl' adapter.
+[2020-04-02 22:43:03,168][DEBUG](org.mybatis.spring.SqlSessionUtils:getSqlSession:97)-Creating a new SqlSession
+[2020-04-02 22:43:03,190][DEBUG](org.mybatis.spring.SqlSessionUtils:registerSessionHolder:148)-SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5922ae77] was not registered for synchronization because synchronization is not active
+[2020-04-02 22:43:03,202][DEBUG](org.mybatis.spring.transaction.SpringManagedTransaction:openConnection:87)-JDBC Connection [com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl@5ebd56e9] will not be managed by Spring
+[2020-04-02 22:43:03,205][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-==>  Preparing: SELECT COUNT(1) from tb_user 
+[2020-04-02 22:43:03,323][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-==> Parameters: 
+[2020-04-02 22:43:03,371][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-<==      Total: 1
+[2020-04-02 22:43:03,372][DEBUG](com.alibaba.druid.support.logging.Log4j2Impl:debug:63)-{conn-10010, pstmt-20000} enter cache
+[2020-04-02 22:43:03,372][DEBUG](org.mybatis.spring.SqlSessionUtils:closeSqlSession:191)-Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5922ae77]
