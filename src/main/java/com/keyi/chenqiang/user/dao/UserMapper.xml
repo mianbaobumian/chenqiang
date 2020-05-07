@@ -27,7 +27,7 @@
     where user_id = #{user_id,jdbcType=VARCHAR}
   </select>
 
-  <select id="listByPage" resultType="java.util.HashMap" >
+  <select id="listByPage" resultType="com.keyi.chenqiang.user.model.User" parameterType="java.util.HashMap">
     SELECT
         a.user_id,
         a.user_name,
@@ -51,7 +51,7 @@
     </if>
     LIMIT #{start} ,#{end}
   </select>
-  <select id="getTotal" resultType="java.lang.Integer">
+  <select id="getTotal" resultType="java.lang.Integer" parameterType="java.util.HashMap">
      SELECT COUNT(1) from tb_user a
       WHERE 1=1
       <if test="user_id !=null and user_id !=''">

@@ -77,7 +77,7 @@
                 <div title="系统管理" data-options="iconCls:'icon-system'" style="padding:10px">
                     <a href="javascript:openTab('用户管理','admin/User/userIndex.do','icon-man')" class="easyui-linkbutton"
                        data-options="plain:true,iconCls:'icon-man'" style="width: 150px">用户管理</a>
-                    <a href="javascript:openTab('商品信息管理','shangpinginfo_manage.jsp','icon-remove')" class="easyui-linkbutton"
+                    <a href="javascript:openTab('商品信息管理','admin/Item/itemIndex.do','icon-remove')" class="easyui-linkbutton"
                        data-options="plain:true,iconCls:'icon-remove'" style="width: 150px;">商品信息管理</a>
                 </div>
             </div>

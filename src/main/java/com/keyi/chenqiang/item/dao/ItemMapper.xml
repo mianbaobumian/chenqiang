@@ -1,32 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.keyi.chenqiang.item.dao.ItemDao" >
-  <resultMap id="BaseResultMap" type="com.keyi.chenqiang.item.model.item" >
-    <id column="item_id" property="itemId" jdbcType="VARCHAR" />
-    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
-    <result column="lb" property="lb" jdbcType="VARCHAR" />
-    <result column="zt" property="zt" jdbcType="VARCHAR" />
-    <result column="ysj" property="ysj" jdbcType="DOUBLE" />
-    <result column="cbj" property="cbj" jdbcType="DOUBLE" />
-    <result column="hy" property="hy" jdbcType="VARCHAR" />
-    <result column="spms" property="spms" jdbcType="VARCHAR" />
-    <result column="bz" property="bz" jdbcType="VARCHAR" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+
+  <delete id="deleteByItemId" parameterType="java.lang.String" >
     delete from tb_item
-    where item_id = #{itemId,jdbcType=VARCHAR}
+    where item_id = #{item_id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.keyi.chenqiang.item.model.item" >
+  <insert id="saveItemInfo" parameterType="java.util.HashMap" >
+    <selectKey keyProperty="item_id" resultType="java.lang.String" order="BEFORE">
+      select concat(DATE_FORMAT(now(),'%Y%m%d'),nextval('seq_item')) as item_id  from dual
+    </selectKey>
     insert into tb_item (item_id, item_name, lb, 
       zt, ysj, cbj, hy, 
       spms, bz)
-    values (#{itemId,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}, #{lb,jdbcType=VARCHAR}, 
+    values (#{item_id}, #{item_name,jdbcType=VARCHAR}, #{lb,jdbcType=VARCHAR},
       #{zt,jdbcType=VARCHAR}, #{ysj,jdbcType=DOUBLE}, #{cbj,jdbcType=DOUBLE}, #{hy,jdbcType=VARCHAR}, 
       #{spms,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.keyi.chenqiang.item.model.item" >
+  <update id="updateByItemId" parameterType="java.util.HashMap" >
     update tb_item
-    set item_name = #{itemName,jdbcType=VARCHAR},
+    set item_name = #{item_name,jdbcType=VARCHAR},
       lb = #{lb,jdbcType=VARCHAR},
       zt = #{zt,jdbcType=VARCHAR},
       ysj = #{ysj,jdbcType=DOUBLE},
@@ -34,15 +27,47 @@
       hy = #{hy,jdbcType=VARCHAR},
       spms = #{spms,jdbcType=VARCHAR},
       bz = #{bz,jdbcType=VARCHAR}
-    where item_id = #{itemId,jdbcType=VARCHAR}
+    where item_id = #{item_id,jdbcType=VARCHAR}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select item_id, item_name, lb, zt, ysj, cbj, hy, spms, bz
-    from tb_item
-    where item_id = #{itemId,jdbcType=VARCHAR}
+  <select id="listByPage" resultType="com.keyi.chenqiang.item.model.Item" parameterType="java.util.HashMap" >
+    select a.item_id, a.item_name,
+    (select dmmc from tb_dic_zddm where dmlb ='SPLB' and a.lb=dmz) lb, a.zt, a.ysj, a.cbj, a.hy, a.spms, a.bz
+    from tb_item a
+    where 1=1
+      <if test="item_id !=null and item_id !=''">
+          and a.item_id = #{item_id,jdbcType=VARCHAR}
+      </if>
+      <if test="item_name !=null and item_name !=''">
+          and a.item_name like concat('%',concat(#{item_name,jdbcType=VARCHAR},'%'))
+      </if>
+      <if test="lb !=null and lb !=''">
+          and a.lb = #{lb,jdbcType=VARCHAR}
+      </if>
+      <if test="zt !=null and zt !=''">
+          and a.zt = #{zt,jdbcType=VARCHAR}
+      </if>
+      LIMIT #{start} ,#{end}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
-    select item_id, item_name, lb, zt, ysj, cbj, hy, spms, bz
+  <select id="getToal" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+    select count(1) from tb_item a
+      where 1=1
+      <if test="item_id !=null and item_id !=''">
+          and a.item_id = #{item_id,jdbcType=VARCHAR}
+      </if>
+      <if test="item_name !=null and item_name !=''">
+          and a.item_name like concat('%',concat(#{item_name,jdbcType=VARCHAR},'%'))
+      </if>
+      <if test="lb !=null and lb !=''">
+          and a.lb = #{lb,jdbcType=VARCHAR}
+      </if>
+      <if test="zt !=null and zt !=''">
+          and a.zt = #{zt,jdbcType=VARCHAR}
+      </if>
+  </select>
+
+  <select id="selectByItemId" resultType="com.keyi.chenqiang.item.model.Item" parameterType="java.lang.String" >
+    select item_id, item_name,lb,zt,ysj,cbj,hy,spms,bz
     from tb_item
+    where item_id = #{item_id,jdbcType=VARCHAR}
   </select>
 </mapper>

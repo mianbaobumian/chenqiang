@@ -1,9 +1,10 @@
 package com.keyi.chenqiang.item.model;
 
-public class item {
-    private String itemId;
+public class Item
+{
+    private String item_id;
 
-    private String itemName;
+    private String item_name;
 
     private String lb;
 
@@ -19,20 +20,24 @@ public class item {
 
     private String bz;
 
-    public String getItemId() {
-        return itemId;
+    public String getItem_id()
+    {
+        return item_id;
     }
 
-    public void setItemId(String itemId) {
-        this.itemId = itemId == null ? null : itemId.trim();
+    public void setItem_id(String item_id)
+    {
+        this.item_id = item_id;
     }
 
-    public String getItemName() {
-        return itemName;
+    public String getItem_name()
+    {
+        return item_name;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName == null ? null : itemName.trim();
+    public void setItem_name(String item_name)
+    {
+        this.item_name = item_name;
     }
 
     public String getLb() {

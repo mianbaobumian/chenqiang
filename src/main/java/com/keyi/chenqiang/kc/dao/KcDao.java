@@ -2,15 +2,18 @@ package com.keyi.chenqiang.kc.dao;
 
 import com.keyi.chenqiang.kc.model.Kc;
 import java.util.List;
+import java.util.Map;
 
 public interface KcDao {
-    int deleteByPrimaryKey(String itemId);
+    int deleteByItemId(String item_id);
 
-    int insert(Kc record);
+    int saveItemInfo(Map<String, String> map);
 
-    Kc selectByPrimaryKey(String itemId);
+    Kc selectByItemId(String item_id);
 
-    List<Kc> selectAll();
+    List<Kc> listByPage(Map<String, Object> map);
 
-    int updateByPrimaryKey(Kc record);
+    int updateByItemId(Map<String, String> map);
+
+    int getToal(Map<String, Object> map);
 }

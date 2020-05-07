@@ -1,36 +1,62 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.keyi.chenqiang.kc.dao.KcMapper" >
-  <resultMap id="BaseResultMap" type="com.keyi.chenqiang.kc.model.Kc" >
-    <id column="item_id" property="itemId" jdbcType="VARCHAR" />
-    <result column="rksj" property="rksj" jdbcType="DATE" />
-    <result column="kcs" property="kcs" jdbcType="DOUBLE" />
-    <result column="zhgxsj" property="zhgxsj" jdbcType="DATE" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+<mapper namespace="com.keyi.chenqiang.kc.dao.KcDao" >
+
+  <delete id="deleteByItemId" parameterType="java.lang.String" >
     delete from tb_kc
-    where item_id = #{itemId,jdbcType=VARCHAR}
+    where item_id = #{item_id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.keyi.chenqiang.kc.model.Kc" >
+  <insert id="saveItemInfo" parameterType="java.util.HashMap" >
     insert into tb_kc (item_id, rksj, kcs, 
       zhgxsj)
-    values (#{itemId,jdbcType=VARCHAR}, #{rksj,jdbcType=DATE}, #{kcs,jdbcType=DOUBLE}, 
+    values (#{item_id,jdbcType=VARCHAR}, #{rksj,jdbcType=DATE}, #{kcs,jdbcType=DOUBLE},
       #{zhgxsj,jdbcType=DATE})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.keyi.chenqiang.kc.model.Kc" >
+  <update id="updateByItemId" parameterType="java.util.HashMap" >
     update tb_kc
     set rksj = #{rksj,jdbcType=DATE},
       kcs = #{kcs,jdbcType=DOUBLE},
       zhgxsj = #{zhgxsj,jdbcType=DATE}
-    where item_id = #{itemId,jdbcType=VARCHAR}
+    where item_id = #{item_id,jdbcType=VARCHAR}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByItemId" resultType="com.keyi.chenqiang.kc.model.Kc" parameterType="java.util.HashMap" >
     select item_id, rksj, kcs, zhgxsj
     from tb_kc
-    where item_id = #{itemId,jdbcType=VARCHAR}
+    where item_id = #{item_id,jdbcType=VARCHAR}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
-    select item_id, rksj, kcs, zhgxsj
-    from tb_kc
+  <select id="listByPage" resultType="com.keyi.chenqiang.kc.model.Kc" parameterType="java.util.HashMap" >
+    SELECT
+        b.item_id,
+        a.item_name,
+       (select dmmc from tb_dic_zddm where dmlb="SPLB" and dmz=a.lb) lb,
+        b.zhgxsj,
+        b.kcs
+    FROM
+        tb_item a,tb_kc b
+    WHERE
+        a.item_id = b.item_id
+    <if test="item_id !=null and item_id !=''">
+      and a.item_id = #{item_id,jdbcType=VARCHAR}
+    </if>
+    <if test="item_name !=null and item_name !=''">
+      and b.item_name like concat('%',concat(#{item_name,jdbcType=VARCHAR},'%'))
+    </if>
+    <if test="lb !=null and lb !=''">
+      and a.lb = #{lb,jdbcType=VARCHAR}
+    </if>
+    LIMIT #{start} ,#{end}
+  </select>
+  <select id="getToal" resultType="java.lang.Integer" parameterType="java.util.HashMap" >
+    SELECT count(1) FROM  tb_item a,tb_kc b
+    WHERE  a.item_id = b.item_id
+    <if test="item_id !=null and item_id !=''">
+      and a.item_id = #{item_id,jdbcType=VARCHAR}
+    </if>
+    <if test="item_name !=null and item_name !=''">
+      and b.item_name like concat('%',concat(#{item_name,jdbcType=VARCHAR},'%'))
+    </if>
+    <if test="lb !=null and lb !=''">
+      and a.lb = #{lb,jdbcType=VARCHAR}
+    </if>
   </select>
 </mapper>

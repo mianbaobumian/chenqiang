@@ -1,17 +1,20 @@
 package com.keyi.chenqiang.item.dao;
 
-import com.keyi.chenqiang.item.model.item;
+import com.keyi.chenqiang.item.model.Item;
 import java.util.List;
+import java.util.Map;
 
 public interface ItemDao
 {
-    int deleteByPrimaryKey(String itemId);
+    int deleteByItemId(String item_id);
 
-    int insert(item record);
+    int saveItemInfo(Map<String, String> map);
 
-    item selectByPrimaryKey(String itemId);
+    Item selectByItemId(String item_id);
 
-    List<item> selectAll();
+    List<Item> listByPage(Map<String, Object> map);
 
-    int updateByPrimaryKey(item record);
+    int updateByItemId(Map<String, String> map);
+
+    int getToal(Map<String, Object> map);
 }

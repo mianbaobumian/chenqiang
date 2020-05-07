@@ -9,11 +9,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.Map;
 
-/**
- * @Description: [用户service]
- * @Author: [chengqiang]
- * @CreateDate: [2020/3/7 14:03]
- */
+
 @Service("userService")
 public class UserServiceImpl implements UserService
 {
