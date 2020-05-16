@@ -11,9 +11,15 @@
 	<form id="cgEditForm" class="cgForm" method="post">
 		<table cellpadding="5" >
 			<tr>
+				<td>采购单流水号:</td>
+				<td colspan="10">
+					<input id="lsh" name="lsh" readonly="true" data-options="required:true"/>
+				</td>
+			</tr>
+			<tr>
 				<td>商品名:</td>
 				<td colspan="10">
-					<input id="cg" class="easyui-combogrid" name="item_id" readonly="true" data-options="required:true"/>
+					<input id="cg" class="easyui-combogrid" name="item_id"  data-options="required:true"/>
 					<input type="hidden" id="hdKeyword" />
 				</td>
 			</tr>

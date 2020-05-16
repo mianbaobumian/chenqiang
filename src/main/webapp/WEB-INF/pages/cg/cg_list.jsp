@@ -234,11 +234,6 @@ function doSearch_cg(lsh,item_id,item_name,lb,sqqssj,sqjssj){ //商品输入商�
       		if(data.msg != null){
       			$.messager.alert('提示', data.msg);
       		}else{*/
-      			var ids = getcgSelectionsIds();
-            	if(ids.length == 0){
-            		$.messager.alert('提示','未选中采购单!');
-            		return ;
-            	}
                 var sels = $("#cgList").datagrid("getSelections");
                 for(var i=0;i<sels.length;i++){
                     if("新增"!=sels[i].zt){
@@ -246,6 +241,16 @@ function doSearch_cg(lsh,item_id,item_name,lb,sqqssj,sqjssj){ //商品输入商�
                         return ;
                     }
                 }
+                var ids = [];
+                for(var i=0;i<sels.length;i++){
+                    ids.push(sels[i].lsh);
+                }
+                ids = ids.join(",");
+                if(ids.length == 0){
+                    $.messager.alert('提示','未选中采购单!');
+                    return ;
+                }
+
             	$.messager.confirm('确认','确定删除ID为 '+ids+' 的采购单吗？',function(r){
             	    if (r){
             	    	var params = {"ids":ids};

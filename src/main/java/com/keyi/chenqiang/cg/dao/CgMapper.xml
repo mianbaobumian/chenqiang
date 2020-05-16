@@ -17,7 +17,7 @@
     set item_id = #{item_id,jdbcType=VARCHAR},
       cgsl = #{cgsl,jdbcType=INTEGER},
       cgdj = #{cgdj,jdbcType=DOUBLE},
-      cgzje = #{cgzje,jdbcType=DOUBLE},
+      cgzje = #{cgzje,jdbcType=DOUBLE}
     where lsh = #{lsh,jdbcType=VARCHAR}
       and zt = '00'
   </update>
@@ -85,6 +85,7 @@
   <delete id="deleteCgByLsh" parameterType="java.lang.String">
     delete from tb_cg
     where lsh = #{lsh,jdbcType=VARCHAR}
+      and zt = '00'
   </delete>
 
   <update id="updateCgZt" parameterType="com.keyi.chenqiang.cg.model.Cg" >
