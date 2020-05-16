@@ -9,8 +9,8 @@
   <insert id="saveKcInfo" parameterType="java.util.HashMap" >
     insert into tb_kc (item_id, rksj, kcs, 
       zhgxsj)
-    values (#{item_id,jdbcType=VARCHAR}, sysdate()(), #{kcs,jdbcType=INTEGER},
-      sysdate()())
+    values (#{item_id,jdbcType=VARCHAR}, sysdate()()(), #{kcs,jdbcType=INTEGER},
+      sysdate())
   </insert>
   <update id="updateByItemId" parameterType="com.keyi.chenqiang.kc.model.Kc" >
     update tb_kc

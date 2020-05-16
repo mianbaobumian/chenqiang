@@ -8,7 +8,7 @@
   </delete>
   <insert id="saveItemInfo" parameterType="java.util.HashMap" >
     <selectKey keyProperty="item_id" resultType="java.lang.String" order="BEFORE">
-      select concat(DATE_FORMAT(sysdate()(),'%Y%m%d'),nextval('seq_item')) as item_id  from dual
+      select concat(DATE_FORMAT(sysdate(),'%Y%m%d'),nextval('seq_item')) as item_id  from dual
     </selectKey>
     insert into tb_item (item_id, item_name, lb, 
       zt, ysj, cbj, hy, 

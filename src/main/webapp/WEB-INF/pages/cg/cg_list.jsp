@@ -74,8 +74,8 @@
     <%--</div>
     <div id="search_cg2" style="padding:3px">--%>
         申请时间段:
-        <input class="easyui-datebox" id="sqqssj" style="width:120px">~
-        <input class="easyui-datebox" id="sqjssj" style="width:120px">
+        <input class="easyui-datebox" id="sqqssj" style="width:120px" data-options="formatter:myformatter,parser:myparser">~
+        <input class="easyui-datebox" id="sqjssj" style="width:120px" data-options="formatter:myformatter,parser:myparser">
         <a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="doSearch_cg()">查询</a>
     </div>
 
@@ -112,7 +112,6 @@
 </div>
 
 <script>
-$("#sqqssj").datebox("setValue",$('#sqqssj').datebox('options').currentText);
 function doSearch_cg(lsh,item_id,item_name,lb,sqqssj,sqjssj){ //商品输入商品名,点击搜素,触发此函数
     var lsh=$('#lsh').val();
     var item_id=$('#item_id').val();
@@ -256,4 +255,38 @@ function doSearch_cg(lsh,item_id,item_name,lb,sqqssj,sqjssj){ //商品输入商�
     function cg_reload(){
     	$("#cgList").datagrid("reload");
     }
+
+    function myformatter(date){
+        var y = date.getFullYear();
+        var m = date.getMonth()+1;
+        var d = date.getDate();
+        return y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d);
+    }
+    
+    function myparser(s){
+        if (!s) return new Date();
+        var ss = (s.split('-'));
+        var y = parseInt(ss[0],10);
+        var m = parseInt(ss[1],10);
+        var d = parseInt(ss[2],10);
+        if (!isNaN(y) && !isNaN(m) && !isNaN(d)){
+            return new Date(y,m-1,d);
+        } else {
+            return new Date();
+        }
+    }
+    
+    //页面加载
+    
+    $(function(){
+    
+        //设置时间
+        var curr_time = new Date();
+        $("#sqqssj").datebox("setValue",myformatter(curr_time));
+        $("#sqjssj").datebox("setValue",myformatter(curr_time));
+        //获取时间
+        var beginTime=$("#sqqssj").datebox("getValue");
+        var endTime=$("#sqjssj").datebox("getValue");
+    
+    });
 </script>

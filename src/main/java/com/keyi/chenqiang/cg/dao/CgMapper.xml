@@ -3,12 +3,12 @@
 <mapper namespace="com.keyi.chenqiang.cg.dao.CgDao" >
   <insert id="saveCgInfo" parameterType="com.keyi.chenqiang.cg.model.Cg" >
     <selectKey keyProperty="lsh" resultType="java.lang.String" order="BEFORE">
-      select concat(DATE_FORMAT(sysdate()(),'%Y%m%d'),nextval('seq_cg')) as lsh  from dual
+      select concat(DATE_FORMAT(sysdate(),'%Y%m%d'),nextval('seq_cg')) as lsh  from dual
     </selectKey>
     insert into tb_cg (lsh, item_id, ddsqsj,
       cgsl, cgdj, cgzje, zt
       )
-    values (#{lsh}, #{item_id,jdbcType=VARCHAR}, sysdate()(),
+    values (#{lsh}, #{item_id,jdbcType=VARCHAR}, sysdate(),
       #{cgsl,jdbcType=INTEGER}, #{cgdj,jdbcType=DOUBLE}, #{cgzje,jdbcType=DOUBLE}, '00'
       )
   </insert>
