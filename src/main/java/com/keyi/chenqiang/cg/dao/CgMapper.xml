@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.keyi.chenqiang.cg.dao.CgDao" >
+  <insert id="saveCgInfo" parameterType="com.keyi.chenqiang.cg.model.Cg" >
+    <selectKey keyProperty="lsh" resultType="java.lang.String" order="BEFORE">
+      select concat(DATE_FORMAT(sysdate()(),'%Y%m%d'),nextval('seq_cg')) as lsh  from dual
+    </selectKey>
+    insert into tb_cg (lsh, item_id, ddsqsj,
+      cgsl, cgdj, cgzje, zt
+      )
+    values (#{lsh}, #{item_id,jdbcType=VARCHAR}, sysdate()(),
+      #{cgsl,jdbcType=INTEGER}, #{cgdj,jdbcType=DOUBLE}, #{cgzje,jdbcType=DOUBLE}, '00'
+      )
+  </insert>
+  <update id="updateByLsh" parameterType="com.keyi.chenqiang.cg.model.Cg" >
+    update tb_cg
+    set item_id = #{item_id,jdbcType=VARCHAR},
+      cgsl = #{cgsl,jdbcType=INTEGER},
+      cgdj = #{cgdj,jdbcType=DOUBLE},
+      cgzje = #{cgzje,jdbcType=DOUBLE},
+    where lsh = #{lsh,jdbcType=VARCHAR}
+      and zt = '00'
+  </update>
+  <select id="selectByLsh" resultType="com.keyi.chenqiang.cg.model.Cg" parameterType="java.util.HashMap" >
+    select lsh, item_id,ddsqsj,ywshsj,yjdhrq, cgsl, cgdj, cgzje, zt
+    from tb_cg
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </select>
+  <select id="listByPage" resultType="com.keyi.chenqiang.cg.model.Cg" parameterType="java.util.HashMap" >
+    SELECT
+    b.lsh,
+    b.item_id,
+    a.item_name,
+    (select dmmc from tb_dic_zddm where dmlb="SPLB" and dmz=a.lb) lb,
+    b.ddsqsj,
+    b.ywshsj,
+    b.yjdhrq,
+    b.cgsl,
+    b.cgdj,
+    b.cgzje,
+    case
+        when b.zt ='00' then '新增'
+        when b.zt ='01' then '审核通过'
+        when b.zt ='02' then '审核未通过'
+        else '撤销'
+    end zt
+    FROM
+    tb_item a,tb_cg b
+    WHERE
+    a.item_id = b.item_id
+    <if test="lsh !=null and lsh !=''">
+      and b.lsh = #{lsh,jdbcType=VARCHAR}
+    </if>
+    <if test="item_id !=null and item_id !=''">
+      and a.item_id = #{item_id,jdbcType=VARCHAR}
+    </if>
+    <if test="item_name !=null and item_name !=''">
+      and b.item_name like concat('%',concat(#{item_name,jdbcType=VARCHAR},'%'))
+    </if>
+    <if test="lb !=null and lb !=''">
+      and a.lb = #{lb,jdbcType=VARCHAR}
+    </if>
+      and date_format(b.ddsqsj,'%Y-%m-%d') between #{sqqssj,jdbcType=VARCHAR} and #{sqjssj,jdbcType=VARCHAR}
+    LIMIT #{start} ,#{end}
+  </select>
+  <select id="getToal" resultType="java.lang.Integer" parameterType="java.util.HashMap" >
+    SELECT count(1)
+    FROM tb_item a,tb_cg b
+    WHERE a.item_id = b.item_id
+    <if test="lsh !=null and lsh !=''">
+      and b.lsh = #{lsh,jdbcType=VARCHAR}
+    </if>
+    <if test="item_id !=null and item_id !=''">
+      and a.item_id = #{item_id,jdbcType=VARCHAR}
+    </if>
+    <if test="item_name !=null and item_name !=''">
+      and b.item_name like concat('%',concat(#{item_name,jdbcType=VARCHAR},'%'))
+    </if>
+    <if test="lb !=null and lb !=''">
+      and a.lb = #{lb,jdbcType=VARCHAR}
+    </if>
+    and date_format(b.ddsqsj,'%Y-%m-%d') between #{sqqssj,jdbcType=VARCHAR} and #{sqjssj,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteCgByLsh" parameterType="java.lang.String">
+    delete from tb_cg
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </delete>
+
+</mapper>

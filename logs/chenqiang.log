@@ -17,3 +17,72 @@
 [2020-04-02 22:43:03,371][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-<==      Total: 1
 [2020-04-02 22:43:03,372][DEBUG](com.alibaba.druid.support.logging.Log4j2Impl:debug:63)-{conn-10010, pstmt-20000} enter cache
 [2020-04-02 22:43:03,372][DEBUG](org.mybatis.spring.SqlSessionUtils:closeSqlSession:191)-Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5922ae77]
+[2020-05-14 17:03:17,122][INFO ](com.alibaba.druid.support.logging.Log4j2Impl:info:106)-{dataSource-1} inited
+[2020-05-14 17:03:17,330][DEBUG](org.apache.ibatis.logging.LogFactory:setImplementation:135)-Logging initialized using 'class org.apache.ibatis.logging.log4j2.Log4j2Impl' adapter.
+[2020-05-14 17:03:17,568][DEBUG](org.mybatis.spring.SqlSessionUtils:getSqlSession:97)-Creating a new SqlSession
+[2020-05-14 17:03:17,571][DEBUG](org.mybatis.spring.SqlSessionUtils:registerSessionHolder:148)-SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4b4dd216] was not registered for synchronization because synchronization is not active
+[2020-05-14 17:03:17,582][DEBUG](org.mybatis.spring.transaction.SpringManagedTransaction:openConnection:87)-JDBC Connection [com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl@21a5fd96] will not be managed by Spring
+[2020-05-14 17:03:17,585][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-==>  Preparing: select concat(DATE_FORMAT(now(),'%Y%m%d'),nextval('seq_cg')) as lsh from dual 
+[2020-05-14 17:03:17,682][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-==> Parameters: 
+[2020-05-14 17:03:17,727][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-<==      Total: 1
+[2020-05-14 17:03:17,728][DEBUG](com.alibaba.druid.support.logging.Log4j2Impl:debug:63)-{conn-10010, pstmt-20000} enter cache
+[2020-05-14 17:03:17,729][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-==>  Preparing: insert into tb_cg (lsh, item_id, ddsqsj, cgsl, cgdj, cgzje, zt ) values (?, ?, now(), ?, ?, ?, '00' ) 
+[2020-05-14 17:03:17,732][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-==> Parameters: 202005142(String), 2020032601(String), 1(Integer), 8.0(Double), 8.0(Double)
+[2020-05-14 17:03:17,797][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-<==    Updates: 1
+[2020-05-14 17:03:17,797][DEBUG](com.alibaba.druid.support.logging.Log4j2Impl:debug:63)-{conn-10010, pstmt-20001} enter cache
+[2020-05-14 17:03:17,797][DEBUG](org.mybatis.spring.SqlSessionUtils:closeSqlSession:191)-Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4b4dd216]
+[2020-05-14 17:13:31,773][INFO ](com.alibaba.druid.support.logging.Log4j2Impl:info:106)-{dataSource-1} inited
+[2020-05-14 17:13:31,856][DEBUG](org.apache.ibatis.logging.LogFactory:setImplementation:135)-Logging initialized using 'class org.apache.ibatis.logging.log4j2.Log4j2Impl' adapter.
+[2020-05-14 17:13:32,045][DEBUG](org.mybatis.spring.SqlSessionUtils:getSqlSession:97)-Creating a new SqlSession
+[2020-05-14 17:13:32,049][DEBUG](org.mybatis.spring.SqlSessionUtils:registerSessionHolder:148)-SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@242b6e1a] was not registered for synchronization because synchronization is not active
+[2020-05-14 17:13:32,079][DEBUG](org.mybatis.spring.transaction.SpringManagedTransaction:openConnection:87)-JDBC Connection [com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl@67514bdd] will not be managed by Spring
+[2020-05-14 17:13:32,082][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-==>  Preparing: SELECT b.lsh b.item_id, a.item_name, (select dmmc from tb_dic_zddm where dmlb="SPLB" and dmz=a.lb) lb, b.ddsqsj, b.ywshsj, b.yjdhrq, b.cgsl, b.cgdj, b.cgzje, b.zt FROM tb_item a,tb_cg b WHERE a.item_id = b.item_id and date_format(b.ddsqsj,'%Y%m%d') between ? and ? LIMIT ? ,? 
+[2020-05-14 17:13:32,129][DEBUG](org.mybatis.spring.SqlSessionUtils:closeSqlSession:191)-Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@242b6e1a]
+[2020-05-14 17:14:44,537][INFO ](com.alibaba.druid.support.logging.Log4j2Impl:info:106)-{dataSource-1} inited
+[2020-05-14 17:14:44,610][DEBUG](org.apache.ibatis.logging.LogFactory:setImplementation:135)-Logging initialized using 'class org.apache.ibatis.logging.log4j2.Log4j2Impl' adapter.
+[2020-05-14 17:14:44,797][DEBUG](org.mybatis.spring.SqlSessionUtils:getSqlSession:97)-Creating a new SqlSession
+[2020-05-14 17:14:44,801][DEBUG](org.mybatis.spring.SqlSessionUtils:registerSessionHolder:148)-SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@242b6e1a] was not registered for synchronization because synchronization is not active
+[2020-05-14 17:14:44,829][DEBUG](org.mybatis.spring.transaction.SpringManagedTransaction:openConnection:87)-JDBC Connection [com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl@67514bdd] will not be managed by Spring
+[2020-05-14 17:14:44,832][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-==>  Preparing: SELECT b.lsh, b.item_id, a.item_name, (select dmmc from tb_dic_zddm where dmlb="SPLB" and dmz=a.lb) lb, b.ddsqsj, b.ywshsj, b.yjdhrq, b.cgsl, b.cgdj, b.cgzje, b.zt FROM tb_item a,tb_cg b WHERE a.item_id = b.item_id and date_format(b.ddsqsj,'%Y%m%d') between ? and ? LIMIT ? ,? 
+[2020-05-14 17:14:44,952][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-==> Parameters: 20200514(String), 20200514(String), 0(Integer), 5(Integer)
+[2020-05-14 17:14:45,001][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-<==      Total: 1
+[2020-05-14 17:14:45,001][DEBUG](com.alibaba.druid.support.logging.Log4j2Impl:debug:63)-{conn-10010, pstmt-20000} enter cache
+[2020-05-14 17:14:45,002][DEBUG](org.mybatis.spring.SqlSessionUtils:closeSqlSession:191)-Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@242b6e1a]
+[2020-05-14 17:14:45,002][DEBUG](org.mybatis.spring.SqlSessionUtils:getSqlSession:97)-Creating a new SqlSession
+[2020-05-14 17:14:45,003][DEBUG](org.mybatis.spring.SqlSessionUtils:registerSessionHolder:148)-SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6deee370] was not registered for synchronization because synchronization is not active
+[2020-05-14 17:14:45,003][DEBUG](org.mybatis.spring.transaction.SpringManagedTransaction:openConnection:87)-JDBC Connection [com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl@67514bdd] will not be managed by Spring
+[2020-05-14 17:14:45,003][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-==>  Preparing: SELECT count(1) tb_item a,tb_cg b WHERE a.item_id = b.item_id and date_format(b.ddsqsj,'%Y%m%d') between ? and ? 
+[2020-05-14 17:14:45,006][DEBUG](org.mybatis.spring.SqlSessionUtils:closeSqlSession:191)-Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6deee370]
+[2020-05-14 17:16:16,339][INFO ](com.alibaba.druid.support.logging.Log4j2Impl:info:106)-{dataSource-1} inited
+[2020-05-14 17:16:16,412][DEBUG](org.apache.ibatis.logging.LogFactory:setImplementation:135)-Logging initialized using 'class org.apache.ibatis.logging.log4j2.Log4j2Impl' adapter.
+[2020-05-14 17:16:16,593][DEBUG](org.mybatis.spring.SqlSessionUtils:getSqlSession:97)-Creating a new SqlSession
+[2020-05-14 17:16:16,597][DEBUG](org.mybatis.spring.SqlSessionUtils:registerSessionHolder:148)-SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@242b6e1a] was not registered for synchronization because synchronization is not active
+[2020-05-14 17:16:16,623][DEBUG](org.mybatis.spring.transaction.SpringManagedTransaction:openConnection:87)-JDBC Connection [com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl@67514bdd] will not be managed by Spring
+[2020-05-14 17:16:16,626][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-==>  Preparing: SELECT b.lsh, b.item_id, a.item_name, (select dmmc from tb_dic_zddm where dmlb="SPLB" and dmz=a.lb) lb, b.ddsqsj, b.ywshsj, b.yjdhrq, b.cgsl, b.cgdj, b.cgzje, b.zt FROM tb_item a,tb_cg b WHERE a.item_id = b.item_id and date_format(b.ddsqsj,'%Y%m%d') between ? and ? LIMIT ? ,? 
+[2020-05-14 17:16:16,738][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-==> Parameters: 20200514(String), 20200514(String), 0(Integer), 5(Integer)
+[2020-05-14 17:16:16,785][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-<==      Total: 1
+[2020-05-14 17:16:16,785][DEBUG](com.alibaba.druid.support.logging.Log4j2Impl:debug:63)-{conn-10010, pstmt-20000} enter cache
+[2020-05-14 17:16:16,786][DEBUG](org.mybatis.spring.SqlSessionUtils:closeSqlSession:191)-Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@242b6e1a]
+[2020-05-14 17:16:16,786][DEBUG](org.mybatis.spring.SqlSessionUtils:getSqlSession:97)-Creating a new SqlSession
+[2020-05-14 17:16:16,787][DEBUG](org.mybatis.spring.SqlSessionUtils:registerSessionHolder:148)-SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6deee370] was not registered for synchronization because synchronization is not active
+[2020-05-14 17:16:16,787][DEBUG](org.mybatis.spring.transaction.SpringManagedTransaction:openConnection:87)-JDBC Connection [com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl@67514bdd] will not be managed by Spring
+[2020-05-14 17:16:16,787][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-==>  Preparing: SELECT count(1) tb_item a,tb_cg b WHERE a.item_id = b.item_id and date_format(b.ddsqsj,'%Y%m%d') between ? and ? 
+[2020-05-14 17:16:16,790][DEBUG](org.mybatis.spring.SqlSessionUtils:closeSqlSession:191)-Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6deee370]
+[2020-05-14 17:21:59,411][INFO ](com.alibaba.druid.support.logging.Log4j2Impl:info:106)-{dataSource-1} inited
+[2020-05-14 17:21:59,484][DEBUG](org.apache.ibatis.logging.LogFactory:setImplementation:135)-Logging initialized using 'class org.apache.ibatis.logging.log4j2.Log4j2Impl' adapter.
+[2020-05-14 17:21:59,666][DEBUG](org.mybatis.spring.SqlSessionUtils:getSqlSession:97)-Creating a new SqlSession
+[2020-05-14 17:21:59,670][DEBUG](org.mybatis.spring.SqlSessionUtils:registerSessionHolder:148)-SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@d5d5353] was not registered for synchronization because synchronization is not active
+[2020-05-14 17:21:59,697][DEBUG](org.mybatis.spring.transaction.SpringManagedTransaction:openConnection:87)-JDBC Connection [com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl@1a22e0ef] will not be managed by Spring
+[2020-05-14 17:21:59,699][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-==>  Preparing: SELECT b.lsh, b.item_id, a.item_name, (select dmmc from tb_dic_zddm where dmlb="SPLB" and dmz=a.lb) lb, b.ddsqsj, b.ywshsj, b.yjdhrq, b.cgsl, b.cgdj, b.cgzje, b.zt FROM tb_item a,tb_cg b WHERE a.item_id = b.item_id and date_format(b.ddsqsj,'%Y%m%d') between ? and ? LIMIT ? ,? 
+[2020-05-14 17:21:59,816][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-==> Parameters: 20200514(String), 20200514(String), 0(Integer), 5(Integer)
+[2020-05-14 17:21:59,862][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-<==      Total: 1
+[2020-05-14 17:21:59,863][DEBUG](com.alibaba.druid.support.logging.Log4j2Impl:debug:63)-{conn-10010, pstmt-20000} enter cache
+[2020-05-14 17:21:59,863][DEBUG](org.mybatis.spring.SqlSessionUtils:closeSqlSession:191)-Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@d5d5353]
+[2020-05-14 17:21:59,864][DEBUG](org.mybatis.spring.SqlSessionUtils:getSqlSession:97)-Creating a new SqlSession
+[2020-05-14 17:21:59,864][DEBUG](org.mybatis.spring.SqlSessionUtils:registerSessionHolder:148)-SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@557a84fe] was not registered for synchronization because synchronization is not active
+[2020-05-14 17:21:59,864][DEBUG](org.mybatis.spring.transaction.SpringManagedTransaction:openConnection:87)-JDBC Connection [com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl@1a22e0ef] will not be managed by Spring
+[2020-05-14 17:21:59,864][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-==>  Preparing: SELECT count(1) FROM tb_item a,tb_cg b WHERE a.item_id = b.item_id and date_format(b.ddsqsj,'%Y%m%d') between ? and ? 
+[2020-05-14 17:21:59,866][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-==> Parameters: 20200514(String), 20200514(String)
+[2020-05-14 17:21:59,898][DEBUG](org.apache.ibatis.logging.jdbc.BaseJdbcLogger:debug:145)-<==      Total: 1
+[2020-05-14 17:21:59,899][DEBUG](com.alibaba.druid.support.logging.Log4j2Impl:debug:63)-{conn-10010, pstmt-20001} enter cache
+[2020-05-14 17:21:59,899][DEBUG](org.mybatis.spring.SqlSessionUtils:closeSqlSession:191)-Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@557a84fe]
