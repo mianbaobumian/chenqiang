@@ -20,11 +20,11 @@ public interface CgDao
 
     /**
      * 更新订单状态
-     * @param lsh 流水号
-     * @param zt 状态
+     * @param cg 流水号
+     * @param cg 状态
      * @return
      */
-    String updateCgZt(@Param("lsh") String lsh, @Param("zt") String zt);
+    void updateCgZt(Cg cg);
 
     void deleteCgByLsh(@Param("lsh")String lsh);
 }

@@ -1,5 +1,7 @@
 package com.keyi.chenqiang.cg.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Cg
@@ -12,11 +14,14 @@ public class Cg
 
     private String lb;
 
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     private Date ddsqsj;//订单申请时间
 
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     private Date ywshsj;//业务确认时间
 
-    private String yjdhrq;//预计到货日期
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
+    private Date yjdhrq;//预计到货日期
 
     private Integer cgsl;
 
@@ -108,12 +113,12 @@ public class Cg
         this.ywshsj = ywshsj;
     }
 
-    public String getYjdhrq()
+    public Date getYjdhrq()
     {
         return yjdhrq;
     }
 
-    public void setYjdhrq(String yjdhrq)
+    public void setYjdhrq(Date yjdhrq)
     {
         this.yjdhrq = yjdhrq;
     }

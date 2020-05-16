@@ -19,11 +19,11 @@ public interface CgService
 
     /**
      * 更新订单状态
-     * @param lsh 流水号
-     * @param zt 状态
+     * @param \ 流水号
+     * @param \ 状态
      * @return
      */
-    String updateCgZt(String lsh,String zt);
+    String updateCgZt(Map<String,String> paramMap);
 
     String deleteCg(Map<String,String> paramMap);
 }

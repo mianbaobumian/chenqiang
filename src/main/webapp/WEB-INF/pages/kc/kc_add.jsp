@@ -13,14 +13,14 @@
 	        <tr>
 	            <td>商品名:</td>
 	            <td colspan="10">
-					<input id="cg" class="easyui-combogrid" name="item_id"/>
+					<input id="cg" class="easyui-combogrid" name="item_id" data-options="required:true"/>
 					<input type="hidden" id="hdKeyword" />
 				</td>
 	        </tr>
 			<tr>
 				<td>商品数量:</td>
 				<td colspan="10">
-					<input class="easyui-numberspinner" style="width:80px;" id="kcs" name="kcs"/>
+					<input class="easyui-numberspinner" style="width:80px;" id="kcs" name="kcs" data-options="required:true"/>
 				</td>
 			</tr>
 	    </table>

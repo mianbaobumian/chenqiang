@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,6 +53,11 @@ public class CgController
         return result;
     }
 
+    @RequestMapping("addCgPage")
+    public ModelAndView openAddCg(@RequestParam Map<String, Object> paramMap){
+        return new ModelAndView("cg/cg_add");
+    }
+
     /**
      * 新增采购订单
      * @param paramMap
@@ -76,6 +82,11 @@ public class CgController
             result.put("msg", "查询出错,请联系管理员!");
         }
         return result;
+    }
+
+    @RequestMapping("updateCgPage")
+    public ModelAndView openUpdateCg(@RequestParam Map<String, Object> paramMap){
+        return new ModelAndView("cg/cg_edit");
     }
 
     /**
@@ -111,6 +122,32 @@ public class CgController
         try
         {
             String str=cgService.deleteCg(paramMap);
+            result.put("msg",str);
+            if("success".equals(str)){
+                result.put("status",200);
+            }else {
+                result.put("status",500);
+            }
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            result.put("status", 500);
+            result.put("msg", "查询出错,请联系管理员!");
+        }
+        return result;
+    }
+
+    /**
+     * 更新采购订单
+     * @param paramMap
+     * @return
+     */
+    @RequestMapping("updateCgZt")
+    @ResponseBody
+    public Map<String, Object> updateKcZt(@RequestParam Map<String, String> paramMap){
+        Map<String, Object> result = new HashMap<String, Object>();
+        try
+        {
+            String str=cgService.updateCgZt(paramMap);
             result.put("msg",str);
             if("success".equals(str)){
                 result.put("status",200);

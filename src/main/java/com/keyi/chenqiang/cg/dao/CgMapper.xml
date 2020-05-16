@@ -12,7 +12,7 @@
       #{cgsl,jdbcType=INTEGER}, #{cgdj,jdbcType=DOUBLE}, #{cgzje,jdbcType=DOUBLE}, '00'
       )
   </insert>
-  <update id="updateByLsh" parameterType="com.keyi.chenqiang.cg.model.Cg" >
+  <update id="updateByLsh" parameterType="java.util.HashMap" >
     update tb_cg
     set item_id = #{item_id,jdbcType=VARCHAR},
       cgsl = #{cgsl,jdbcType=INTEGER},
@@ -87,4 +87,11 @@
     where lsh = #{lsh,jdbcType=VARCHAR}
   </delete>
 
+  <update id="updateCgZt" parameterType="com.keyi.chenqiang.cg.model.Cg" >
+    update tb_cg
+    set zt=#{zt,jdbcType=VARCHAR},
+        ywshsj=sysdate(),
+        yjdhrq=date_add(sysdate(), interval 3 day)
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
 </mapper>

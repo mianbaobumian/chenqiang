@@ -37,7 +37,7 @@
 			<tr>
 				<td>数量:</td>
 				<td colspan="10">
-					<input class="easyui-numberspinner" style="width:80px;" id="sl" name="sl"/>
+					<input class="easyui-numberspinner" style="width:80px;" id="sl" name="sl" data-options="required:true"/>
 				</td>
 			</tr>
 		</table>

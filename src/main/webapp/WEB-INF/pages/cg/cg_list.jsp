@@ -97,18 +97,18 @@
     <div class="datagrid-btn-separator"></div>
 
     <div style="float: left;">
-        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-ok" onclick="doShtg()">审核通过</a>
+        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-ok" onclick="doSh('01')">审核通过</a>
     </div>
     <div style="float: left;">
-        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-cancel" onclick="doShbtg()">审核不通过</a>
+        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-cancel" onclick="doSh('02')">审核不通过</a>
     </div>
 </div>
 
 <div id="cgEditWindow" class="easyui-window" title="修改采购单" data-options="modal:true,closed:true,resizable:true,
-	iconCls:'icon-save',href:'${pageContext.request.contextPath}/Cg/updatecgPage.do'" style="width:45%;height:60%;padding:10px;">
+	iconCls:'icon-save',href:'${pageContext.request.contextPath}/Cg/updateCgPage.do'" style="width:45%;height:60%;padding:10px;">
 </div>
 <div id="cgAddWindow" class="easyui-window" title="新增采购单" data-options="modal:true,closed:true,resizable:true,
-	iconCls:'icon-edit',href:'${pageContext.request.contextPath}/Cg/addcgPage.do'" style="width:45%;height:60%;padding:10px;">
+	iconCls:'icon-edit',href:'${pageContext.request.contextPath}/Cg/addCgPage.do'" style="width:45%;height:60%;padding:10px;">
 </div>
 
 <script>
@@ -140,7 +140,6 @@ function doSearch_cg(lsh,item_id,item_name,lb,sqqssj,sqjssj){ //商品输入商�
         ] ],
     });
 }
-
 	//根据index拿到该行值
 	function oncgClickRow(index) {
 		var rows = $('#cgList').datagrid('getRows');
@@ -214,7 +213,11 @@ function doSearch_cg(lsh,item_id,item_name,lb,sqqssj,sqjssj){ //商品输入商�
             		$.messager.alert('提示','只能选择一个采购单!');
             		return ;
             	}
-            	
+                var sels = $("#cgList").datagrid("getSelections");
+            	if("新增"!=sels[0].zt){
+                    $.messager.alert('提示','该采购单已审核!');
+                    return ;
+                }
             	$("#cgEditWindow").window({
             		onLoad :function(){
             			//回显数据
@@ -236,6 +239,13 @@ function doSearch_cg(lsh,item_id,item_name,lb,sqqssj,sqjssj){ //商品输入商�
             		$.messager.alert('提示','未选中采购单!');
             		return ;
             	}
+                var sels = $("#cgList").datagrid("getSelections");
+                for(var i=0;i<sels.length;i++){
+                    if("新增"!=sels[i].zt){
+                        $.messager.alert('提示','采购单'+sels[i].lsh+'已审核,不能删除!');
+                        return ;
+                    }
+                }
             	$.messager.confirm('确认','确定删除ID为 '+ids+' 的采购单吗？',function(r){
             	    if (r){
             	    	var params = {"ids":ids};
@@ -289,4 +299,40 @@ function doSearch_cg(lsh,item_id,item_name,lb,sqqssj,sqjssj){ //商品输入商�
         var endTime=$("#sqjssj").datebox("getValue");
     
     });
+    
+    function doSh(zt) {
+        var ids = getcgSelectionsIds();
+
+        if(ids.length == 0){
+            $.messager.alert('提示','必须选择一个采购单才能编辑!');
+            return ;
+        }
+        var sels = $("#cgList").datagrid("getSelections");
+        for(var i=0;i<sels.length;i++){
+            if("新增"!=sels[i].zt){
+                $.messager.alert('提示','采购单'+sels[i].lsh+'已审核!');
+                return ;
+            }
+        }
+        var json=JSON.stringify(sels);
+        $.ajax({
+            url : "${pageContext.request.contextPath}/Cg/updateCgZt.do",
+            type : 'post',
+            data : {json:json,zt:zt},
+            async : false,// 一定要是同步请求，否则会跳转；（ajax默认是异步的）
+            success : function(text) {
+                if (!text.success) {
+                    //回显数据
+                    var data = $("#cgList").datagrid("getSelections")[0];
+                    $("#cgEditForm").form("load", data);
+                }
+            },
+            error : function(text) {
+                //回显数据
+                var data = $("#cgList").datagrid("getSelections")[0];
+                $("#cgEditForm").form("load", data);
+            }
+        });
+        $("#cgList").datagrid("reload");
+    }
 </script>
