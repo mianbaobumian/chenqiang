@@ -53,20 +53,22 @@
                        data-options="plain:true,iconCls:'icon-man'" style="width: 150px">订货单管理</a>
                     <a href="javascript:openTab('退货管理','huowu_rollback.jsp','icon-undo')" class="easyui-linkbutton"
                        data-options="plain:true,iconCls:'icon-undo'" style="width: 150px">退货管理</a>
-                    <a href="javascript:openTab('物流查询','wuliu_search.jsp','icon-search')" class="easyui-linkbutton"
-                       data-options="plain:true,iconCls:'icon-search'" style="width: 150px">物流查询</a>
+                    <%--<a href="javascript:openTab('物流查询','wuliu_search.jsp','icon-search')" class="easyui-linkbutton"
+                       data-options="plain:true,iconCls:'icon-search'" style="width: 150px">物流查询</a>--%>
                 </div>
                 <div title="库存管理" data-options="iconCls:'icon-bkgl'" style="padding:10px;">
-                    <a href="javascript:openTab('库存管理','kucun_manage.jsp','icon-man')" class="easyui-linkbutton"
+                    <a href="javascript:openTab('库存管理','Kc/kcIndex.do','icon-man')" class="easyui-linkbutton"
                        data-options="plain:true,iconCls:'icon-man'" style="width: 150px;">库存管理</a>
                 </div>
                 <div title="采购管理" data-options="iconCls:'icon-bklb'" style="padding:10px">
-                    <a href="javascript:openTab('采购商品管理','caigoushangping_manage.jsp','icon-man')" class="easyui-linkbutton"
-                       data-options="plain:true,iconCls:'icon-man'" style="width: 150px;">采购商品管理</a>
-                    <a href="javascript:openTab('采购商品审核','caigoushangping_check.jsp','icon-man')" class="easyui-linkbutton"
-                       data-options="plain:true,iconCls:'icon-edit'" style="width: 150px;">采购商品审核</a>
-                    <a href="javascript:openTab('查询供应商','gongyingshang_search.jsp','icon-search')" class="easyui-linkbutton"
-                       data-options="plain:true,iconCls:'icon-search'" style="width: 150px;">查询供应商</a>
+                    <%--<a href="javascript:openTab('采购商品管理','caigoushangping_manage.jsp','icon-man')" class="easyui-linkbutton"
+                       data-options="plain:true,iconCls:'icon-man'" style="width: 150px;">采购商品管理</a>--%>
+                    <a href="javascript:openTab('采购订单','Cg/cgIndex.do','icon-search')" class="easyui-linkbutton"
+                       data-options="plain:true,iconCls:'icon-search'" style="width: 150px;">采购订单</a>
+                    <%--<a href="javascript:openTab('采购审核','caigoushangping_check.jsp','icon-man')" class="easyui-linkbutton"
+                       data-options="plain:true,iconCls:'icon-edit'" style="width: 150px;">采购审核</a>--%>
+                    <%--<a href="javascript:openTab('查询供应商','gongyingshang_search.jsp','icon-search')" class="easyui-linkbutton"
+                       data-options="plain:true,iconCls:'icon-search'" style="width: 150px;">查询供应商</a>--%>
                 </div>
                 <div title="财务管理" data-options="iconCls:'icon-plgl'" style="padding:10px">
                     <a href="javascript:openTab('财务明细查询','caiwumingxi_search.jsp','icon-search')" class="easyui-linkbutton"

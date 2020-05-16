@@ -5,7 +5,7 @@ import com.keyi.chenqiang.dd.model.DdMx;
 import java.util.List;
 
 /**
- * @Author:Leib
+ * @Author:chengqiang
  * @Date 2020/4/3 11:33
  */
 public interface DdMxService {

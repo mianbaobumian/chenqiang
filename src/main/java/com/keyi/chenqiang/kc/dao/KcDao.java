@@ -7,13 +7,13 @@ import java.util.Map;
 public interface KcDao {
     int deleteByItemId(String item_id);
 
-    int saveItemInfo(Map<String, String> map);
+    int saveKcInfo(Map<String, Object> map);
 
     Kc selectByItemId(String item_id);
 
     List<Kc> listByPage(Map<String, Object> map);
 
-    int updateByItemId(Map<String, String> map);
+    int updateByItemId(Kc kc);
 
     int getToal(Map<String, Object> map);
 }

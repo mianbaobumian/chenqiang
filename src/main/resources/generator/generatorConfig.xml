@@ -22,23 +22,23 @@
                         password="Z123456z">
         </jdbcConnection>
         <!--生成实体类（注意修改包路径）-->
-        <javaModelGenerator targetPackage="com.keyi.chenqiang.jsjl.model" targetProject="D:\homework\chenqiang\src\main\java\com\keyi\chenqiang\jsjl\model">
+        <javaModelGenerator targetPackage="com.keyi.chenqiang.cg.model" targetProject="D:\homework\chenqiang\src\main\java\com\keyi\chenqiang\cg\model">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
         <!--生成mapper.xml-->
-        <sqlMapGenerator targetPackage="com.keyi.chenqiang.jsjl.dao" targetProject="D:\homework\chenqiang\src\main\java\com\keyi\chenqiang\jsjl\dao">
+        <sqlMapGenerator targetPackage="com.keyi.chenqiang.cg.dao" targetProject="D:\homework\chenqiang\src\main\java\com\keyi\chenqiang\cg\dao">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
         <!--生成mapper.java（注意修改包路径）-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.keyi.chenqiang.jsjl.dao"
-                             targetProject="D:\homework\chenqiang\src\main\java\com\keyi\chenqiang\jsjl\dao">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.keyi.chenqiang.cg.dao"
+                             targetProject="D:\homework\chenqiang\src\main\java\com\keyi\chenqiang\cg\dao">
             <property name="enableSubPackages" value="true"/>
 
             <!--数据库中的表名称和对应的实体类名称-->
         </javaClientGenerator>
-        <table tableName="tb_dd_mx" domainObjectName="DdMx"></table>
+        <table tableName="tb_cg_dd" domainObjectName="Cgdd"></table>
 
     </context>
 </generatorConfiguration>

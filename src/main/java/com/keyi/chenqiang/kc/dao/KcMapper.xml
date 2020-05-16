@@ -6,17 +6,17 @@
     delete from tb_kc
     where item_id = #{item_id,jdbcType=VARCHAR}
   </delete>
-  <insert id="saveItemInfo" parameterType="java.util.HashMap" >
+  <insert id="saveKcInfo" parameterType="java.util.HashMap" >
     insert into tb_kc (item_id, rksj, kcs, 
       zhgxsj)
-    values (#{item_id,jdbcType=VARCHAR}, #{rksj,jdbcType=DATE}, #{kcs,jdbcType=DOUBLE},
-      #{zhgxsj,jdbcType=DATE})
+    values (#{item_id,jdbcType=VARCHAR}, sysdate()(), #{kcs,jdbcType=INTEGER},
+      sysdate()())
   </insert>
-  <update id="updateByItemId" parameterType="java.util.HashMap" >
+  <update id="updateByItemId" parameterType="com.keyi.chenqiang.kc.model.Kc" >
     update tb_kc
-    set rksj = #{rksj,jdbcType=DATE},
-      kcs = #{kcs,jdbcType=DOUBLE},
-      zhgxsj = #{zhgxsj,jdbcType=DATE}
+    set
+      kcs = #{kcs,jdbcType=INTEGER},
+      zhgxsj = sysdate()
     where item_id = #{item_id,jdbcType=VARCHAR}
   </update>
   <select id="selectByItemId" resultType="com.keyi.chenqiang.kc.model.Kc" parameterType="java.util.HashMap" >
@@ -28,6 +28,7 @@
     SELECT
         b.item_id,
         a.item_name,
+        b.rksj,
        (select dmmc from tb_dic_zddm where dmlb="SPLB" and dmz=a.lb) lb,
         b.zhgxsj,
         b.kcs

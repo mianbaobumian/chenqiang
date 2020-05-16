@@ -8,7 +8,7 @@ public class DdMx {
 
     private String ddh;
 
-    private String itemId;
+    private String item_id;
 
     private Integer sl;
 
@@ -28,12 +28,12 @@ public class DdMx {
         this.ddh = ddh == null ? null : ddh.trim();
     }
 
-    public String getItemId() {
-        return itemId;
+    public String getitem_id() {
+        return item_id;
     }
 
-    public void setItemId(String itemId) {
-        this.itemId = itemId == null ? null : itemId.trim();
+    public void setitem_id(String item_id) {
+        this.item_id = item_id == null ? null : item_id.trim();
     }
 
     public Integer getSl() {

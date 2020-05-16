@@ -78,7 +78,7 @@ public class ItemServiceImpl implements ItemService
         for(int i=0;i<str.length;i++){
             itemDao.deleteByItemId(str[i]);
         }
-        return null;
+        return "success";
     }
 
     /*@Override

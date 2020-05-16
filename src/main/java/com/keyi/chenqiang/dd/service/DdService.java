@@ -1,21 +1,23 @@
 package com.keyi.chenqiang.dd.service;
 
+import com.keyi.chenqiang.common.model.Page;
 import com.keyi.chenqiang.dd.model.Dd;
 
 import java.util.List;
+import java.util.Map;
 
 /**
- * @Author:Leib
+ * @Author:chengqiang
  * @Date 2020/4/3 11:29
  */
 public interface DdService {
-    int deleteByPrimaryKey(String Ddh);
+    String deleteByDdh(String Ddh);
 
-    int insert(Dd record);
+    String saveDdInfo(Map<String, Object> paramMap);
 
-    Dd selectByPrimaryKey(String Ddh);
+    Dd selectByDdh(String Ddh);
 
-    List<Dd> selectAll();
+    public Page<Dd> listByPage(Page<Dd> page, Map<String, Object> paramMap);
 
-    int updateByPrimaryKey(Dd record);
+    String updateByDdh(Map<String, Object> paramMap);
 }

@@ -4,15 +4,19 @@ import com.keyi.chenqiang.dd.model.Dd;
 import org.mybatis.spring.annotation.MapperScan;
 
 import java.util.List;
+import java.util.Map;
+
 @MapperScan
 public interface DdDao {
-    int deleteByPrimaryKey(String Ddh);
+    int deleteByDdh(String Ddh);
 
-    int insert(Dd record);
+    int saveDdInfo(Map<String, Object> paramMap);
 
-    Dd selectByPrimaryKey(String Ddh);
+    Dd selectByDdh(String Ddh);
 
-    List<Dd> selectAll();
+    List<Dd> listByPage(Map<String, Object> map);
 
-    int updateByPrimaryKey(Dd record);
+    int getToal(Map<String, Object> map);
+
+    int updateByDdh(Map<String, Object> map);
 }

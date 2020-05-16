@@ -9,7 +9,7 @@ public class Jsjl {
 
     private String skfs;
 
-    private String userId;
+    private String user_id;
 
     private String ddh;
 
@@ -43,12 +43,14 @@ public class Jsjl {
         this.skfs = skfs == null ? null : skfs.trim();
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUser_id()
+    {
+        return user_id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId == null ? null : userId.trim();
+    public void setUser_id(String user_id)
+    {
+        this.user_id = user_id;
     }
 
     public String getDdh() {

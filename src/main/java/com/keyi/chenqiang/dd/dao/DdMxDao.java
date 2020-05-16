@@ -5,7 +5,8 @@ import org.mybatis.spring.annotation.MapperScan;
 
 import java.util.List;
 @MapperScan
-public interface DdMxMapper {
+public interface DdMxDao
+{
     int deleteByPrimaryKey(String mxlsh);
 
     int insert(DdMx record);

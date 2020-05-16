@@ -1,5 +1,7 @@
 package com.keyi.chenqiang.kc.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Kc {
@@ -9,10 +11,12 @@ public class Kc {
 
     private String lb;
 
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     private Date rksj;
 
-    private Double kcs;
+    private Integer kcs;
 
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     private Date zhgxsj;
 
     public String getItem_name()
@@ -53,11 +57,13 @@ public class Kc {
         this.rksj = rksj;
     }
 
-    public Double getKcs() {
+    public Integer getKcs()
+    {
         return kcs;
     }
 
-    public void setKcs(Double kcs) {
+    public void setKcs(Integer kcs)
+    {
         this.kcs = kcs;
     }
 

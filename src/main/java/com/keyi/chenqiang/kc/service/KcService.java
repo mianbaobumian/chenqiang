@@ -7,11 +7,11 @@ import java.util.Map;
 
 public interface KcService
 {
-    Page<Kc> listBypage(Page<Kc> page, Map<String,Object> paramMap);
+    Page<Kc> listByPage(Page<Kc> page, Map<String,Object> paramMap);
 
     Kc queryKcByItemId(String item_id);
 
-   String saveKcInfo(Map<String,String> paramMap);
+   String saveKcInfo(Map<String,Object> paramMap);
 
    String updateKcInfo(Map<String,String> paramMap);
 

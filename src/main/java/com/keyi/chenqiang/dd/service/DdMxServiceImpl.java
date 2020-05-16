@@ -1,6 +1,6 @@
 package com.keyi.chenqiang.dd.service;
 
-import com.keyi.chenqiang.dd.dao.DdMxMapper;
+import com.keyi.chenqiang.dd.dao.DdMxDao;
 import com.keyi.chenqiang.dd.model.DdMx;
 import org.springframework.stereotype.Service;
 
@@ -8,35 +8,35 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * @Author:Leib
+ * @Author:chengqiang
  * @Date 2020/4/3 11:33
  */
 @Service("ddMxService")
 public class DdMxServiceImpl implements DdMxService {
     @Resource
-    DdMxMapper ddMxMapper;
+    DdMxDao ddMxDao;
     @Override
     public int deleteByPrimaryKey(String mxlsh) {
-        return ddMxMapper.deleteByPrimaryKey(mxlsh);
+        return ddMxDao.deleteByPrimaryKey(mxlsh);
     }
 
     @Override
     public int insert(DdMx record) {
-        return ddMxMapper.insert(record);
+        return ddMxDao.insert(record);
     }
 
     @Override
     public DdMx selectByPrimaryKey(String mxlsh) {
-        return ddMxMapper.selectByPrimaryKey(mxlsh);
+        return ddMxDao.selectByPrimaryKey(mxlsh);
     }
 
     @Override
     public List<DdMx> selectAll() {
-        return ddMxMapper.selectAll();
+        return ddMxDao.selectAll();
     }
 
     @Override
     public int updateByPrimaryKey(DdMx record) {
-        return ddMxMapper.updateByPrimaryKey(record);
+        return ddMxDao.updateByPrimaryKey(record);
     }
 }
