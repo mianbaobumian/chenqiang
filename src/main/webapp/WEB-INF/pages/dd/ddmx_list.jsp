@@ -3,7 +3,8 @@
 <link href="${pageContext.request.contextPath}/static/js/kindeditor-4.1.10/themes/default/default.css" type="text/css" rel="stylesheet">
 <%@include file="../common/head.jsp" %>
 <table class="easyui-datagrid" id="ddmxList" title="商品列表"
-       data-options="singleSelect:false,collapsible:true,pagination:true,rownumbers:true,pageSize:10,fitColumns:true,toolbar:toolbar_ddmx">
+       data-options="singleSelect:false,collapsible:true,pagination:true,rownumbers:true,url:'${pageContext.request.contextPath}/Dd/listDdmx.do?ddh=${ddh}',
+       	method:'get',pageSize:10,fitColumns:true,toolbar:toolbar_ddmx">
     <thead>
         <tr>
         	<th data-options="field:'ck',checkbox:true"></th>
@@ -49,7 +50,7 @@
                     <div data-options="name:'value_flag'">有效标志</div>&ndash;%&gt;
                 </div>--%>
         <span>订单号:</span>
-        <input id="ddh" style="line-height:26px;border:1px solid #ccc" readonly="true">
+        <input id="ddh" style="line-height:26px;border:1px solid #ccc" readonly="true" value="${ddh}">
         <span>订单明细流水号:</span>
         <input id="mxlsh" style="line-height:26px;border:1px solid #ccc">
         <span>商品编号:</span>
@@ -72,13 +73,13 @@
     </div>
 
 	<div style="float: left;">
-		<a href="#" class="easyui-linkbutton" plain="true" icon="icon-add" onclick="ddmx_add()">新增入库</a>
+		<a href="#" class="easyui-linkbutton" plain="true" icon="icon-add" onclick="ddmx_add()">添加到订单明细</a>
 	</div>
 	<div style="float: left;">
-		<a href="#" class="easyui-linkbutton" plain="true" icon="icon-edit" onclick="ddmx_edit()">更新库存</a>
+		<a href="#" class="easyui-linkbutton" plain="true" icon="icon-edit" onclick="ddmx_edit()">更新订单明细</a>
 	</div>
 	<div style="float: left;">
-		<a href="#" class="easyui-linkbutton" plain="true" icon="icon-cancel" onclick="ddmx_delete()">清空库存</a>
+		<a href="#" class="easyui-linkbutton" plain="true" icon="icon-cancel" onclick="ddmx_delete()">删除订单明细</a>
 	</div>
 
 	<div class="datagrid-btn-separator"></div>  
@@ -88,11 +89,11 @@
 	</div>
 </div>
 
-<div id="ddmxEditWindow" class="easyui-window" title="更新库存" data-options="modal:true,closed:true,resizable:true,
-	iconCls:'icon-save',href:'${pageContext.request.contextPath}/Dd/ddmxUpdatePage.do?ddh=${ddh}'" style="width:45%;height:60%;padding:10px;">
+<div id="ddmxEditWindow" class="easyui-window" title="更新明细" data-options="modal:true,closed:true,resizable:true,
+	iconCls:'icon-save',href:'${pageContext.request.contextPath}/Dd/ddmxUpdatePage.do?ddh=${ddh}&dgkh=${dgkh}'" style="width:45%;height:60%;padding:10px;">
 </div>
-<div id="ddmxAddWindow" class="easyui-window" title="新增入库" data-options="modal:true,closed:true,resizable:true,
-	iconCls:'icon-edit',href:'${pageContext.request.contextPath}/Dd/ddmxAddPage.do?ddh=${ddh}'" style="width:45%;height:60%;padding:10px;">
+<div id="ddmxAddWindow" class="easyui-window" title="新增明细" data-options="modal:true,closed:true,resizable:true,
+	iconCls:'icon-edit',href:'${pageContext.request.contextPath}/Dd/ddmxAddPage.do?ddh=${ddh}&dgkh=${dgkh}'" style="width:45%;height:60%;padding:10px;">
 </div>
 
 <script>
@@ -150,7 +151,7 @@
     	var sels = ddmxList.datagrid("getSelections");
     	var ids = [];
     	for(var i=0;i<sels.length;i++){
-    		ids.push(sels[i].item_id);
+    		ids.push(sels[i].mxlsh);
     	}
     	ids = ids.join(","); 
     	

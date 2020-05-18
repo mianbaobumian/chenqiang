@@ -8,17 +8,14 @@
       and ddzt ='00'
   </delete>
   <insert id="saveDdInfo" parameterType="java.util.HashMap" >
-    <selectKey keyProperty="ddh" resultType="java.lang.String" order="BEFORE">
-      select concat(DATE_FORMAT(sysdate(),'%Y%m%d'),nextval('seq_ddh')) as ddh  from dual
-    </selectKey>
     insert into tb_dd (ddh, jyrq, ddzt,dgkh,ddzje,
       psfs)
     values (#{ddh,jdbcType=VARCHAR}, sysdate(), '00',#{dgkh,jdbcType=VARCHAR},#{ddzje,jdbcType=DOUBLE},
-      #{psfs,jdbcType=VARCHAR})
+      '1')
   </insert>
   <update id="updateByDdh" parameterType="com.keyi.chenqiang.dd.model.Dd" >
     update tb_dd
-    set psfs = #{psfs,jdbcType=VARCHAR}
+    set ddzje = #{ddzje,jdbcType=DOUBLE}
     where ddh = #{ddh,jdbcType=VARCHAR}
       and ddzt ='01' or ddzt ='00'
   </update>
@@ -49,17 +46,16 @@
     else null
     end psfs
     FROM
-    tb_dd b,tb_dd_mx a
-    WHERE
-    a.ddh = b.ddh
+    tb_dd b
+    WHERE 1=1
     <if test="ddh !=null and ddh !=''">
       and b.ddh = #{lsh,jdbcType=VARCHAR}
     </if>
     <if test="item_id !=null and item_id !=''">
-      and a.item_id = #{item_id,jdbcType=VARCHAR}
+      and b.ddh in (select a.ddh from tb_dd_mx a where a.item_id = #{item_id,jdbcType=VARCHAR})
     </if>
     <if test="item_name !=null and item_name !=''">
-      and a.item_id in (select item_id from tb_item where item_name like concat('%',concat(#{item_name,jdbcType=VARCHAR},'%')))
+      and b.ddh in (select a.ddh from tb_dd_mx a where a.item_id in (select item_id from tb_item where item_name like concat('%',concat(#{item_name,jdbcType=VARCHAR},'%')))
     </if>
     and date_format(b.jyrq,'%Y-%m-%d') between #{jyqssj,jdbcType=VARCHAR} and #{jyjssj,jdbcType=VARCHAR}
     LIMIT #{start} ,#{end}
@@ -68,17 +64,16 @@
   <select id="getToal" resultType="java.lang.Integer" parameterType="java.util.HashMap" >
     SELECT count(1)
     FROM
-    tb_dd b,tb_dd_mx a
-    WHERE
-    a.ddh = b.ddh
+    tb_dd b
+    WHERE 1=1
     <if test="ddh !=null and ddh !=''">
       and b.ddh = #{lsh,jdbcType=VARCHAR}
     </if>
     <if test="item_id !=null and item_id !=''">
-      and a.item_id = #{item_id,jdbcType=VARCHAR}
+      and b.ddh in (select a.ddh from tb_dd_mx a where a.item_id = #{item_id,jdbcType=VARCHAR})
     </if>
     <if test="item_name !=null and item_name !=''">
-      and a.item_id in (select item_id from tb_item where item_name like concat('%',concat(#{item_name,jdbcType=VARCHAR},'%')))
+      and b.ddh in (select a.ddh from tb_dd_mx a where a.item_id in (select item_id from tb_item where item_name like concat('%',concat(#{item_name,jdbcType=VARCHAR},'%')))
     </if>
     and date_format(b.jyrq,'%Y-%m-%d') between #{jyqssj,jdbcType=VARCHAR} and #{jyjssj,jdbcType=VARCHAR}
   </select>
@@ -118,6 +113,9 @@
     </if>
     <if test="item_name !=null and item_name !=''">
       and c.item_name like concat('%',concat(#{item_name,jdbcType=VARCHAR},'%'))
+    </if>
+    <if test="lb !=null and lb !=''">
+      and c.lb=#{lb,jdbcType=VARCHAR}
     </if>
     LIMIT #{start} ,#{end}
   </select>

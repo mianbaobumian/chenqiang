@@ -13,7 +13,7 @@
 			<tr>
 				<td>订单明细流水号:</td>
 				<td colspan="10">
-					<input id="mxlsh" name="mxlsh" readonly="true" data-options="required:true"/>
+					<input id="mxlsh" name="mxlsh" readonly="true" data-options="required:true" value="${mxlsh}"/>
 				</td>
 			</tr>
 			<tr>

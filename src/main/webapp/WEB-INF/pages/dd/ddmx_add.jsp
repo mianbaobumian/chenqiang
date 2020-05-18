@@ -12,7 +12,6 @@
 		<table cellpadding="5" >
 			<tr>
 				<td>商品名:</td>
-                <td><input type="hidden" id="ddh" name="ddh" value=${ddh}/></td>
 				<td colspan="10">
 					<input id="cg" class="easyui-combogrid" name="item_id" data-options="required:true"/>
 					<input type="hidden" id="hdKeyword" />
@@ -23,6 +22,8 @@
 				<td colspan="10">
 					<input class="easyui-numberspinner" style="width:80px;" id="sl" name="sl" data-options="required:true"/>
 				</td>
+                <td><input type="hidden" id="ddh" name="ddh" value=${ddh}></td>
+                <td><input type="hidden" id="dgkh" name="dgkh" value=${dgkh}></td>
 			</tr>
 			<%--<tr>
 				<td>采购单价:</td>

@@ -60,11 +60,23 @@ public class DdController {
 
     @RequestMapping("addDdPage")
     public ModelAndView openAddDd(@RequestParam Map<String, Object> paramMap){
+        String dgkh=paramMap.get("dgkh").toString();
         ModelAndView mav=new ModelAndView("dd/ddmx_list");
         mav.getModel().put("ddh", ddService.getDdh());
+        mav.getModel().put("dgkh",dgkh);
         return mav;
     }
 
+
+    @RequestMapping("updateDdPage")
+    public ModelAndView openUpdateDd(@RequestParam Map<String, Object> paramMap){
+        String dgkh=paramMap.get("dgkh").toString();
+        String ddh=paramMap.get("ddh").toString();
+        ModelAndView mav=new ModelAndView("dd/ddmx_list");
+        mav.getModel().put("ddh", ddh);
+        mav.getModel().put("dgkh",dgkh);
+        return mav;
+    }
 
     /**
      * 新增采购订单
@@ -90,11 +102,6 @@ public class DdController {
             result.put("msg", "查询出错,请联系管理员!");
         }
         return result;
-    }
-
-    @RequestMapping("updateDdPage")
-    public ModelAndView openUpdateDd(@RequestParam Map<String, Object> paramMap){
-        return new ModelAndView("dd/ddmx_list");
     }
 
     /**
@@ -177,14 +184,22 @@ public class DdController {
     public ModelAndView openDdmxAdd(@RequestParam Map<String, Object> paramMap){
         ModelAndView mav=new ModelAndView("dd/ddmx_add");
         String ddh=paramMap.get("ddh").toString();
+        String dgkh=paramMap.get("dgkh").toString();
         mav.getModel().put("ddh", ddh);
+        mav.getModel().put("dgkh", dgkh);
         return mav;
     }
 
 
     @RequestMapping("ddmxUpdatePage")
     public ModelAndView openDdmxUpdate(@RequestParam Map<String, Object> paramMap){
-        return new ModelAndView("dd/ddmx_edit");
+        ModelAndView mav=new ModelAndView("dd/ddmx_edit");
+        String mxlsh=paramMap.get("mxlsh").toString();
+        String ddh=paramMap.get("ddh").toString();
+        String dgkh=paramMap.get("dgkh").toString();
+        mav.getModel().put("ddh", ddh);
+        mav.getModel().put("dgkh", dgkh);
+        return mav;
     }
 
     @RequestMapping("deleteDdMx")
@@ -235,7 +250,17 @@ public class DdController {
         Map<String, Object> result = new HashMap<String, Object>();
         try
         {
+            String ddh=paramMap.get("ddh").toString();
             String str=ddService.saveDdMxInfo(paramMap);
+            double dxzje=Double.parseDouble(paramMap.get("dxzje").toString());
+            Dd dd=ddService.selectByDdh(ddh);
+            if(dd!=null){
+                paramMap.put("ddzje",dd.getDdzje()+dxzje);
+                str=ddService.updateByDdh(paramMap);
+            }else{
+                paramMap.put("ddzje",dxzje);
+                str=ddService.saveDdInfo(paramMap);
+            }
             result.put("msg",str);
             if("success".equals(str)){
                 result.put("status",200);

@@ -122,7 +122,7 @@ function doSearch_dd(ddh,item_id,item_name,user_id,dgkh,jyqssj,jyjssj){ //商品
             {field:'jyrq',align:'center',width:150,title:'交易日期'},
             {field:'ddzje',width:150,align:'center',title:'订单总金额'},
             {field:'ddzt',width:150,align:'center',title:'订单状态'},
-            {field:'psfs',width:150,align:'center',title:'配送方式'}
+            {field:'psfs',width:150,align:'center',title:'配送方式'}//,formatter:psfsformatter,editor:myeditor
         ] ],
     });
 }
@@ -132,7 +132,22 @@ function doSearch_dd(ddh,item_id,item_name,user_id,dgkh,jyqssj,jyjssj){ //商品
 		return rows[index];
 		
 	}
-	
+/*	function psfsformatter(value,row) {
+        return row.psfs;
+    }*/
+
+/*    function myeditor() {
+        editor:{
+            type:'combobox',
+                options:{
+                valueField:'productid',
+                    textField:'productname',
+                    method:'get',
+                    url:'products.json',
+                    required:true
+            }
+        }
+    }*/
 /*	//格式化角色信息
 	function formatRole(value, row, index){
 		return "<a href=javascript:openRole("+index+")>"+row.roleName+"</a>";
@@ -165,7 +180,9 @@ function doSearch_dd(ddh,item_id,item_name,user_id,dgkh,jyqssj,jyjssj){ //商品
     }
     
     function dd_add(){
-        parent.openTab('新增订购单','Dd/addDdPage.do','icon-man');
+        //var dgkh=$("#dgkh").val();
+        var dgkh="admin";
+        parent.openTab('新增订购单','Dd/addDdPage.do?dgkh='+dgkh,'icon-man');
        /* $.ajax({
             url : "${pageContext.request.contextPath}/Dd/getDdh.do",
             type : 'post',
@@ -189,6 +206,7 @@ function doSearch_dd(ddh,item_id,item_name,user_id,dgkh,jyqssj,jyjssj){ //商品
        		if(data.msg != null){
        			$.messager.alert('提示', data.msg);
        		}else{*/
+                var dgkh="admin";
        			var ids = getddSelectionsIds();
             	
             	if(ids.length == 0){
@@ -200,17 +218,12 @@ function doSearch_dd(ddh,item_id,item_name,user_id,dgkh,jyqssj,jyjssj){ //商品
             		return ;
             	}
                 var sels = $("#ddList").datagrid("getSelections");
+            	var ddh=sels[0].ddh;
             	if("新增"!=sels[0].ddzt){
                     $.messager.alert('提示','该订购单已审核!');
                     return ;
                 }
-            	$("#ddEditWindow").window({
-            		onLoad :function(){
-            			//回显数据
-            			var data = $("#ddList").datagrid("getSelections")[0];
-            			$("#ddEditForm").form("load", data);
-            		}
-            	}).window("open");
+                parent.openTab('更新订购单','Dd/updateDdPage.do?dgkh='+dgkh+'&ddh='+ddh,'icon-man');
        		/*}
        	});*/
     }
@@ -349,23 +362,5 @@ function doSearch_dd(ddh,item_id,item_name,user_id,dgkh,jyqssj,jyjssj){ //商品
             }
         });
         $("#ddList").datagrid("reload");
-    }
-
-    function openTab(text,url,icon) {
-        //判断当前选项卡是否存在
-        if($('#tabs').tabs('exists',text)){
-            //如果存在 显示
-            $("#tabs").tabs("select",text);
-        }else{
-            //如果不存在 则新建一个
-            console.log("${pageContext.request.contextPath}/"+url+"'");
-            $("#tabs").tabs('add',{
-                title:text,
-                closable:true,      //是否允许选项卡摺叠。
-                iconCls:icon,    //显示图标
-                content:"<iframe frameborder=0 scrolling='auto' style='width:100%;height:100%' src='${pageContext.request.contextPath}/"+url+"'></iframe>"
-                //url 远程加载所打开的url
-            })
-        }
     }
 </script>
