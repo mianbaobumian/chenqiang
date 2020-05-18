@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <link href="${pageContext.request.contextPath}/static/js/kindeditor-4.1.10/themes/default/default.css" type="text/css" rel="stylesheet">
 <%@include file="../common/head.jsp" %>
-<%--<table class="easyui-datagrid" id="ddmxList" title="商品列表"
+<table class="easyui-datagrid" id="ddmxList" title="商品列表"
        data-options="singleSelect:false,collapsible:true,pagination:true,rownumbers:true,pageSize:10,fitColumns:true,toolbar:toolbar_ddmx">
     <thead>
         <tr>
@@ -16,7 +16,7 @@
             <th data-options="field:'dxzje',align:'center',width:150">单项总金额</th>
         </tr>
     </thead>
-</table>--%>
+</table>
 
 <div  id="toolbar_ddmx" style=" height: 38px; padding: 3px 11px; background: #fafafa;">
 	
@@ -89,10 +89,10 @@
 </div>
 
 <div id="ddmxEditWindow" class="easyui-window" title="更新库存" data-options="modal:true,closed:true,resizable:true,
-	iconCls:'icon-save',href:'${pageContext.request.contextPath}/Dd/ddmxUpdatePage.do'" style="width:45%;height:60%;padding:10px;">
+	iconCls:'icon-save',href:'${pageContext.request.contextPath}/Dd/ddmxUpdatePage.do?ddh=${ddh}'" style="width:45%;height:60%;padding:10px;">
 </div>
 <div id="ddmxAddWindow" class="easyui-window" title="新增入库" data-options="modal:true,closed:true,resizable:true,
-	iconCls:'icon-edit',href:'${pageContext.request.contextPath}/Dd/ddmxAddPage.do'" style="width:45%;height:60%;padding:10px;">
+	iconCls:'icon-edit',href:'${pageContext.request.contextPath}/Dd/ddmxAddPage.do?ddh=${ddh}'" style="width:45%;height:60%;padding:10px;">
 </div>
 
 <script>

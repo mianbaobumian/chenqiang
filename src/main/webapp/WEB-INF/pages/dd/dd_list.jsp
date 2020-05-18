@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <link href="${pageContext.request.contextPath}/static/js/kindeditor-4.1.10/themes/default/default.css" type="text/css" rel="stylesheet">
 <%@include file="../common/head.jsp" %>
-<%--<table class="easyui-datagrid" id="ddList" title="订购列表"
+<table class="easyui-datagrid" id="ddList" title="订购列表"
        data-options="singleSelect:false,collapsible:true,pagination:true,rownumbers:true,pageSize:10,fitColumns:true,toolbar:toolbar_dd">
     <thead>
         <tr>
@@ -14,7 +14,7 @@
 			<th data-options="field:'psfs',width:150,align:'center'">配送方式</th>
         </tr>
     </thead>
-</table>--%>
+</table>
 
 <div  id="toolbar_dd" style=" height: 72px; padding: 3px 11px; background: #fafafa;">
 	
@@ -95,12 +95,12 @@
     </div>
 </div>
 
-<div id="ddEditWindow" class="easyui-window" title="修改订购单" data-options="modal:true,closed:true,resizable:true,
+<%--<div id="ddEditWindow" class="easyui-window" title="修改订购单" data-options="modal:true,closed:true,resizable:true,
 	iconCls:'icon-save',href:'${pageContext.request.contextPath}/Dd/updateDdPage.do'" style="width:60%;height:60%;padding:10px;">
 </div>
 <div id="ddAddWindow" class="easyui-window" title="新增订购单" data-options="modal:true,closed:true,resizable:true,
 	iconCls:'icon-edit',href:'${pageContext.request.contextPath}/Dd/addDdPage.do'" style="width:60%;height:60%;padding:10px;">
-</div>
+</div>--%>
 
 <script>
 function doSearch_dd(ddh,item_id,item_name,user_id,dgkh,jyqssj,jyjssj){ //商品输入商品名,点击搜素,触发此函数
@@ -165,7 +165,7 @@ function doSearch_dd(ddh,item_id,item_name,user_id,dgkh,jyqssj,jyjssj){ //商品
     }
     
     function dd_add(){
-        var ddh=null;
+        parent.openTab('新增订购单','Dd/addDdPage.do','icon-man');
        /* $.ajax({
             url : "${pageContext.request.contextPath}/Dd/getDdh.do",
             type : 'post',
@@ -179,7 +179,7 @@ function doSearch_dd(ddh,item_id,item_name,user_id,dgkh,jyqssj,jyjssj){ //商品
        		if(data.msg != null){
        			$.messager.alert('提示', data.msg);
        		}else{*/
-       			$("#ddAddWindow").window("open");
+       			//$("#ddAddWindow").window("open");
        		/*}
        	});*/
     }
@@ -349,5 +349,23 @@ function doSearch_dd(ddh,item_id,item_name,user_id,dgkh,jyqssj,jyjssj){ //商品
             }
         });
         $("#ddList").datagrid("reload");
+    }
+
+    function openTab(text,url,icon) {
+        //判断当前选项卡是否存在
+        if($('#tabs').tabs('exists',text)){
+            //如果存在 显示
+            $("#tabs").tabs("select",text);
+        }else{
+            //如果不存在 则新建一个
+            console.log("${pageContext.request.contextPath}/"+url+"'");
+            $("#tabs").tabs('add',{
+                title:text,
+                closable:true,      //是否允许选项卡摺叠。
+                iconCls:icon,    //显示图标
+                content:"<iframe frameborder=0 scrolling='auto' style='width:100%;height:100%' src='${pageContext.request.contextPath}/"+url+"'></iframe>"
+                //url 远程加载所打开的url
+            })
+        }
     }
 </script>

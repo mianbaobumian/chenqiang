@@ -154,7 +154,7 @@
       select concat(DATE_FORMAT(sysdate(),'%Y%m%d'),nextval('seq_mxlsh')) as mxlsh  from dual
     </selectKey>
     insert into tb_dd_mx (mxlsh, ddh, item_id,dxzje,sl)
-    values (#{mxlsh,jdbcType=VARCHAR}, #{ddh,jdbcType=VARCHAR}, #{item_id,jdbcType=VARCHAR},#{dxzje,jdbcType=DOUBLE}
+    values (#{mxlsh,jdbcType=VARCHAR}, #{ddh,jdbcType=VARCHAR}, #{item_id,jdbcType=VARCHAR},#{dxzje,jdbcType=DOUBLE},
     #{sl,jdbcType=INTEGER})
   </insert>
 

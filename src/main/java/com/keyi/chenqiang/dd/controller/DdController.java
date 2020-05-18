@@ -175,7 +175,10 @@ public class DdController {
 
     @RequestMapping("ddmxAddPage")
     public ModelAndView openDdmxAdd(@RequestParam Map<String, Object> paramMap){
-        return new ModelAndView("dd/ddmx_add");
+        ModelAndView mav=new ModelAndView("dd/ddmx_add");
+        String ddh=paramMap.get("ddh").toString();
+        mav.getModel().put("ddh", ddh);
+        return mav;
     }
 
 
