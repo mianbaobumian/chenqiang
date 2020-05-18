@@ -13,6 +13,18 @@ public class Dd {
 
     private String psfs;
 
+    private double ddzje;
+
+    public double getDdzje()
+    {
+        return ddzje;
+    }
+
+    public void setDdzje(double ddzje)
+    {
+        this.ddzje = ddzje;
+    }
+
     public String getDdh() {
         return ddh;
     }

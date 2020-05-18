@@ -1,6 +1,8 @@
 package com.keyi.chenqiang.dd.controller;
 
+import com.keyi.chenqiang.common.model.Page;
 import com.keyi.chenqiang.dd.model.Dd;
+import com.keyi.chenqiang.dd.model.DdMx;
 import com.keyi.chenqiang.dd.service.DdService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,22 +30,230 @@ public class DdController {
     private DdService ddService;
 
     @RequestMapping("ddIndex")
-    public ModelAndView openKcIndex(@RequestParam Map<String, Object> paramMap){
+    public ModelAndView openDdIndex(@RequestParam Map<String, Object> paramMap){
         return new ModelAndView("dd/dd_list");
     }
+
+    // 分页查询
+    @RequestMapping("list")
+    @ResponseBody
+    public Map<String, Object> listDd(@RequestParam Map<String, Object> paramMap){
+        Map<String, Object> result = new HashMap<String, Object>();
+        String page_num=paramMap.get("page").toString();
+        String rows=paramMap.get("rows").toString();
+        try
+        {
+            //定义分页bean
+            Page<Dd> page = new Page<Dd>(Integer.parseInt(page_num),Integer.parseInt(rows));
+            //拿到分页结果已经记录总数的page
+            page = ddService.listByPage(page,paramMap);
+            result.put("rows", page.getResult());
+            result.put("total", page.getTotal());
+
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            result.put("code", "500");
+            result.put("msg", "查询出错,请联系管理员!");
+        }
+        return result;
+    }
+
+    @RequestMapping("addDdPage")
+    public ModelAndView openAddDd(@RequestParam Map<String, Object> paramMap){
+        ModelAndView mav=new ModelAndView("dd/ddmx_list");
+        mav.getModel().put("ddh", ddService.getDdh());
+        return mav;
+    }
+
 
     /**
      * 新增采购订单
      * @param paramMap
      * @return
      */
-    @RequestMapping("addCg")
+    @RequestMapping("addDd")
     @ResponseBody
-    public Map<String, Object> addKc(@RequestParam Map<String, Object> paramMap){
+    public Map<String, Object> addDd(@RequestParam Map<String, Object> paramMap){
         Map<String, Object> result = new HashMap<String, Object>();
         try
         {
             String str=ddService.saveDdInfo(paramMap);
+            result.put("msg",str);
+            if("success".equals(str)){
+                result.put("status",200);
+            }else {
+                result.put("status",500);
+            }
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            result.put("status", 500);
+            result.put("msg", "查询出错,请联系管理员!");
+        }
+        return result;
+    }
+
+    @RequestMapping("updateDdPage")
+    public ModelAndView openUpdateDd(@RequestParam Map<String, Object> paramMap){
+        return new ModelAndView("dd/ddmx_list");
+    }
+
+    /**
+     * 更新采购订单
+     * @param paramMap
+     * @return
+     */
+    @RequestMapping("updateDd")
+    @ResponseBody
+    public Map<String, Object> updateDd(@RequestParam Map<String, Object> paramMap){
+        Map<String, Object> result = new HashMap<String, Object>();
+        try
+        {
+            String str=ddService.updateByDdh(paramMap);
+            result.put("msg",str);
+            if("success".equals(str)){
+                result.put("status",200);
+            }else {
+                result.put("status",500);
+            }
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            result.put("status", 500);
+            result.put("msg", "查询出错,请联系管理员!");
+        }
+        return result;
+    }
+
+    @RequestMapping("deleteDd")
+    @ResponseBody
+    public Map<String, Object> deleteDd(@RequestParam Map<String, String> paramMap){
+        Map<String, Object> result = new HashMap<String, Object>();
+        try
+        {
+            String str=ddService.deleteByDdh(paramMap);
+            result.put("msg",str);
+            if("success".equals(str)){
+                result.put("status",200);
+            }else {
+                result.put("status",500);
+            }
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            result.put("status", 500);
+            result.put("msg", "查询出错,请联系管理员!");
+        }
+        return result;
+    }
+
+    @RequestMapping("ddmxIndex")
+    public ModelAndView openDdmxIndex(@RequestParam Map<String, Object> paramMap){
+        return new ModelAndView("dd/ddmx_list");
+    }
+
+    // 分页查询
+    @RequestMapping("listDdmx")
+    @ResponseBody
+    public Map<String, Object> listDdmx(@RequestParam Map<String, Object> paramMap){
+        Map<String, Object> result = new HashMap<String, Object>();
+        String page_num=paramMap.get("page").toString();
+        String rows=paramMap.get("rows").toString();
+        try
+        {
+            //定义分页bean
+            Page<DdMx> page = new Page<DdMx>(Integer.parseInt(page_num),Integer.parseInt(rows));
+            //拿到分页结果已经记录总数的page
+            page = ddService.listDdmxByPage(page,paramMap);
+            result.put("rows", page.getResult());
+            result.put("total", page.getTotal());
+
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            result.put("code", "500");
+            result.put("msg", "查询出错,请联系管理员!");
+        }
+        return result;
+    }
+
+    @RequestMapping("ddmxAddPage")
+    public ModelAndView openDdmxAdd(@RequestParam Map<String, Object> paramMap){
+        return new ModelAndView("dd/ddmx_add");
+    }
+
+
+    @RequestMapping("ddmxUpdatePage")
+    public ModelAndView openDdmxUpdate(@RequestParam Map<String, Object> paramMap){
+        return new ModelAndView("dd/ddmx_edit");
+    }
+
+    @RequestMapping("deleteDdMx")
+    @ResponseBody
+    public Map<String, Object> deleteDdMx(@RequestParam Map<String, String> paramMap){
+        Map<String, Object> result = new HashMap<String, Object>();
+        try
+        {
+            String str=ddService.deleteByDdmxlsh(paramMap);
+            result.put("msg",str);
+            if("success".equals(str)){
+                result.put("status",200);
+            }else {
+                result.put("status",500);
+            }
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            result.put("status", 500);
+            result.put("msg", "查询出错,请联系管理员!");
+        }
+        return result;
+    }
+
+    @RequestMapping("getDdh")
+    @ResponseBody
+    public Map<String, Object> getDdh(@RequestParam Map<String, String> paramMap){
+        Map<String, Object> result = new HashMap<String, Object>();
+        try
+        {
+            String str=ddService.getDdh();
+            result.put("msg",str);
+            if("success".equals(str)){
+                result.put("status",200);
+            }else {
+                result.put("status",500);
+            }
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            result.put("status", 500);
+            result.put("msg", "查询出错,请联系管理员!");
+        }
+        return result;
+    }
+
+    @RequestMapping("addDdmx")
+    @ResponseBody
+    public Map<String, Object> addDdmx(@RequestParam Map<String, Object> paramMap){
+        Map<String, Object> result = new HashMap<String, Object>();
+        try
+        {
+            String str=ddService.saveDdMxInfo(paramMap);
+            result.put("msg",str);
+            if("success".equals(str)){
+                result.put("status",200);
+            }else {
+                result.put("status",500);
+            }
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            result.put("status", 500);
+            result.put("msg", "查询出错,请联系管理员!");
+        }
+        return result;
+    }
+
+    @RequestMapping("updateDdmx")
+    @ResponseBody
+    public Map<String, Object> updateDdmx(@RequestParam Map<String, Object> paramMap){
+        Map<String, Object> result = new HashMap<String, Object>();
+        try
+        {
+            String str=ddService.updateDdMx(paramMap);
             result.put("msg",str);
             if("success".equals(str)){
                 result.put("status",200);

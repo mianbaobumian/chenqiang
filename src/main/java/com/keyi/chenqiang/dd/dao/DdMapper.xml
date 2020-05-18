@@ -1,36 +1,172 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.keyi.chenqiang.dd.dao.DdDao" >
-  <resultMap id="BaseResultMap" type="com.keyi.chenqiang.dd.model.Dd" >
-    <id column="ddh" property="ddh" jdbcType="VARCHAR" />
-    <result column="jyrq" property="jyrq" jdbcType="DATE" />
-    <result column="ddzt" property="ddzt" jdbcType="VARCHAR" />
-    <result column="psfs" property="psfs" jdbcType="VARCHAR" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+
+  <delete id="deleteByDdh" parameterType="java.lang.String" >
     delete from tb_dd
     where ddh = #{ddh,jdbcType=VARCHAR}
+      and ddzt ='00'
   </delete>
-  <insert id="insert" parameterType="com.keyi.chenqiang.dd.model.Dd" >
-    insert into tb_dd (ddh, jyrq, ddzt, 
+  <insert id="saveDdInfo" parameterType="java.util.HashMap" >
+    <selectKey keyProperty="ddh" resultType="java.lang.String" order="BEFORE">
+      select concat(DATE_FORMAT(sysdate(),'%Y%m%d'),nextval('seq_ddh')) as ddh  from dual
+    </selectKey>
+    insert into tb_dd (ddh, jyrq, ddzt,dgkh,ddzje,
       psfs)
-    values (#{ddh,jdbcType=VARCHAR}, #{jyrq,jdbcType=DATE}, #{ddzt,jdbcType=VARCHAR}, 
+    values (#{ddh,jdbcType=VARCHAR}, sysdate(), '00',#{dgkh,jdbcType=VARCHAR},#{ddzje,jdbcType=DOUBLE},
       #{psfs,jdbcType=VARCHAR})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.keyi.chenqiang.dd.model.Dd" >
+  <update id="updateByDdh" parameterType="com.keyi.chenqiang.dd.model.Dd" >
     update tb_dd
-    set jyrq = #{jyrq,jdbcType=DATE},
-      ddzt = #{ddzt,jdbcType=VARCHAR},
-      psfs = #{psfs,jdbcType=VARCHAR}
+    set psfs = #{psfs,jdbcType=VARCHAR}
     where ddh = #{ddh,jdbcType=VARCHAR}
+      and ddzt ='01' or ddzt ='00'
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select ddh, jyrq, ddzt, psfs
+  <select id="selectByDdh" resultType="com.keyi.chenqiang.dd.model.Dd" parameterType="java.lang.String" >
+    select ddh, jyrq, ddzt, psfs,dgkh,ddzje
     from tb_dd
     where ddh = #{ddh,jdbcType=VARCHAR}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
-    select ddh, jyrq, ddzt, psfs
-    from tb_dd
+  <select id="listByPage" resultType="com.keyi.chenqiang.dd.model.Dd" parameterType="java.util.HashMap" >
+    SELECT
+    b.ddh,
+    (select user_name from tb_user where  user_id=b.dgkh) dgkh,
+    b.jyrq,
+    b.ddzje,
+    case
+    when b.ddzt ='00' then '新增'
+    when b.ddzt ='01' then '下单'
+    when b.ddzt ='02' then '发货'
+    when b.ddzt ='03' then '退货'
+    when b.ddzt ='04' then '撤销'
+    when b.ddzt ='05' then '确认收货'
+    else 'error'
+    end ddzt,
+    case
+    when b.psfs ='1' then '配送中心配送'
+    when b.psfs ='2' then '仓库配送'
+    when b.psfs ='3' then '商店配送'
+    else null
+    end psfs
+    FROM
+    tb_dd b,tb_dd_mx a
+    WHERE
+    a.ddh = b.ddh
+    <if test="ddh !=null and ddh !=''">
+      and b.ddh = #{lsh,jdbcType=VARCHAR}
+    </if>
+    <if test="item_id !=null and item_id !=''">
+      and a.item_id = #{item_id,jdbcType=VARCHAR}
+    </if>
+    <if test="item_name !=null and item_name !=''">
+      and a.item_id in (select item_id from tb_item where item_name like concat('%',concat(#{item_name,jdbcType=VARCHAR},'%')))
+    </if>
+    and date_format(b.jyrq,'%Y-%m-%d') between #{jyqssj,jdbcType=VARCHAR} and #{jyjssj,jdbcType=VARCHAR}
+    LIMIT #{start} ,#{end}
+  </select>
+
+  <select id="getToal" resultType="java.lang.Integer" parameterType="java.util.HashMap" >
+    SELECT count(1)
+    FROM
+    tb_dd b,tb_dd_mx a
+    WHERE
+    a.ddh = b.ddh
+    <if test="ddh !=null and ddh !=''">
+      and b.ddh = #{lsh,jdbcType=VARCHAR}
+    </if>
+    <if test="item_id !=null and item_id !=''">
+      and a.item_id = #{item_id,jdbcType=VARCHAR}
+    </if>
+    <if test="item_name !=null and item_name !=''">
+      and a.item_id in (select item_id from tb_item where item_name like concat('%',concat(#{item_name,jdbcType=VARCHAR},'%')))
+    </if>
+    and date_format(b.jyrq,'%Y-%m-%d') between #{jyqssj,jdbcType=VARCHAR} and #{jyjssj,jdbcType=VARCHAR}
+  </select>
+
+  <update id="updateDdZt" parameterType="com.keyi.chenqiang.dd.model.Dd" >
+    update tb_dd
+    set ddzt=#{ddzt,jdbcType=VARCHAR}
+    where ddh = #{ddh,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateDdXd" parameterType="com.keyi.chenqiang.dd.model.Dd" >
+    update tb_dd
+    set ddzt=#{ddzt,jdbcType=VARCHAR},
+        jyrq=sysdate()
+    where ddh = #{ddh,jdbcType=VARCHAR}
+  </update>
+
+  <select id="listDdmxByPage" resultType="com.keyi.chenqiang.dd.model.DdMx" parameterType="java.util.HashMap" >
+    SELECT
+    a.ddh,
+    a.mxlsh,
+    a.item_id,
+    c.item_name,
+    c.lb,
+    a.sl,
+    a.dxzje
+    FROM
+    tb_dd b,tb_dd_mx a,tb_item c
+    WHERE a.ddh = b.ddh
+    and b.ddh=#{ddh,jdbcType=VARCHAR}
+    and a.item_id = c.item_id
+    <if test="mxlsh !=null and mxlsh !=''">
+      and a.mxlsh = #{mxlsh,jdbcType=VARCHAR}
+    </if>
+    <if test="item_id !=null and item_id !=''">
+      and a.item_id = #{item_id,jdbcType=VARCHAR}
+    </if>
+    <if test="item_name !=null and item_name !=''">
+      and c.item_name like concat('%',concat(#{item_name,jdbcType=VARCHAR},'%'))
+    </if>
+    LIMIT #{start} ,#{end}
+  </select>
+
+  <select id="getMxToal" resultType="java.lang.Integer" parameterType="java.util.HashMap" >
+    select count(1) FROM
+    tb_dd b,tb_dd_mx a
+    WHERE
+    a.ddh = b.ddh
+    and b.ddh=#{ddh,jdbcType=VARCHAR}
+    <if test="mxlsh !=null and mxlsh !=''">
+      and a.mxlsh = #{mxlsh,jdbcType=VARCHAR}
+    </if>
+    <if test="item_id !=null and item_id !=''">
+      and a.item_id = #{item_id,jdbcType=VARCHAR}
+    </if>
+    <if test="item_name !=null and item_name !=''">
+      and a.item_id in (select item_id from tb_item where item_name like concat('%',concat(#{item_name,jdbcType=VARCHAR},'%')))
+    </if>
+  </select>
+
+  <delete id="deleteMxByMxlsh" parameterType="java.lang.String" >
+    delete from tb_dd_mx
+    where mxlsh = #{mxlsh,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteMxByDdh" parameterType="java.lang.String" >
+    delete from tb_dd_mx
+    where ddh = #{ddh,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="saveDdMxInfo" parameterType="java.util.HashMap" >
+    <selectKey keyProperty="mxlsh" resultType="java.lang.String" order="BEFORE">
+      select concat(DATE_FORMAT(sysdate(),'%Y%m%d'),nextval('seq_mxlsh')) as mxlsh  from dual
+    </selectKey>
+    insert into tb_dd_mx (mxlsh, ddh, item_id,dxzje,sl)
+    values (#{mxlsh,jdbcType=VARCHAR}, #{ddh,jdbcType=VARCHAR}, #{item_id,jdbcType=VARCHAR},#{dxzje,jdbcType=DOUBLE}
+    #{sl,jdbcType=INTEGER})
+  </insert>
+
+  <update id="updateDdmxByMxlsh" parameterType="com.keyi.chenqiang.dd.model.DdMx" >
+    update tb_dd_mx
+    set item_id = #{item_id,jdbcType=VARCHAR},
+      sl = #{sl,jdbcType=INTEGER},
+      dxzje =#{dxzje,jdbcType=DOUBLE}
+    where mxlsh = #{mxlsh,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getDdh" resultType="java.lang.String">
+    select concat(DATE_FORMAT(sysdate(),'%Y%m%d'),nextval('seq_ddh')) as ddh  from dual
   </select>
 </mapper>

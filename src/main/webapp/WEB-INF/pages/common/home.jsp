@@ -49,10 +49,10 @@
         <div region="west" style="width: 200px" title="导航菜单" split="true">
             <div class="easyui-accordion" data-options="fit:true,border:false">
                 <div title="订单管理" data-options="selected:true,iconCls:'icon-item'" style="padding: 10px">
-                    <a href="javascript:openTab('订货单管理','dingdan_manage.jsp','icon-man')" class="easyui-linkbutton"
+                    <a href="javascript:openTab('订货单管理','Dd/ddIndex.do','icon-man')" class="easyui-linkbutton"
                        data-options="plain:true,iconCls:'icon-man'" style="width: 150px">订货单管理</a>
-                    <a href="javascript:openTab('退货管理','huowu_rollback.jsp','icon-undo')" class="easyui-linkbutton"
-                       data-options="plain:true,iconCls:'icon-undo'" style="width: 150px">退货管理</a>
+                    <%--<a href="javascript:openTab('退货管理','huowu_rollback.jsp','icon-undo')" class="easyui-linkbutton"
+                       data-options="plain:true,iconCls:'icon-undo'" style="width: 150px">退货管理</a>--%>
                     <%--<a href="javascript:openTab('物流查询','wuliu_search.jsp','icon-search')" class="easyui-linkbutton"
                        data-options="plain:true,iconCls:'icon-search'" style="width: 150px">物流查询</a>--%>
                 </div>
