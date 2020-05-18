@@ -24,6 +24,11 @@
     from tb_dd
     where ddh = #{ddh,jdbcType=VARCHAR}
   </select>
+  <select id="selectByMxlsh" resultType="com.keyi.chenqiang.dd.model.DdMx" parameterType="java.lang.String" >
+    select *
+    from tb_dd_mx
+    where mxlsh = #{mxlsh,jdbcType=VARCHAR}
+  </select>
   <select id="listByPage" resultType="com.keyi.chenqiang.dd.model.Dd" parameterType="java.util.HashMap" >
     SELECT
     b.ddh,

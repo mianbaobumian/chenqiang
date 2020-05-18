@@ -90,7 +90,7 @@
 </div>
 
 <div id="ddmxEditWindow" class="easyui-window" title="更新明细" data-options="modal:true,closed:true,resizable:true,
-	iconCls:'icon-save',href:'${pageContext.request.contextPath}/Dd/ddmxUpdatePage.do?ddh=${ddh}&dgkh=${dgkh}'" style="width:45%;height:60%;padding:10px;">
+	iconCls:'icon-save',href:'${pageContext.request.contextPath}/Dd/ddmxUpdatePage.do'" style="width:45%;height:60%;padding:10px;">
 </div>
 <div id="ddmxAddWindow" class="easyui-window" title="新增明细" data-options="modal:true,closed:true,resizable:true,
 	iconCls:'icon-edit',href:'${pageContext.request.contextPath}/Dd/ddmxAddPage.do?ddh=${ddh}&dgkh=${dgkh}'" style="width:45%;height:60%;padding:10px;">

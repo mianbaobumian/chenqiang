@@ -21,11 +21,13 @@ public interface DdDao {
 
     Dd selectByDdh(String Ddh);
 
+    DdMx selectByMxlsh(String mxlsh);
+
     List<Dd> listByPage(Map<String, Object> map);
 
     int getToal(Map<String, Object> map);
 
-    int updateByDdh(Map<String, Object> map);
+    int updateByDdh(Dd dd);
 
     void updateDdZt(Dd dd);
 

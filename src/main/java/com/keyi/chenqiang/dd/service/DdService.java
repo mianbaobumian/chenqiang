@@ -18,9 +18,11 @@ public interface DdService {
 
     Dd selectByDdh(String Ddh);
 
+    DdMx selectByMxlsh(String mxlsh);
+
     public Page<Dd> listByPage(Page<Dd> page, Map<String, Object> paramMap);
 
-    String updateByDdh(Map<String, Object> paramMap);
+    String updateByDdh(Dd dd);
 
     String updateDdzt(Map<String, String> paramMap);
 

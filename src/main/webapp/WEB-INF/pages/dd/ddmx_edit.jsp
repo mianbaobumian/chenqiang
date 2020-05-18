@@ -8,12 +8,12 @@
 <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/static/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
 
 <div style="padding:10px 10px 10px 10px">
-	<form id="ddmxEditForm" class="cgForm" method="post">
+	<form id="ddmxEditForm" class="ddmxForm" method="post">
 		<table cellpadding="5" >
 			<tr>
 				<td>订单明细流水号:</td>
 				<td colspan="10">
-					<input id="mxlsh" name="mxlsh" readonly="true" data-options="required:true" value="${mxlsh}"/>
+					<input id="mxlsh" name="mxlsh" readonly="true" data-options="required:true"/>
 				</td>
 			</tr>
 			<tr>
@@ -58,7 +58,7 @@
 				$.messager.alert('提示', data.msg);
 				clearddmxEditForm();
 				$("#ddmxEditWindow").window('close');
-				$("#cgList").datagrid("reload");
+				$("#ddmxList").datagrid("reload");
 			}else{
 				$.messager.alert('提示', data.msg);
 			}

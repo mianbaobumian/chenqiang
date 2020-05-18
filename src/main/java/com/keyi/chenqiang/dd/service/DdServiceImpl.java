@@ -52,6 +52,11 @@ public class DdServiceImpl implements DdService {
     }
 
     @Override
+    public DdMx selectByMxlsh(String mxlsh) {
+        return ddDao.selectByMxlsh(mxlsh);
+    }
+
+    @Override
     public Page<Dd> listByPage(Page<Dd> page, Map<String, Object> paramMap){
         paramMap.put("start",(page.getCurrPage()-1)*page.getPageSize());
         paramMap.put("end",page.getPageSize());
@@ -63,8 +68,8 @@ public class DdServiceImpl implements DdService {
     }
 
     @Override
-    public String updateByDdh(Map<String, Object> paramMap) {
-         ddDao.updateByDdh(paramMap);
+    public String updateByDdh(Dd dd) {
+         ddDao.updateByDdh(dd);
          return "success";
     }
 
@@ -140,6 +145,7 @@ public class DdServiceImpl implements DdService {
         Item item=itemDao.selectByItemId(item_id);
         double ysj=item.getYsj();
         double dxzje=ysj*sl;
+        paramMap.put("dxzje",dxzje);
         DdMx ddMx=new DdMx();
         ddMx.setDdh(ddh);
         ddMx.setItem_id(item_id);

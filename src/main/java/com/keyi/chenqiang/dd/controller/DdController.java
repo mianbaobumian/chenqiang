@@ -104,31 +104,6 @@ public class DdController {
         return result;
     }
 
-    /**
-     * 更新采购订单
-     * @param paramMap
-     * @return
-     */
-    @RequestMapping("updateDd")
-    @ResponseBody
-    public Map<String, Object> updateDd(@RequestParam Map<String, Object> paramMap){
-        Map<String, Object> result = new HashMap<String, Object>();
-        try
-        {
-            String str=ddService.updateByDdh(paramMap);
-            result.put("msg",str);
-            if("success".equals(str)){
-                result.put("status",200);
-            }else {
-                result.put("status",500);
-            }
-        }catch (Exception e){
-            logger.error(e.getMessage(), e);
-            result.put("status", 500);
-            result.put("msg", "查询出错,请联系管理员!");
-        }
-        return result;
-    }
 
     @RequestMapping("deleteDd")
     @ResponseBody
@@ -193,13 +168,15 @@ public class DdController {
 
     @RequestMapping("ddmxUpdatePage")
     public ModelAndView openDdmxUpdate(@RequestParam Map<String, Object> paramMap){
-        ModelAndView mav=new ModelAndView("dd/ddmx_edit");
+        /*ModelAndView mav=new ModelAndView("dd/ddmx_edit");
         String mxlsh=paramMap.get("mxlsh").toString();
         String ddh=paramMap.get("ddh").toString();
         String dgkh=paramMap.get("dgkh").toString();
         mav.getModel().put("ddh", ddh);
+        mav.getModel().put("mxlsh", mxlsh);
         mav.getModel().put("dgkh", dgkh);
-        return mav;
+        return mav;*/
+        return new ModelAndView("dd/ddmx_edit");
     }
 
     @RequestMapping("deleteDdMx")
@@ -255,8 +232,8 @@ public class DdController {
             double dxzje=Double.parseDouble(paramMap.get("dxzje").toString());
             Dd dd=ddService.selectByDdh(ddh);
             if(dd!=null){
-                paramMap.put("ddzje",dd.getDdzje()+dxzje);
-                str=ddService.updateByDdh(paramMap);
+                dd.setDdzje(dd.getDdzje()+dxzje);
+                str=ddService.updateByDdh(dd);
             }else{
                 paramMap.put("ddzje",dxzje);
                 str=ddService.saveDdInfo(paramMap);
@@ -275,13 +252,20 @@ public class DdController {
         return result;
     }
 
-    @RequestMapping("updateDdmx")
+    @RequestMapping("updateDdMx")
     @ResponseBody
     public Map<String, Object> updateDdmx(@RequestParam Map<String, Object> paramMap){
         Map<String, Object> result = new HashMap<String, Object>();
         try
         {
-            String str=ddService.updateDdMx(paramMap);
+            String mxlsh=paramMap.get("mxlsh").toString();
+            DdMx ddMx=ddService.selectByMxlsh(mxlsh);//查询原订单号
+            paramMap.put("ddh",ddMx.getDdh());
+            String str=ddService.updateDdMx(paramMap);//更新订单明细
+            double dxzje=Double.parseDouble(paramMap.get("dxzje").toString());
+            Dd dd=ddService.selectByDdh(ddMx.getDdh());
+            dd.setDdzje(dd.getDdzje()+dxzje);
+            ddService.updateByDdh(dd);//更新订单
             result.put("msg",str);
             if("success".equals(str)){
                 result.put("status",200);
