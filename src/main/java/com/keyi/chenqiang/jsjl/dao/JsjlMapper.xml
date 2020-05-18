@@ -1,46 +1,155 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.keyi.chenqiang.jsjl.dao.JsjlDao" >
-  <resultMap id="BaseResultMap" type="com.keyi.chenqiang.jsjl.model.Jsjl" >
-    <id column="jylsh" property="jylsh" jdbcType="VARCHAR" />
-    <result column="jyrq" property="jyrq" jdbcType="DATE" />
-    <result column="skfs" property="skfs" jdbcType="VARCHAR" />
-    <result column="user_id" property="userId" jdbcType="VARCHAR" />
-    <result column="ddh" property="ddh" jdbcType="VARCHAR" />
-    <result column="zfje" property="zfje" jdbcType="DOUBLE" />
-    <result column="czr" property="czr" jdbcType="VARCHAR" />
-    <result column="bz" property="bz" jdbcType="VARCHAR" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from tb_jsjl
-    where jylsh = #{jylsh,jdbcType=VARCHAR}
+  <delete id="deleteBySklsh" parameterType="java.lang.String" >
+    delete from tb_jsjl_sk
+    where sklsh = #{jylsh,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.keyi.chenqiang.jsjl.model.Jsjl" >
-    insert into tb_jsjl (jylsh, jyrq, skfs, 
-      user_id, ddh, zfje, czr, 
-      bz)
-    values (#{jylsh,jdbcType=VARCHAR}, #{jyrq,jdbcType=DATE}, #{skfs,jdbcType=VARCHAR}, 
-      #{userId,jdbcType=VARCHAR}, #{ddh,jdbcType=VARCHAR}, #{zfje,jdbcType=DOUBLE}, #{czr,jdbcType=VARCHAR}, 
-      #{bz,jdbcType=VARCHAR})
+  <insert id="saveSkInfo" parameterType="java.util.HashMap" >
+    <selectKey keyProperty="sklsh" resultType="java.lang.String" order="BEFORE">
+      select concat(DATE_FORMAT(sysdate(),'%Y%m%d'),nextval('seq_sklsh')) as sklsh  from dual
+    </selectKey>
+    insert into tb_jsjl_sk(sklsh,sksj,ddh,ddzje,skzje,user_id,skzt,skr)
+    values (#{sklsh,jdbcType=VARCHAR},sysdate(),#{ddh,jdbcType=VARCHAR},
+      #{ddzje,jdbcType=DOUBLE}, #{skzje,jdbcType=DOUBLE},#{user_id,jdbcType=VARCHAR},'1', 'admin')
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.keyi.chenqiang.jsjl.model.Jsjl" >
-    update tb_jsjl
-    set jyrq = #{jyrq,jdbcType=DATE},
-      skfs = #{skfs,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=VARCHAR},
-      ddh = #{ddh,jdbcType=VARCHAR},
-      zfje = #{zfje,jdbcType=DOUBLE},
-      czr = #{czr,jdbcType=VARCHAR},
-      bz = #{bz,jdbcType=VARCHAR}
-    where jylsh = #{jylsh,jdbcType=VARCHAR}
+
+  <insert id="saveJsjlInfo" parameterType="java.util.HashMap" >
+    <selectKey keyProperty="jylsh" resultType="java.lang.String" order="BEFORE">
+      select concat(DATE_FORMAT(sysdate(),'%Y%m%d'),nextval('seq_sklsh')) as jylsh  from dual
+    </selectKey>
+    insert into tb_jsjl(jylsh,jyrq,skfs,user_id,ddh,zfje,czr)
+    values (#{jylsh,jdbcType=VARCHAR},sysdate(),#{skfs,jdbcType=VARCHAR},
+    #{user_id,jdbcType=VARCHAR}, #{ddh,jdbcType=VARCHAR},#{zfje,jdbcType=DOUBLE},'admin')
+  </insert>
+
+  <update id="updateSkBySklsh" parameterType="java.util.HashMap" >
+    update tb_jsjl_sk
+    set sksj = #{sksj,jdbcType=DATE},
+      skzje = #{skzje,jdbcType=DOUBLE},
+    where sklsh = #{sklsh,jdbcType=VARCHAR}
+      and skzt = '1'
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select jylsh, jyrq, skfs, user_id, ddh, zfje, czr, bz
-    from tb_jsjl
-    where jylsh = #{jylsh,jdbcType=VARCHAR}
+
+  <update id="updateSkZt" parameterType="java.lang.String" >
+    update tb_jsjl_sk
+    set skzt='2'
+    where sklsh = #{sklsh,jdbcType=VARCHAR}
+      and skzt = '1'
+  </update>
+
+  <select id="selectSkBySklsh" resultType="com.keyi.chenqiang.jsjl.model.Skjl" parameterType="java.lang.String" >
+    select *
+    from tb_jsjl_sk
+    where sklsh = #{sklsh,jdbcType=VARCHAR}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
-    select jylsh, jyrq, skfs, user_id, ddh, zfje, czr, bz
-    from tb_jsjl
+
+  <select id="listSkByPage" resultType="com.keyi.chenqiang.jsjl.model.Skjl" parameterType="java.util.HashMap" >
+    SELECT
+    b.sklsh,
+    b.sksj,
+    b.ddh,
+    b.ddzje,
+    b.skzje,
+    b.user_id,
+    (select user_name from tb_user where user_id=b.user_id) user_name,
+    (select user_name from tb_user where user_id=b.skr) skr,
+    case
+    when b.skzt ='2' then '已收款'
+    else '待审核'
+    end skzt,
+    case
+    when b.skfs ='1' then '银行转账'
+    when b.skfs ='2' then '支付宝收款'
+    else '微信收款'
+    end skfs
+    FROM
+    tb_jsjl_sk b
+    WHERE 1=1
+    <if test="sklsh !=null and sklsh !=''">
+      and b.sklsh = #{sklsh,jdbcType=VARCHAR}
+    </if>
+    <if test="ddh !=null and ddh !=''">
+      and b.ddh = #{ddh,jdbcType=VARCHAR}
+    </if>
+    <if test="user_name !=null and user_name !=''">
+      and b.user_id in (select user_id from tb_user where user_name like concat('%',concat(#{user_name,jdbcType=VARCHAR},'%')))
+    </if>
+    <if test="skzt !=null and skzt !=''">
+      and b.skzt = #{skfs,jdbcType=VARCHAR}
+    </if>
+    and date_format(b.sksj,'%Y-%m-%d') between #{skqssj,jdbcType=VARCHAR} and #{skjssj,jdbcType=VARCHAR}
+    LIMIT #{start} ,#{end}
+  </select>
+
+  <select id="getSkTotal" resultType="java.lang.Integer" parameterType="java.util.HashMap" >
+    SELECT count(1)  FROM
+    tb_jsjl_sk b
+    WHERE 1=1
+    <if test="sklsh !=null and sklsh !=''">
+      and b.sklsh = #{sklsh,jdbcType=VARCHAR}
+    </if>
+    <if test="ddh !=null and ddh !=''">
+      and b.ddh = #{ddh,jdbcType=VARCHAR}
+    </if>
+    <if test="user_name !=null and user_name !=''">
+      and b.user_id in (select user_id from tb_user where user_name like concat('%',concat(#{user_name,jdbcType=VARCHAR},'%')))
+    </if>
+    <if test="skzt !=null and skzt !=''">
+      and b.skzt = #{skfs,jdbcType=VARCHAR}
+    </if>
+    and date_format(b.sksj,'%Y-%m-%d') between #{skqssj,jdbcType=VARCHAR} and #{skjssj,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listByPage" resultType="com.keyi.chenqiang.jsjl.model.Jsjl" parameterType="java.util.HashMap" >
+    SELECT
+    b.jylsh,
+    b.ddh,
+    b.user_id,
+    (select user_name from tb_user where user_id=b.user_id) user_name,
+    b.jyrq,
+    b.bz,
+    (select user_name from tb_user where user_id=b.czr) czr,
+    b.zfje,
+    case
+    when b.skfs ='1' then '银行转账'
+    when b.skfs ='2' then '支付宝收款'
+    else '微信收款'
+    end skfs
+    FROM
+    tb_jsjl b
+    WHERE 1=1
+    <if test="jylsh !=null and jylsh !=''">
+      and b.jylsh = #{jylsh,jdbcType=VARCHAR}
+    </if>
+    <if test="ddh !=null and ddh !=''">
+      and b.ddh = #{ddh,jdbcType=VARCHAR}
+    </if>
+    <if test="user_name !=null and user_name !=''">
+      and b.user_id in (select user_id from tb_user where user_name like concat('%',concat(#{user_name,jdbcType=VARCHAR},'%')))
+    </if>
+    <if test="skfs !=null and skfs !=''">
+      and b.skfs = #{skfs,jdbcType=VARCHAR}
+    </if>
+    and date_format(b.jyrq,'%Y-%m-%d') between #{jyqssj,jdbcType=VARCHAR} and #{jyjssj,jdbcType=VARCHAR}
+    LIMIT #{start} ,#{end}
+  </select>
+
+  <select id="getTotal" resultType="java.lang.Integer" parameterType="java.util.HashMap" >
+    SELECT count(1) FROM   tb_jsjl b
+    WHERE 1=1
+    <if test="jylsh !=null and jylsh !=''">
+      and b.jylsh = #{jylsh,jdbcType=VARCHAR}
+    </if>
+    <if test="ddh !=null and ddh !=''">
+      and b.ddh = #{ddh,jdbcType=VARCHAR}
+    </if>
+    <if test="user_name !=null and user_name !=''">
+      and b.user_id in (select user_id from tb_user where user_name like concat('%',concat(#{user_name,jdbcType=VARCHAR},'%')))
+    </if>
+    <if test="skfs !=null and skfs !=''">
+      and b.skfs = #{skfs,jdbcType=VARCHAR}
+    </if>
+    and date_format(b.jyrq,'%Y-%m-%d') between #{jyqssj,jdbcType=VARCHAR} and #{jyjssj,jdbcType=VARCHAR}
   </select>
 </mapper>

@@ -219,8 +219,39 @@ function doSearch_dd(ddh,item_id,item_name,user_id,dgkh,jyqssj,jyjssj){ //商品
             	}
                 var sels = $("#ddList").datagrid("getSelections");
             	var ddh=sels[0].ddh;
-            	if("新增"!=sels[0].ddzt){
-                    $.messager.alert('提示','该订购单已审核!');
+                if(ids.length == 0){
+                    $.messager.alert('提示','必须选择一个订购单才能编辑!');
+                    return ;
+                }
+                if(ids.indexOf(',') > 0){
+                    $.messager.alert('提示','只能选择一个订购单!');
+                    return ;
+                }
+                var sels = $("#ddList").datagrid("getSelections");
+                if("新增"==sels[0].ddzt){
+                    if(ddzt!='04'||ddzt!='01'){
+                        $.messager.alert('提示','新增状态的订购单'+sels[0].ddh+'不能做下单或撤销以外的操作!');
+                        return ;
+                    }
+                }
+                if("下单"==sels[0].ddzt){
+                    if(ddzt!='02'||ddzt!='04'){
+                        $.messager.alert('提示','下单状态的订购单'+sels[0].ddh+'不能做发货或撤销以外的操作!');
+                        return ;
+                    }
+                }
+                if("发货"==sels[0].ddzt){
+                    if(ddzt!='03'||ddzt!='05'){
+                        $.messager.alert('提示','发货状态的订购单'+sels[0].ddh+'不能做退货或确认收货以外的操作!');
+                        return ;
+                    }
+                }
+                if("撤销"==sels[0].ddzt){
+                    $.messager.alert('提示','撤销状态的订购单'+sels[0].ddh+'不能做任何的操作!');
+                    return ;
+                }
+                if("确认收货"==sels[0].ddzt){
+                    $.messager.alert('提示','确认收货状态的订购单'+sels[0].ddh+'不能做任何的操作!');
                     return ;
                 }
                 parent.openTab('更新订购单','Dd/updateDdPage.do?dgkh='+dgkh+'&ddh='+ddh,'icon-man');
@@ -235,8 +266,31 @@ function doSearch_dd(ddh,item_id,item_name,user_id,dgkh,jyqssj,jyjssj){ //商品
       		}else{*/
                 var sels = $("#ddList").datagrid("getSelections");
                 for(var i=0;i<sels.length;i++){
-                    if("新增"!=sels[i].ddzt){
-                        $.messager.alert('提示','订购单'+sels[i].ddh+'已审核,不能删除!');
+                    var sels = $("#ddList").datagrid("getSelections");
+                    if("新增"==sels[i].ddzt){
+                        if(ddzt!='04'||ddzt!='01'){
+                            $.messager.alert('提示','新增状态的订购单'+sels[i].ddh+'不能做下单或撤销以外的操作!');
+                            return ;
+                        }
+                    }
+                    if("下单"==sels[i].ddzt){
+                        if(ddzt!='02'||ddzt!='04'){
+                            $.messager.alert('提示','下单状态的订购单'+sels[i].ddh+'不能做发货或撤销以外的操作!');
+                            return ;
+                        }
+                    }
+                    if("发货"==sels[i].ddzt){
+                        if(ddzt!='03'||ddzt!='05'){
+                            $.messager.alert('提示','发货状态的订购单'+sels[i].ddh+'不能做退货或确认收货以外的操作!');
+                            return ;
+                        }
+                    }
+                    if("撤销"==sels[i].ddzt){
+                        $.messager.alert('提示','撤销状态的订购单'+sels[i].ddh+'不能做任何的操作!');
+                        return ;
+                    }
+                    if("确认收货"==sels[i].ddzt){
+                        $.messager.alert('提示','确认收货状态的订购单'+sels[i].ddh+'不能做任何的操作!');
                         return ;
                     }
                 }

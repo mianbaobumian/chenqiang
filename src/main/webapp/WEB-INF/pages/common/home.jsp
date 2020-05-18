@@ -71,9 +71,9 @@
                        data-options="plain:true,iconCls:'icon-search'" style="width: 150px;">查询供应商</a>--%>
                 </div>
                 <div title="财务管理" data-options="iconCls:'icon-plgl'" style="padding:10px">
-                    <a href="javascript:openTab('财务明细查询','caiwumingxi_search.jsp','icon-search')" class="easyui-linkbutton"
+                    <a href="javascript:openTab('财务明细查询','Jsjl/jsjlIndex.do','icon-search')" class="easyui-linkbutton"
                        data-options="plain:true,iconCls:'icon-search'" style="width: 150px">财务明细查询</a>
-                    <a href="javascript:openTab('收付款管理','sufukun_manage.jsp','icon-man')" class="easyui-linkbutton"
+                    <a href="javascript:openTab('收付款管理','Jsjl/skjlIndex.do','icon-man')" class="easyui-linkbutton"
                        data-options="plain:true,iconCls:'icon-man'" style="width: 150px;">收付款管理</a>
                 </div>
                 <div title="系统管理" data-options="iconCls:'icon-system'" style="padding:10px">

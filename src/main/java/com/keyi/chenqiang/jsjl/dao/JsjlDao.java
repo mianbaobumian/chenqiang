@@ -1,17 +1,28 @@
 package com.keyi.chenqiang.jsjl.dao;
 
 import com.keyi.chenqiang.jsjl.model.Jsjl;
+import com.keyi.chenqiang.jsjl.model.Skjl;
+
 import java.util.List;
+import java.util.Map;
 
 public interface JsjlDao
 {
-    int deleteByPrimaryKey(String jylsh);
+    void deleteBySklsh(String sklsh);
 
-    int insert(Jsjl record);
+    void saveSkInfo(Map<String, Object> map);
 
-    Jsjl selectByPrimaryKey(String jylsh);
+    void updateSkBySklsh(Map<String,Object> map);
 
-    List<Jsjl> selectAll();
+    void updateSkZt(String sklsh);
 
-    int updateByPrimaryKey(Jsjl record);
+    Skjl selectSkBySklsh(String sklsh);
+
+    List<Skjl> listSkByPage(Map<String, Object> map);
+
+    List<Jsjl> listByPage(Map<String, Object> map);
+
+    Integer getTotal(Map<String, Object> map);
+
+    Integer getSkTotal(Map<String, Object> map);
 }

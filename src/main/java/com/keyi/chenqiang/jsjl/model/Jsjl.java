@@ -11,6 +11,8 @@ public class Jsjl {
 
     private String user_id;
 
+    private String user_name;
+
     private String ddh;
 
     private Double zfje;
@@ -18,6 +20,40 @@ public class Jsjl {
     private String czr;
 
     private String bz;
+
+    private String jyqssj;
+
+    private String jyjssj;
+
+    public String getUser_name()
+    {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name)
+    {
+        this.user_name = user_name;
+    }
+
+    public String getJyqssj()
+    {
+        return jyqssj;
+    }
+
+    public void setJyqssj(String jyqssj)
+    {
+        this.jyqssj = jyqssj;
+    }
+
+    public String getJyjssj()
+    {
+        return jyjssj;
+    }
+
+    public void setJyjssj(String jyjssj)
+    {
+        this.jyjssj = jyjssj;
+    }
 
     public String getJylsh() {
         return jylsh;

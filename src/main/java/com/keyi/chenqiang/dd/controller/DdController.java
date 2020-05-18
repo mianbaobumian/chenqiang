@@ -279,4 +279,25 @@ public class DdController {
         }
         return result;
     }
+
+    @RequestMapping("updateDdzt")
+    @ResponseBody
+    public Map<String, Object> updateDdzt(@RequestParam Map<String, String> paramMap){
+        Map<String, Object> result = new HashMap<String, Object>();
+        try
+        {
+            String str=ddService.updateDdzt(paramMap);
+            result.put("msg",str);
+            if("success".equals(str)){
+                result.put("status",200);
+            }else {
+                result.put("status",500);
+            }
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            result.put("status", 500);
+            result.put("msg", "查询出错,请联系管理员!");
+        }
+        return result;
+    }
 }

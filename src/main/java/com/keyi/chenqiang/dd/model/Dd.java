@@ -13,7 +13,19 @@ public class Dd {
 
     private String psfs;
 
+    private String dgkh;
+
     private double ddzje;
+
+    public String getDgkh()
+    {
+        return dgkh;
+    }
+
+    public void setDgkh(String dgkh)
+    {
+        this.dgkh = dgkh;
+    }
 
     public double getDdzje()
     {
