@@ -94,7 +94,7 @@
     </div>
 </div>
 
-<div id="skjEditWindow" class="easyui-window" title="修改收款单" data-options="modal:true,closed:true,resizable:true,
+<div id="skjlEditWindow" class="easyui-window" title="修改收款单" data-options="modal:true,closed:true,resizable:true,
 	iconCls:'icon-save',href:'${pageContext.request.contextPath}/Jsjl/updateSkjlPage.do'" style="width:45%;height:60%;padding:10px;">
 </div>
 <div id="skjlAddWindow" class="easyui-window" title="新增收款单" data-options="modal:true,closed:true,resizable:true,
@@ -191,15 +191,15 @@ function dosearch_skjl(sklsh,ddh,user_name,skzt,skqssj,skjssj){ //商品输入�
             		return ;
             	}
                 var sels = $("#skjlList").datagrid("getSelections");
-            	if("待审核"!=sels[0].zt){
+            	if("待审核"!=sels[0].skzt){
                     $.messager.alert('提示','该收款单已审核!');
                     return ;
                 }
-            	$("#skjEditWindow").window({
+            	$("#skjlEditWindow").window({
             		onLoad :function(){
             			//回显数据
             			var data = $("#skjlList").datagrid("getSelections")[0];
-            			$("#skjEditForm").form("load", data);
+            			$("#skjlEditForm").form("load", data);
             		}
             	}).window("open");
        		/*}
@@ -213,7 +213,7 @@ function dosearch_skjl(sklsh,ddh,user_name,skzt,skqssj,skjssj){ //商品输入�
       		}else{*/
                 var sels = $("#skjlList").datagrid("getSelections");
                 for(var i=0;i<sels.length;i++){
-                    if("待审核"!=sels[i].zt){
+                    if("待审核"!=sels[i].skzt){
                         $.messager.alert('提示','收款单'+sels[i].sklsh+'已审核,不能删除!');
                         return ;
                     }
@@ -291,7 +291,7 @@ function dosearch_skjl(sklsh,ddh,user_name,skzt,skqssj,skjssj){ //商品输入�
         }
         var sels = $("#skjlList").datagrid("getSelections");
         for(var i=0;i<sels.length;i++){
-            if("待审核"!=sels[i].zt){
+            if("待审核"!=sels[i].skzt){
                 $.messager.alert('提示','收款单'+sels[i].sklsh+'已审核!');
                 return ;
             }
@@ -300,19 +300,19 @@ function dosearch_skjl(sklsh,ddh,user_name,skzt,skqssj,skjssj){ //商品输入�
         $.ajax({
             url : "${pageContext.request.contextPath}/Jsjl/updateSkjlZt.do",
             type : 'post',
-            data : {json:json,zt:zt},
+            data : {json:json,skzt:skzt},
             async : false,// 一定要是同步请求，否则会跳转；（ajax默认是异步的）
             success : function(text) {
                 if (!text.success) {
                     //回显数据
                     var data = $("#skjlList").datagrid("getSelections")[0];
-                    $("#skjEditForm").form("load", data);
+                    $("#skjlEditForm").form("load", data);
                 }
             },
             error : function(text) {
                 //回显数据
                 var data = $("#skjlList").datagrid("getSelections")[0];
-                $("#skjEditForm").form("load", data);
+                $("#skjlEditForm").form("load", data);
             }
         });
         $("#skjlList").datagrid("reload");

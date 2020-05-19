@@ -9,6 +9,9 @@ import com.keyi.chenqiang.jsjl.model.Skjl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 @Service("jsjlService")
@@ -66,13 +69,40 @@ public class JsjlServiceImpl implements JsjlService
 
     @Override
     public String updateSkBySklsh(Map<String, Object> paramMap){
+        String sksj=paramMap.get("sksj").toString();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");//注意月份是MM
+        Date date =null;
+        try
+        {
+            date = simpleDateFormat.parse(sksj);
+        } catch (ParseException e)
+        {
+            return "收款时间错误请检查时间格式";
+        }
+        paramMap.put("sksj",date);
         jsjlDao.updateSkBySklsh(paramMap);
         return "success";
     }
 
     @Override
     public String updateSkZt(String sklsh){
+        Skjl skjl=jsjlDao.selectSkBySklsh(sklsh);
+        if(Double.doubleToLongBits(skjl.getSkzje())!=Double.doubleToLongBits(skjl.getDdzje())){
+            return "订单金额和收款金额不一致，不通过";
+        }
         jsjlDao.updateSkZt(sklsh);
+        Jsjl jsjl=new Jsjl();
+        String skfs=skjl.getSkfs();
+        String user_id=skjl.getUser_id();
+        String ddh=skjl.getDdh();
+        double zfje=skjl.getSkzje();
+        String czr=skjl.getSkr();
+        jsjl.setSkfs(skfs);
+        jsjl.setUser_id(user_id);
+        jsjl.setDdh(ddh);
+        jsjl.setZfje(zfje);
+        jsjl.setCzr(czr);
+        jsjlDao.saveJsjlInfo(jsjl);
         return "success";
     }
 

@@ -1,5 +1,6 @@
 package com.keyi.chenqiang.dd.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -7,6 +8,7 @@ import java.util.Date;
 public class Dd {
     private String ddh;
 
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     private Date jyrq;
 
     private String ddzt;

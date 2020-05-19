@@ -12,6 +12,8 @@ public interface JsjlDao
 
     void saveSkInfo(Map<String, Object> map);
 
+    void saveJsjlInfo(Jsjl jsjl);
+
     void updateSkBySklsh(Map<String,Object> map);
 
     void updateSkZt(String sklsh);

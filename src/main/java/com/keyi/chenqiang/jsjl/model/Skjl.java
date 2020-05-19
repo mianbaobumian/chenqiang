@@ -1,11 +1,14 @@
 package com.keyi.chenqiang.jsjl.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Skjl
 {
     private String sklsh;
 
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
     private Date sksj;
 
     private String ddh;
@@ -25,6 +28,18 @@ public class Skjl
     private String skqssj;
 
     private String skjssj;
+
+    private String skfs;
+
+    public String getSkfs()
+    {
+        return skfs;
+    }
+
+    public void setSkfs(String skfs)
+    {
+        this.skfs = skfs;
+    }
 
     public String getSkr()
     {

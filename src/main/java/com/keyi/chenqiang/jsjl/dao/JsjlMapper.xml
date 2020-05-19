@@ -14,7 +14,7 @@
       #{ddzje,jdbcType=DOUBLE}, #{skzje,jdbcType=DOUBLE},#{user_id,jdbcType=VARCHAR},'1', 'admin')
   </insert>
 
-  <insert id="saveJsjlInfo" parameterType="java.util.HashMap" >
+  <insert id="saveJsjlInfo" parameterType="com.keyi.chenqiang.jsjl.model.Jsjl" >
     <selectKey keyProperty="jylsh" resultType="java.lang.String" order="BEFORE">
       select concat(DATE_FORMAT(sysdate(),'%Y%m%d'),nextval('seq_sklsh')) as jylsh  from dual
     </selectKey>
@@ -27,6 +27,7 @@
     update tb_jsjl_sk
     set sksj = #{sksj,jdbcType=DATE},
       skzje = #{skzje,jdbcType=DOUBLE},
+      skfs = #{skfs,jdbcType=VARCHAR}
     where sklsh = #{sklsh,jdbcType=VARCHAR}
       and skzt = '1'
   </update>

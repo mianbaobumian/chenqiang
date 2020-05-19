@@ -13,13 +13,13 @@
 			<tr>
 				<td>收款流水号:</td>
 				<td colspan="10">
-					<input id="sklsh"  name="sklsh" data-options="required:true"/>
+					<input id="sklsh"  name="sklsh" data-options="required:true" readonly="true"/>
 				</td>
 			</tr>
 			<tr>
 				<td>订单号:</td>
 				<td colspan="10">
-					<input id="ddh"  name="ddh" data-options="required:true"/>
+					<input id="ddh"  name="ddh" data-options="required:true" readonly="true"/>
 				</td>
 			</tr>
 			<tr>
@@ -28,11 +28,16 @@
 					<input id="skzje" name="skzje" data-options="required:true"/>
 				</td>
 			</tr>
-
+            <tr>
+                <td>收款时间:</td>
+                <td colspan="10">
+                    <input class="easyui-datebox" id="sksj" name="sksj" style="width:120px" data-options="formatter:myformatter,required:true">
+                </td>
+            </tr>
 			<tr>
 				<td>收款方式：</td>
 				<td colspan="10">
-					<select id="skfs" class="easyui-combobox" name="skfs" panelHeight="auto" data-options="width:150,
+					<select id="skfs" value='1' class="easyui-combobox" name="skfs" panelHeight="auto" data-options="width:150,
                         editable:false,required:true">
 						<option value="1">银行转账</option>
 						<option value="2">支付宝收款</option>
@@ -72,4 +77,11 @@
 	function clearskjlEditForm(){
 		$('#skjlEditForm').form('reset');
 	}
+
+    function myformatter(date){
+        var y = date.getFullYear();
+        var m = date.getMonth()+1;
+        var d = date.getDate();
+        return y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d);
+    }
 </script>
