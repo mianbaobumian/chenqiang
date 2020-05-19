@@ -81,12 +81,15 @@
     <div style="float: left;">
         <a href="#" class="easyui-linkbutton" plain="true" icon="icon-ok" onclick="doChangeZt('01')">下单</a>
     </div>
-    <div style="float: left;">
-        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-remove" onclick="doChangeZt('02')">发货</a>
-    </div>
-    <div style="float: left;">
-        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-cancel" onclick="doChangeZt('03')">退货</a>
-    </div>
+    <c:if test="${user.user_type == '2' }">
+        <div style="float: left;">
+            <a href="#" class="easyui-linkbutton" plain="true" icon="icon-remove" onclick="doChangeZt('02')">发货</a>
+        </div>
+        <div style="float: left;">
+            <a href="#" class="easyui-linkbutton" plain="true" icon="icon-cancel" onclick="doChangeZt('03')">退货</a>
+        </div>
+    </c:if>
+
     <div style="float: left;">
         <a href="#" class="easyui-linkbutton" plain="true" icon="icon-undo" onclick="doChangeZt('04')">撤销</a>
     </div>

@@ -41,7 +41,11 @@
                         <h2>网上订货系统</h2>
                     </td>
                     <td valign="bottom" align="right" width="50%">
-                        <font size="3">  <strong>欢迎：</strong>admin</font>
+                        <font size="3">  <strong>欢迎：</strong>
+                            ${user.role_name}:${user.user_name}</font>
+                    </td>
+                    <td valign="bottom" align="right" width="50%">
+                        <a href="${pageContext.request.contextPath}/admin/Login/ajaxLoginOut.do">退出</a>
                     </td>
                 </tr>
             </table>
@@ -56,32 +60,42 @@
                     <%--<a href="javascript:openTab('物流查询','wuliu_search.jsp','icon-search')" class="easyui-linkbutton"
                        data-options="plain:true,iconCls:'icon-search'" style="width: 150px">物流查询</a>--%>
                 </div>
-                <div title="库存管理" data-options="iconCls:'icon-bkgl'" style="padding:10px;">
-                    <a href="javascript:openTab('库存管理','Kc/kcIndex.do','icon-man')" class="easyui-linkbutton"
-                       data-options="plain:true,iconCls:'icon-man'" style="width: 150px;">库存管理</a>
-                </div>
-                <div title="采购管理" data-options="iconCls:'icon-bklb'" style="padding:10px">
-                    <%--<a href="javascript:openTab('采购商品管理','caigoushangping_manage.jsp','icon-man')" class="easyui-linkbutton"
-                       data-options="plain:true,iconCls:'icon-man'" style="width: 150px;">采购商品管理</a>--%>
-                    <a href="javascript:openTab('采购订单','Cg/cgIndex.do','icon-search')" class="easyui-linkbutton"
-                       data-options="plain:true,iconCls:'icon-search'" style="width: 150px;">采购订单</a>
-                    <%--<a href="javascript:openTab('采购审核','caigoushangping_check.jsp','icon-man')" class="easyui-linkbutton"
-                       data-options="plain:true,iconCls:'icon-edit'" style="width: 150px;">采购审核</a>--%>
-                    <%--<a href="javascript:openTab('查询供应商','gongyingshang_search.jsp','icon-search')" class="easyui-linkbutton"
-                       data-options="plain:true,iconCls:'icon-search'" style="width: 150px;">查询供应商</a>--%>
-                </div>
-                <div title="财务管理" data-options="iconCls:'icon-plgl'" style="padding:10px">
-                    <a href="javascript:openTab('财务明细查询','Jsjl/jsjlIndex.do','icon-search')" class="easyui-linkbutton"
-                       data-options="plain:true,iconCls:'icon-search'" style="width: 150px">财务明细查询</a>
-                    <a href="javascript:openTab('收付款管理','Jsjl/skjlIndex.do','icon-man')" class="easyui-linkbutton"
-                       data-options="plain:true,iconCls:'icon-man'" style="width: 150px;">收付款管理</a>
-                </div>
-                <div title="系统管理" data-options="iconCls:'icon-system'" style="padding:10px">
-                    <a href="javascript:openTab('用户管理','admin/User/userIndex.do','icon-man')" class="easyui-linkbutton"
-                       data-options="plain:true,iconCls:'icon-man'" style="width: 150px">用户管理</a>
-                    <a href="javascript:openTab('商品信息管理','admin/Item/itemIndex.do','icon-remove')" class="easyui-linkbutton"
-                       data-options="plain:true,iconCls:'icon-remove'" style="width: 150px;">商品信息管理</a>
-                </div>
+                <c:if test="${user.user_type == '2' }">
+                    <div title="库存管理" data-options="iconCls:'icon-bkgl'" style="padding:10px;">
+                        <a href="javascript:openTab('库存管理','Kc/kcIndex.do','icon-man')" class="easyui-linkbutton"
+                           data-options="plain:true,iconCls:'icon-man'" style="width: 150px;">库存管理</a>
+                    </div>
+                </c:if>
+                <c:if test="${user.user_type == '2' }">
+                    <div title="采购管理" data-options="iconCls:'icon-bklb'" style="padding:10px">
+                            <%--<a href="javascript:openTab('采购商品管理','caigoushangping_manage.jsp','icon-man')" class="easyui-linkbutton"
+                               data-options="plain:true,iconCls:'icon-man'" style="width: 150px;">采购商品管理</a>--%>
+                        <a href="javascript:openTab('采购订单','Cg/cgIndex.do','icon-search')" class="easyui-linkbutton"
+                           data-options="plain:true,iconCls:'icon-search'" style="width: 150px;">采购订单</a>
+                            <%--<a href="javascript:openTab('采购审核','caigoushangping_check.jsp','icon-man')" class="easyui-linkbutton"
+                               data-options="plain:true,iconCls:'icon-edit'" style="width: 150px;">采购审核</a>--%>
+                            <%--<a href="javascript:openTab('查询供应商','gongyingshang_search.jsp','icon-search')" class="easyui-linkbutton"
+                               data-options="plain:true,iconCls:'icon-search'" style="width: 150px;">查询供应商</a>--%>
+                    </div>
+                </c:if>
+
+                <c:if test="${user.user_type == '2' }">
+                    <div title="财务管理" data-options="iconCls:'icon-plgl'" style="padding:10px">
+                        <a href="javascript:openTab('财务明细查询','Jsjl/jsjlIndex.do','icon-search')" class="easyui-linkbutton"
+                           data-options="plain:true,iconCls:'icon-search'" style="width: 150px">财务明细查询</a>
+                        <a href="javascript:openTab('收付款管理','Jsjl/skjlIndex.do','icon-man')" class="easyui-linkbutton"
+                           data-options="plain:true,iconCls:'icon-man'" style="width: 150px;">收付款管理</a>
+                    </div>
+                </c:if>
+
+                <c:if test="${user.user_type == '2' }">
+                    <div title="系统管理" data-options="iconCls:'icon-system'" style="padding:10px">
+                        <a href="javascript:openTab('用户管理','admin/User/userIndex.do','icon-man')" class="easyui-linkbutton"
+                           data-options="plain:true,iconCls:'icon-man'" style="width: 150px">用户管理</a>
+                        <a href="javascript:openTab('商品信息管理','admin/Item/itemIndex.do','icon-remove')" class="easyui-linkbutton"
+                           data-options="plain:true,iconCls:'icon-remove'" style="width: 150px;">商品信息管理</a>
+                    </div>
+                </c:if>
             </div>
         </div>
         <div data-options="region:'center'" style="background:#eee;">

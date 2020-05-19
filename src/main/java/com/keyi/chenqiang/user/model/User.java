@@ -15,7 +15,19 @@ public class User implements Serializable
 
     private String user_type;
 
+    private String role_name;
+
     private String value_flag;
+
+    public String getRole_name()
+    {
+        return role_name;
+    }
+
+    public void setRole_name(String role_name)
+    {
+        this.role_name = role_name;
+    }
 
     public String getUser_password()
     {

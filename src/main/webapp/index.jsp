@@ -131,7 +131,11 @@
 												rcode_flag = 1;
 												$("#randiv").show();
 											} else {
-												location.href = "${baseurl}admin/Login/home.do";
+												//location.href = "${baseurl}admin/Login/home.do?username="+uname.val();
+												document.write("<form action='${pageContext.request.contextPath}/admin/Login/home.do' method='post' name='form1' style='display:none'>");
+												document.write("<input type='hidden' name='username' value="+uname.val()+">");
+												document.write("</form>");
+												document.form1.submit();
 											}
 										},
 										error : function() {
@@ -177,7 +181,11 @@
 																"<font color='red'> 密码错误！</font>");
 												rcode_flag = true;
 											} else {
-												location.href = "${baseurl}admin/Login/home.do";
+												//location.href = "${baseurl}admin/Login/home.do?username="+uname.val();
+												document.write("<form action='${pageContext.request.contextPath}/admin/Login/home.do' method='post' name='form1' style='display:none'>");
+												document.write("<input type='hidden' name='username' value="+uname.val()+">");
+												document.write("</form>");
+												document.form1.submit();
 											}
 										},
 										error : function() {
