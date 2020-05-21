@@ -90,7 +90,10 @@
     <div class="datagrid-btn-separator"></div>
 
     <div style="float: left;">
-        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-ok" onclick="doSh()">审核通过</a>
+        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-ok" onclick="doSh('2')">审核通过</a>
+    </div>
+    <div style="float: left;">
+        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-cancel" onclick="doSh('0')">退款</a>
     </div>
 </div>
 
@@ -192,7 +195,7 @@ function dosearch_skjl(sklsh,ddh,user_name,skzt,skqssj,skjssj){ //商品输入�
             	}
                 var sels = $("#skjlList").datagrid("getSelections");
             	if("待审核"!=sels[0].skzt){
-                    $.messager.alert('提示','该收款单已审核!');
+                    $.messager.alert('提示','该收款单不能更改!');
                     return ;
                 }
             	$("#skjlEditWindow").window({
@@ -214,7 +217,7 @@ function dosearch_skjl(sklsh,ddh,user_name,skzt,skqssj,skjssj){ //商品输入�
                 var sels = $("#skjlList").datagrid("getSelections");
                 for(var i=0;i<sels.length;i++){
                     if("待审核"!=sels[i].skzt){
-                        $.messager.alert('提示','收款单'+sels[i].sklsh+'已审核,不能删除!');
+                        $.messager.alert('提示','收款单'+sels[i].sklsh+'不能删除!');
                         return ;
                     }
                 }
@@ -282,7 +285,7 @@ function dosearch_skjl(sklsh,ddh,user_name,skzt,skqssj,skjssj){ //商品输入�
 
     });
 
-    function doSh(zt) {
+    function doSh(skzt) {
         var ids = getskjlSelectionsIds();
 
         if(ids.length == 0){
@@ -291,8 +294,8 @@ function dosearch_skjl(sklsh,ddh,user_name,skzt,skqssj,skjssj){ //商品输入�
         }
         var sels = $("#skjlList").datagrid("getSelections");
         for(var i=0;i<sels.length;i++){
-            if("待审核"!=sels[i].skzt){
-                $.messager.alert('提示','收款单'+sels[i].sklsh+'已审核!');
+            if("退款"==sels[i].skzt){
+                $.messager.alert('提示','收款单'+sels[i].sklsh+'已退款!');
                 return ;
             }
         }

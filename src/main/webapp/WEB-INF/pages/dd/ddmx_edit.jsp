@@ -87,6 +87,7 @@
 			columns: [[
 				{ field: 'item_id', title: '商品编号', width: 100,hidden: true },
 				{ field: 'item_name', title: '商品名', width: 200 },
+				{ field: 'ysj', title: '单价', width: 80},
 				{ field: 'lb', title: '商品类别', width: 100},
 				{ field: 'kcs', title: '库存数', width: 200},
 			]],

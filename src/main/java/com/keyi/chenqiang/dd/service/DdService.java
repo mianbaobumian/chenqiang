@@ -24,7 +24,7 @@ public interface DdService {
 
     String updateByDdh(Dd dd);
 
-    String updateDdzt(Map<String, String> paramMap);
+    String updateDdzt(Map<String, String> paramMap) throws Exception;
 
     public Page<DdMx> listDdmxByPage(Page<DdMx> page, Map<String, Object> paramMap);
 
@@ -32,7 +32,11 @@ public interface DdService {
 
     String getDdh();
 
-    String saveDdMxInfo(Map<String, Object> paramMap);
+    String saveDdMxInfo(Map<String, Object> paramMap) throws Exception;
 
-    String updateDdMx(Map<String, Object> paramMap);
+    String updateDdMx(Map<String, Object> paramMap) throws Exception;
+
+    String ywAddDdMx(Map<String, Object> paramMap) throws Exception;
+
+    String ywUpdateDdMx(Map<String, Object> paramMap) throws Exception;
 }

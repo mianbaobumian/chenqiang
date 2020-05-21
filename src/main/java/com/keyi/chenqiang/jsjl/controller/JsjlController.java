@@ -79,7 +79,7 @@ public class JsjlController
         }catch (Exception e){
             logger.error(e.getMessage(), e);
             result.put("status", 500);
-            result.put("msg", "查询出错,请联系管理员!");
+            result.put("msg", e.getMessage());
         }
         return result;
     }
@@ -110,7 +110,7 @@ public class JsjlController
         }catch (Exception e){
             logger.error(e.getMessage(), e);
             result.put("status", 500);
-            result.put("msg", "查询出错,请联系管理员!");
+            result.put("msg", e.getMessage());
         }
         return result;
     }
@@ -143,7 +143,8 @@ public class JsjlController
         try
         {
             String sklsh=paramMap.get("sklsh");
-            String str=jsjlService.updateSkZt(sklsh);
+            String skzt=paramMap.get("skzt");
+            String str=jsjlService.updateSkZt(sklsh,skzt);
             result.put("msg",str);
             if("success".equals(str)){
                 result.put("status",200);
@@ -153,7 +154,7 @@ public class JsjlController
         }catch (Exception e){
             logger.error(e.getMessage(), e);
             result.put("status", 500);
-            result.put("msg", "查询出错,请联系管理员!");
+            result.put("msg", e.getMessage());
         }
         return result;
     }

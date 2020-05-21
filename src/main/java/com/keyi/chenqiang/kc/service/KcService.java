@@ -11,9 +11,9 @@ public interface KcService
 
     Kc queryKcByItemId(String item_id);
 
-   String saveKcInfo(Map<String,Object> paramMap);
+   String saveKcInfo(Map<String,Object> paramMap) throws Exception;
 
-   String updateKcInfo(Map<String,String> paramMap);
+   String updateKcInfo(Map<String,String> paramMap) throws Exception;
 
    String deleteKc(Map<String,String> paramMap);
 }

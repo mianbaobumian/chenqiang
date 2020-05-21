@@ -25,21 +25,21 @@
 	<%--<c:forEach items="${sessionScope.sysPermissionList}" var="per" >
 		<c:if test="${per=='item:add' }" >
 		    <div style="float: left;">
-		        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-add" onclick="cg_add()">新增</a>
+		        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-add" onclick="jsjl_add()">新增</a>
 		    </div>
 		</c:if>
 		<c:if test="${per=='item:edit' }" >
 		    <div style="float: left;">
-		        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-edit" onclick="cg_edit()">编辑</a>
+		        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-edit" onclick="jsjl_edit()">编辑</a>
 		    </div>
 		</c:if>
 		<c:if test="${per=='item:delete' }" >
 		    <div style="float: left;">
-		        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-cancel" onclick="cg_delete()">删除</a>
+		        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-cancel" onclick="jsjl_delete()">删除</a>
 		    </div>
 		</c:if>
 	</c:forEach>--%>
-    <div id="search_cg1" style="padding:3px">
+    <div id="search_jsjl1" style="padding:3px">
         <%--        <input id="search_text_item" class="easyui-searchbox"
                     data-options="searcher:doSearch_item,prompt:'请输入...',menu:'#menu_item'"
                     style="width:250px;vertical-align: middle;">
@@ -65,20 +65,20 @@
             <option value="3">微信收款</option>
         </select>
     <%--</div>
-    <div id="search_cg2" style="padding:3px">--%>
+    <div id="search_jsjl2" style="padding:3px">--%>
         交易日期:
         <input class="easyui-datebox" id="jyqssj" style="width:120px" data-options="formatter:myformatter,parser:myparser">~
         <input class="easyui-datebox" id="jyjssj" style="width:120px" data-options="formatter:myformatter,parser:myparser">
-        <a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="doSearch_cg()">查询</a>
+        <a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="doSearch_jsjl()">查询</a>
     </div>
 	
 	<div style="float: left;">  
-		<a href="#" class="easyui-linkbutton" plain="true" icon="icon-reload" onclick="cg_reload()">刷新</a>  
+		<a href="#" class="easyui-linkbutton" plain="true" icon="icon-reload" onclick="jsjl_reload()">刷新</a>  
 	</div>
 </div>
 
 <script>
-function doSearch_cg(jylsh,ddh,user_name,skfs,jyqssj,jyjssj){ //商品输入商品名,点击搜素,触发此函数
+function doSearch_jsjl(jylsh,ddh,user_name,skfs,jyqssj,jyjssj){ //商品输入商品名,点击搜素,触发此函数
     var jylsh=$('#jylsh').val();
     var ddh=$('#ddh').val();
     var user_name=$('#user_name').val();
@@ -104,7 +104,7 @@ function doSearch_cg(jylsh,ddh,user_name,skfs,jyqssj,jyjssj){ //商品输入商�
     });
 }
 	//根据index拿到该行值
-	function oncgClickRow(index) {
+	function onjsjlClickRow(index) {
 		var rows = $('#jsjlList').datagrid('getRows');
 		return rows[index];
 		
@@ -129,7 +129,7 @@ function doSearch_cg(jylsh,ddh,user_name,skfs,jyqssj,jyjssj){ //商品输入商�
     	});
 	};*/
 	
-    function getcgSelectionsIds(){
+    function getjsjlSelectionsIds(){
     	var jsjlList = $("#jsjlList");
     	var sels = jsjlList.datagrid("getSelections");
     	var ids = [];
@@ -141,32 +141,22 @@ function doSearch_cg(jylsh,ddh,user_name,skfs,jyqssj,jyjssj){ //商品输入商�
     	return ids;
     }
     
-    function cg_add(){
+    function jsjl_add(){
     	/*$.get("item/add_judge",'',function(data){
        		if(data.msg != null){
        			$.messager.alert('提示', data.msg);
        		}else{*/
-       			$("#cgAddWindow").window("open");
+       			$("#jsjlAddWindow").window("open");
        		/*}
        	});*/
     }
 
-    function cg_czjl(){
-        /*$.get("item/add_judge",'',function(data){
-               if(data.msg != null){
-                   $.messager.alert('提示', data.msg);
-               }else{*/
-        $("#cgCzjlWindow").window("open");
-        /*}
-    });*/
-    }
-
-    function cg_edit(){
+    function jsjl_edit(){
     	/*$.get("item/edit_judge",'',function(data){
        		if(data.msg != null){
        			$.messager.alert('提示', data.msg);
        		}else{*/
-       			var ids = getcgSelectionsIds();
+       			var ids = getjsjlSelectionsIds();
             	
             	if(ids.length == 0){
             		$.messager.alert('提示','必须选择一个采购单才能编辑!');
@@ -181,18 +171,18 @@ function doSearch_cg(jylsh,ddh,user_name,skfs,jyqssj,jyjssj){ //商品输入商�
                     $.messager.alert('提示','该采购单已审核!');
                     return ;
                 }
-            	$("#cgEditWindow").window({
+            	$("#jsjlEditWindow").window({
             		onLoad :function(){
             			//回显数据
             			var data = $("#jsjlList").datagrid("getSelections")[0];
-            			$("#cgEditForm").form("load", data);
+            			$("#jsjlEditForm").form("load", data);
             		}
             	}).window("open");
        		/*}
        	});*/
     }
     
-    function cg_delete(){
+    function jsjl_delete(){
     	/*$.get("item/delete_judge",'',function(data){
       		if(data.msg != null){
       			$.messager.alert('提示', data.msg);
@@ -217,7 +207,7 @@ function doSearch_cg(jylsh,ddh,user_name,skfs,jyqssj,jyjssj){ //商品输入商�
             	$.messager.confirm('确认','确定删除ID为 '+ids+' 的采购单吗？',function(r){
             	    if (r){
             	    	var params = {"ids":ids};
-                    	$.post("${pageContext.request.contextPath}/Cg/deleteCg.do",params, function(data){
+                    	$.post("${pageContext.request.contextPath}/jsjl/deletejsjl.do",params, function(data){
                 			if(data.status == 200){
                 				$.messager.alert('提示','删除采购单成功!',undefined,function(){
                 					$("#jsjlList").datagrid("reload");
@@ -230,7 +220,7 @@ function doSearch_cg(jylsh,ddh,user_name,skfs,jyqssj,jyjssj){ //商品输入商�
       	});*/
     }
     
-    function cg_reload(){
+    function jsjl_reload(){
     	$("#jsjlList").datagrid("reload");
     }
 

@@ -78,24 +78,32 @@
 	</div>
     <div class="datagrid-btn-separator"></div>
 
-    <div style="float: left;">
-        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-ok" onclick="doChangeZt('01')">下单</a>
-    </div>
+    <c:if test="${user.user_type == '1' }">
+        <div style="float: left;">
+            <a href="#" class="easyui-linkbutton" plain="true" icon="icon-ok" onclick="doChangeZt('01')">下单</a>
+        </div>
+    </c:if>
     <c:if test="${user.user_type == '2' }">
         <div style="float: left;">
             <a href="#" class="easyui-linkbutton" plain="true" icon="icon-remove" onclick="doChangeZt('02')">发货</a>
         </div>
+    </c:if>
+    <c:if test="${user.user_type == '1' }">
         <div style="float: left;">
             <a href="#" class="easyui-linkbutton" plain="true" icon="icon-cancel" onclick="doChangeZt('03')">退货</a>
         </div>
     </c:if>
+    <c:if test="${user.user_type == '1' }">
+        <div style="float: left;">
+            <a href="#" class="easyui-linkbutton" plain="true" icon="icon-undo" onclick="doChangeZt('04')">撤销</a>
+        </div>
+    </c:if>
+    <c:if test="${user.user_type == '1' }">
+        <div style="float: left;">
+            <a href="#" class="easyui-linkbutton" plain="true" icon="icon-ok" onclick="doChangeZt('05')">确认收货</a>
+        </div>
+    </c:if>
 
-    <div style="float: left;">
-        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-undo" onclick="doChangeZt('04')">撤销</a>
-    </div>
-    <div style="float: left;">
-        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-ok" onclick="doChangeZt('05')">确认收货</a>
-    </div>
 </div>
 
 <%--<div id="ddEditWindow" class="easyui-window" title="修改订购单" data-options="modal:true,closed:true,resizable:true,
@@ -106,7 +114,7 @@
 </div>--%>
 
 <script>
-function doSearch_dd(ddh,item_id,item_name,user_id,dgkh,jyqssj,jyjssj){ //商品输入商品名,点击搜素,触发此函数
+function doSearch_dd(){ //商品输入商品名,点击搜素,触发此函数
     var ddh=$('#ddh').val();
     var item_id=$('#item_id').val();
     var item_name=$('#item_name').val();
@@ -231,30 +239,8 @@ function doSearch_dd(ddh,item_id,item_name,user_id,dgkh,jyqssj,jyjssj){ //商品
                     return ;
                 }
                 var sels = $("#ddList").datagrid("getSelections");
-                if("新增"==sels[0].ddzt){
-                    if(ddzt!='04'||ddzt!='01'){
-                        $.messager.alert('提示','新增状态的订购单'+sels[0].ddh+'不能做下单或撤销以外的操作!');
-                        return ;
-                    }
-                }
-                if("下单"==sels[0].ddzt){
-                    if(ddzt!='02'||ddzt!='04'){
-                        $.messager.alert('提示','下单状态的订购单'+sels[0].ddh+'不能做发货或撤销以外的操作!');
-                        return ;
-                    }
-                }
-                if("发货"==sels[0].ddzt){
-                    if(ddzt!='03'||ddzt!='05'){
-                        $.messager.alert('提示','发货状态的订购单'+sels[0].ddh+'不能做退货或确认收货以外的操作!');
-                        return ;
-                    }
-                }
-                if("撤销"==sels[0].ddzt){
-                    $.messager.alert('提示','撤销状态的订购单'+sels[0].ddh+'不能做任何的操作!');
-                    return ;
-                }
-                if("确认收货"==sels[0].ddzt){
-                    $.messager.alert('提示','确认收货状态的订购单'+sels[0].ddh+'不能做任何的操作!');
+                if("新增"!=sels[0].ddzt){
+                    $.messager.alert('提示','不是新增状态的订购单'+sels[0].ddh+'不能更新操作!');
                     return ;
                 }
                 parent.openTab('更新订购单','Dd/updateDdPage.do?dgkh='+dgkh+'&ddh='+ddh,'icon-man');
@@ -270,30 +256,8 @@ function doSearch_dd(ddh,item_id,item_name,user_id,dgkh,jyqssj,jyjssj){ //商品
                 var sels = $("#ddList").datagrid("getSelections");
                 for(var i=0;i<sels.length;i++){
                     var sels = $("#ddList").datagrid("getSelections");
-                    if("新增"==sels[i].ddzt){
-                        if(ddzt!='04'||ddzt!='01'){
-                            $.messager.alert('提示','新增状态的订购单'+sels[i].ddh+'不能做下单或撤销以外的操作!');
-                            return ;
-                        }
-                    }
-                    if("下单"==sels[i].ddzt){
-                        if(ddzt!='02'||ddzt!='04'){
-                            $.messager.alert('提示','下单状态的订购单'+sels[i].ddh+'不能做发货或撤销以外的操作!');
-                            return ;
-                        }
-                    }
-                    if("发货"==sels[i].ddzt){
-                        if(ddzt!='03'||ddzt!='05'){
-                            $.messager.alert('提示','发货状态的订购单'+sels[i].ddh+'不能做退货或确认收货以外的操作!');
-                            return ;
-                        }
-                    }
-                    if("撤销"==sels[i].ddzt){
-                        $.messager.alert('提示','撤销状态的订购单'+sels[i].ddh+'不能做任何的操作!');
-                        return ;
-                    }
-                    if("确认收货"==sels[i].ddzt){
-                        $.messager.alert('提示','确认收货状态的订购单'+sels[i].ddh+'不能做任何的操作!');
+                    if("新增"!=sels[i].ddzt){
+                        $.messager.alert('提示','不是新增状态的订购单'+sels[i].ddh+'不能做删除操作!');
                         return ;
                     }
                 }
@@ -310,7 +274,7 @@ function doSearch_dd(ddh,item_id,item_name,user_id,dgkh,jyqssj,jyjssj){ //商品
             	$.messager.confirm('确认','确定删除ID为 '+ids+' 的订购单吗？',function(r){
             	    if (r){
             	    	var params = {"ids":ids};
-                    	$.post("${pageContext.request.contextPath}/Dd/deletedd.do",params, function(data){
+                    	$.post("${pageContext.request.contextPath}/Dd/deleteDd.do",params, function(data){
                 			if(data.status == 200){
                 				$.messager.alert('提示','删除订购单成功!',undefined,function(){
                 					$("#ddList").datagrid("reload");
@@ -360,7 +324,7 @@ function doSearch_dd(ddh,item_id,item_name,user_id,dgkh,jyqssj,jyjssj){ //商品
         var endTime=$("#jyjssj").datebox("getValue");
     
     });
-    
+    //00新增  01下单  02 发货 03退货 04撤销 05 确认收货
     function doChangeZt(ddzt) {
         var ids = getddSelectionsIds();
 
@@ -374,8 +338,8 @@ function doSearch_dd(ddh,item_id,item_name,user_id,dgkh,jyqssj,jyjssj){ //商品
         }
         var sels = $("#ddList").datagrid("getSelections");
         if("新增"==sels[0].ddzt){
-            if(ddzt!='04'||ddzt!='01'){
-                $.messager.alert('提示','新增状态的订购单'+sels[0].ddh+'不能做下单或撤销以外的操作!');
+            if(ddzt!='01'){
+                $.messager.alert('提示','新增状态的订购单'+sels[0].ddh+'不能做下单以外的操作!');
                 return ;
             }
         }

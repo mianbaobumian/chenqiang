@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService
     }
 
     @Override
-    public String saveUserInfo(Map<String, String> paramMap)
+    public String saveUserInfo(Map<String, String> paramMap) throws Exception
     {
         /*User user=new User();
         user.setUser_id(paramMap.get("user_id").toString());
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService
         user.setValue_flag(paramMap.get("value_flag").toString());*/
         User user=userDao.selectByUserId(paramMap.get("user_id").toString());
         if(user!=null){
-            return  "该用户已存在";
+            throw new Exception("该用户已存在");
         }
         userDao.saveUserInfo(paramMap);
         return "success";

@@ -54,13 +54,13 @@
     tb_dd b
     WHERE 1=1
     <if test="ddh !=null and ddh !=''">
-      and b.ddh = #{lsh,jdbcType=VARCHAR}
+      and b.ddh = #{ddh,jdbcType=VARCHAR}
     </if>
     <if test="item_id !=null and item_id !=''">
       and b.ddh in (select a.ddh from tb_dd_mx a where a.item_id = #{item_id,jdbcType=VARCHAR})
     </if>
     <if test="item_name !=null and item_name !=''">
-      and b.ddh in (select a.ddh from tb_dd_mx a where a.item_id in (select item_id from tb_item where item_name like concat('%',concat(#{item_name,jdbcType=VARCHAR},'%')))
+      and b.ddh in (select a.ddh from tb_dd_mx a where a.item_id in (select item_id from tb_item where item_name like concat('%',concat(#{item_name,jdbcType=VARCHAR},'%'))))
     </if>
     and date_format(b.jyrq,'%Y-%m-%d') between #{jyqssj,jdbcType=VARCHAR} and #{jyjssj,jdbcType=VARCHAR}
     LIMIT #{start} ,#{end}
@@ -72,13 +72,13 @@
     tb_dd b
     WHERE 1=1
     <if test="ddh !=null and ddh !=''">
-      and b.ddh = #{lsh,jdbcType=VARCHAR}
+      and b.ddh = #{ddh,jdbcType=VARCHAR}
     </if>
     <if test="item_id !=null and item_id !=''">
       and b.ddh in (select a.ddh from tb_dd_mx a where a.item_id = #{item_id,jdbcType=VARCHAR})
     </if>
     <if test="item_name !=null and item_name !=''">
-      and b.ddh in (select a.ddh from tb_dd_mx a where a.item_id in (select item_id from tb_item where item_name like concat('%',concat(#{item_name,jdbcType=VARCHAR},'%')))
+      and b.ddh in (select a.ddh from tb_dd_mx a where a.item_id in (select item_id from tb_item where item_name like concat('%',concat(#{item_name,jdbcType=VARCHAR},'%'))))
     </if>
     and date_format(b.jyrq,'%Y-%m-%d') between #{jyqssj,jdbcType=VARCHAR} and #{jyjssj,jdbcType=VARCHAR}
   </select>
@@ -94,6 +94,7 @@
     set ddzt=#{ddzt,jdbcType=VARCHAR},
         jyrq=sysdate()
     where ddh = #{ddh,jdbcType=VARCHAR}
+     and  ddzt ='00'
   </update>
 
   <select id="listDdmxByPage" resultType="com.keyi.chenqiang.dd.model.DdMx" parameterType="java.util.HashMap" >
@@ -127,10 +128,10 @@
 
   <select id="getMxToal" resultType="java.lang.Integer" parameterType="java.util.HashMap" >
     select count(1) FROM
-    tb_dd b,tb_dd_mx a
-    WHERE
-    a.ddh = b.ddh
+    tb_dd b,tb_dd_mx a,tb_item c
+    WHERE a.ddh = b.ddh
     and b.ddh=#{ddh,jdbcType=VARCHAR}
+    and a.item_id = c.item_id
     <if test="mxlsh !=null and mxlsh !=''">
       and a.mxlsh = #{mxlsh,jdbcType=VARCHAR}
     </if>
@@ -138,7 +139,10 @@
       and a.item_id = #{item_id,jdbcType=VARCHAR}
     </if>
     <if test="item_name !=null and item_name !=''">
-      and a.item_id in (select item_id from tb_item where item_name like concat('%',concat(#{item_name,jdbcType=VARCHAR},'%')))
+      and c.item_name like concat('%',concat(#{item_name,jdbcType=VARCHAR},'%'))
+    </if>
+    <if test="lb !=null and lb !=''">
+      and c.lb=#{lb,jdbcType=VARCHAR}
     </if>
   </select>
 
@@ -171,5 +175,9 @@
 
   <select id="getDdh" resultType="java.lang.String">
     select concat(DATE_FORMAT(sysdate(),'%Y%m%d'),nextval('seq_ddh')) as ddh  from dual
+  </select>
+
+  <select id="selectDdmxByDdh" parameterType="java.lang.String" resultType="com.keyi.chenqiang.dd.model.DdMx">
+    select *from tb_dd_mx where ddh=#{ddh,jdbcType=VARCHAR}
   </select>
 </mapper>

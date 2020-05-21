@@ -227,17 +227,7 @@ public class DdController {
         Map<String, Object> result = new HashMap<String, Object>();
         try
         {
-            String ddh=paramMap.get("ddh").toString();
-            String str=ddService.saveDdMxInfo(paramMap);
-            double dxzje=Double.parseDouble(paramMap.get("dxzje").toString());
-            Dd dd=ddService.selectByDdh(ddh);
-            if(dd!=null){
-                dd.setDdzje(dd.getDdzje()+dxzje);
-                str=ddService.updateByDdh(dd);
-            }else{
-                paramMap.put("ddzje",dxzje);
-                str=ddService.saveDdInfo(paramMap);
-            }
+            String str=ddService.ywAddDdMx(paramMap);
             result.put("msg",str);
             if("success".equals(str)){
                 result.put("status",200);
@@ -247,7 +237,7 @@ public class DdController {
         }catch (Exception e){
             logger.error(e.getMessage(), e);
             result.put("status", 500);
-            result.put("msg", "查询出错,请联系管理员!");
+            result.put("msg", e.getMessage());
         }
         return result;
     }
@@ -258,14 +248,7 @@ public class DdController {
         Map<String, Object> result = new HashMap<String, Object>();
         try
         {
-            String mxlsh=paramMap.get("mxlsh").toString();
-            DdMx ddMx=ddService.selectByMxlsh(mxlsh);//查询原订单号
-            paramMap.put("ddh",ddMx.getDdh());
-            String str=ddService.updateDdMx(paramMap);//更新订单明细
-            double dxzje=Double.parseDouble(paramMap.get("dxzje").toString());
-            Dd dd=ddService.selectByDdh(ddMx.getDdh());
-            dd.setDdzje(dd.getDdzje()+dxzje);
-            ddService.updateByDdh(dd);//更新订单
+            String str=ddService.ywUpdateDdMx(paramMap);
             result.put("msg",str);
             if("success".equals(str)){
                 result.put("status",200);
@@ -275,7 +258,7 @@ public class DdController {
         }catch (Exception e){
             logger.error(e.getMessage(), e);
             result.put("status", 500);
-            result.put("msg", "查询出错,请联系管理员!");
+            result.put("msg", e.getMessage());
         }
         return result;
     }
@@ -286,7 +269,14 @@ public class DdController {
         Map<String, Object> result = new HashMap<String, Object>();
         try
         {
+            String ddzt=paramMap.get("ddzt");
             String str=ddService.updateDdzt(paramMap);
+            if("03".equals(ddzt)){
+                str="退货已受理，请耐心等待";
+            }
+            if("05".equals(ddzt)){
+                str="确认收货成功";
+            }
             result.put("msg",str);
             if("success".equals(str)){
                 result.put("status",200);

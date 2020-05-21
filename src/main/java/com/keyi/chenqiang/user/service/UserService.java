@@ -12,7 +12,7 @@ public interface UserService
 
     User queryUserByUserId(String user_id);
 
-    String saveUserInfo(Map<String, String> paramMap);
+    String saveUserInfo(Map<String, String> paramMap) throws Exception;
 
     String updateUserInfo(Map<String, String> paramMap);
 

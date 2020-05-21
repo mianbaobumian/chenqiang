@@ -40,4 +40,6 @@ public interface DdDao {
     void updateDdmxByMxlsh(DdMx ddMx);
 
     String getDdh();
+
+    List<DdMx> selectDdmxByDdh(String ddh);
 }

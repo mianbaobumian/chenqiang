@@ -3,8 +3,14 @@
 <mapper namespace="com.keyi.chenqiang.jsjl.dao.JsjlDao" >
   <delete id="deleteBySklsh" parameterType="java.lang.String" >
     delete from tb_jsjl_sk
+    where sklsh = #{sklsh,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteByJylsh" parameterType="java.lang.String" >
+    delete from tb_jsjl
     where sklsh = #{jylsh,jdbcType=VARCHAR}
   </delete>
+
   <insert id="saveSkInfo" parameterType="java.util.HashMap" >
     <selectKey keyProperty="sklsh" resultType="java.lang.String" order="BEFORE">
       select concat(DATE_FORMAT(sysdate(),'%Y%m%d'),nextval('seq_sklsh')) as sklsh  from dual
@@ -32,9 +38,9 @@
       and skzt = '1'
   </update>
 
-  <update id="updateSkZt" parameterType="java.lang.String" >
+  <update id="updateSkZt" parameterType="java.util.HashMap" >
     update tb_jsjl_sk
-    set skzt='2'
+    set skzt=#{skzt,jdbcType=VARCHAR}
     where sklsh = #{sklsh,jdbcType=VARCHAR}
       and skzt = '1'
   </update>
@@ -43,6 +49,18 @@
     select *
     from tb_jsjl_sk
     where sklsh = #{sklsh,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectSkjlByDdh" resultType="com.keyi.chenqiang.jsjl.model.Skjl" parameterType="java.lang.String" >
+    select *
+    from tb_jsjl_sk
+    where ddh = #{ddh,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectJsjlByDdh" resultType="com.keyi.chenqiang.jsjl.model.Jsjl" parameterType="java.lang.String" >
+    select *
+    from tb_jsjl
+    where ddh = #{ddh,jdbcType=VARCHAR}
   </select>
 
   <select id="listSkByPage" resultType="com.keyi.chenqiang.jsjl.model.Skjl" parameterType="java.util.HashMap" >
@@ -57,6 +75,7 @@
     (select user_name from tb_user where user_id=b.skr) skr,
     case
     when b.skzt ='2' then '已收款'
+    when b.skzt ='0' then '退款'
     else '待审核'
     end skzt,
     case

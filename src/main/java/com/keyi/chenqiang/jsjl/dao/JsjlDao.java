@@ -10,15 +10,21 @@ public interface JsjlDao
 {
     void deleteBySklsh(String sklsh);
 
+    void deleteByJylsh(String jylsh);
+
     void saveSkInfo(Map<String, Object> map);
 
     void saveJsjlInfo(Jsjl jsjl);
 
     void updateSkBySklsh(Map<String,Object> map);
 
-    void updateSkZt(String sklsh);
+    void updateSkZt(Map<String,String> map);
 
     Skjl selectSkBySklsh(String sklsh);
+
+    Skjl selectSkjlByDdh(String ddh);
+
+    Jsjl selectJsjlByDdh(String ddh);
 
     List<Skjl> listSkByPage(Map<String, Object> map);
 

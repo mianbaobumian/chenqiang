@@ -29,6 +29,7 @@
         b.item_id,
         a.item_name,
         b.rksj,
+        a.ysj,
        (select dmmc from tb_dic_zddm where dmlb="SPLB" and dmz=a.lb) lb,
         b.zhgxsj,
         b.kcs

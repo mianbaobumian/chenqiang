@@ -16,11 +16,11 @@ public interface JsjlService
 
     Skjl querySkjlBySklsh(String sklsh);
 
-    String saveSkInfo(Map<String, Object> paramMap);
+    String saveSkInfo(Map<String, Object> paramMap) throws Exception;
 
-    String updateSkBySklsh(Map<String, Object> paramMap);
+    String updateSkBySklsh(Map<String, Object> paramMap) throws Exception;
 
-    String updateSkZt(String sklsh);
+    String updateSkZt(String sklsh, String ddzt) throws Exception;
 
     String deleteSkjl(Map<String, String> paramMap);
 }

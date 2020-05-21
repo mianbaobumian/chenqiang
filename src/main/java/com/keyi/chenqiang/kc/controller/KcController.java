@@ -78,7 +78,7 @@ public class KcController
         }catch (Exception e){
             logger.error(e.getMessage(), e);
             result.put("status", 500);
-            result.put("msg", "出错,请联系管理员!");
+            result.put("msg", e.getMessage());
         }
         return result;
     }
@@ -109,7 +109,7 @@ public class KcController
         }catch (Exception e){
             logger.error(e.getMessage(), e);
             result.put("status", 500);
-            result.put("msg", "查询出错,请联系管理员!");
+            result.put("msg", e.getMessage());
         }
         return result;
     }

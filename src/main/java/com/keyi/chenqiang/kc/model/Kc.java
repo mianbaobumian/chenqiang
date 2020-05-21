@@ -16,8 +16,20 @@ public class Kc {
 
     private Integer kcs;
 
+    private Double dj;
+
     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     private Date zhgxsj;
+
+    public Double getDj()
+    {
+        return dj;
+    }
+
+    public void setDj(Double dj)
+    {
+        this.dj = dj;
+    }
 
     public String getItem_name()
     {
