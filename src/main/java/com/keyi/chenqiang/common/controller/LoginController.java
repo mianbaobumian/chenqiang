@@ -37,7 +37,7 @@ public class LoginController
 	 */
 	@RequestMapping(value = "/ajaxLogin")
 	@ResponseBody
-	public Map<String,Object> ajaxLogin(@RequestParam String username,
+	public Map<String,Object> ajaxLogin(HttpSession session,@RequestParam String username,
 													  @RequestParam String password) throws Exception{
 		Map<String,Object> map = CollectionsFactory.newHashMap();
 		try
@@ -50,6 +50,7 @@ public class LoginController
 			}else {
 				map.put("user_type",user.getUser_type());
 			}
+			session.setAttribute("user", user);
 		}catch (Exception e){
 			logger.error(e.getMessage(), e);
 			map.put("code", "500");
@@ -71,6 +72,7 @@ public class LoginController
 		}
 		model.addAttribute("user", user);
 		session.setAttribute("user_type", user_type);
+		session.setAttribute("user", user);
 		return "common/home";
 	}
 
@@ -80,7 +82,9 @@ public class LoginController
 		while(em.hasMoreElements()){
 			request.getSession().removeAttribute(em.nextElement().toString());
 		}
-		return "index";
+//		return RedirectToAction("Index", "Basic");
+//		return "dd/dd_list";
+		return "redirect:"+request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()+request.getContextPath()+"/index.jsp";
 /*		Map<String,Object> map = CollectionsFactory.newHashMap();
 		try
 		{
@@ -99,5 +103,11 @@ public class LoginController
 		}
 		//返回json数据
 		return map;*/
+	}
+
+	@RequestMapping("zcPage")
+	public ModelAndView openAddUser(HttpSession session,@RequestParam Map<String, Object> paramMap) {
+		session.setAttribute("user", new User());
+		return new ModelAndView("common/zc");
 	}
 }

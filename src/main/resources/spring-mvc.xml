@@ -18,6 +18,18 @@
 
   <mvc:annotation-driven />
 
+  <mvc:interceptors>
+    <mvc:interceptor><!--配置局部拦截器，需要满足下列路径条件-->
+
+      <mvc:mapping path="/**/*.do"/>
+      <mvc:mapping path="/**/**/*.do"/>
+      <mvc:exclude-mapping path="/admin/Login/ajaxLogin.do" />
+      <!--<mvc:exclude-mapping path="/admin/Login/home.do" />-->
+      <bean class="com.keyi.chenqiang.common.util.PrivilegeInterceptor"/><!--自定义拦截器注册-->
+    </mvc:interceptor>
+    <!-- 我们可以直接在者注册自定义拦截器Bean来配置全局拦截器，会对所有请求拦截-->
+  </mvc:interceptors>
+
   <!-- 内容协商管理器  -->
   <!--1、首先检查路径扩展名（如my.pdf）；2、其次检查Parameter（如my?format=pdf）；3、检查Accept Header-->
   <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">

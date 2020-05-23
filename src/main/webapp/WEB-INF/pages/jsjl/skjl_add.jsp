@@ -32,6 +32,7 @@
 						<option value="2">支付宝收款</option>
 					</select>
 				</td>
+				<td><input type="hidden" id="skr" name="ddh" value=${user.user_id}></td>
 			</tr>
 		</table>
 	</form>

@@ -17,7 +17,7 @@
     </selectKey>
     insert into tb_jsjl_sk(sklsh,sksj,ddh,ddzje,skzje,user_id,skzt,skr)
     values (#{sklsh,jdbcType=VARCHAR},sysdate(),#{ddh,jdbcType=VARCHAR},
-      #{ddzje,jdbcType=DOUBLE}, #{skzje,jdbcType=DOUBLE},#{user_id,jdbcType=VARCHAR},'1', 'admin')
+      #{ddzje,jdbcType=DOUBLE}, #{skzje,jdbcType=DOUBLE},#{user_id,jdbcType=VARCHAR},'1', #{skr,jdbcType=VARCHAR})
   </insert>
 
   <insert id="saveJsjlInfo" parameterType="com.keyi.chenqiang.jsjl.model.Jsjl" >
@@ -26,7 +26,7 @@
     </selectKey>
     insert into tb_jsjl(jylsh,jyrq,skfs,user_id,ddh,zfje,czr)
     values (#{jylsh,jdbcType=VARCHAR},sysdate(),#{skfs,jdbcType=VARCHAR},
-    #{user_id,jdbcType=VARCHAR}, #{ddh,jdbcType=VARCHAR},#{zfje,jdbcType=DOUBLE},'admin')
+    #{user_id,jdbcType=VARCHAR}, #{ddh,jdbcType=VARCHAR},#{zfje,jdbcType=DOUBLE},#{skr,jdbcType=VARCHAR})
   </insert>
 
   <update id="updateSkBySklsh" parameterType="java.util.HashMap" >

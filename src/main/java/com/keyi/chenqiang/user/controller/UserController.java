@@ -79,7 +79,7 @@ public class UserController
         }catch (Exception e){
             logger.error(e.getMessage(), e);
             result.put("status", 500);
-            result.put("msg", e.getMessage());
+            result.put("msg", "account_error");
         }
         return result;
     }
