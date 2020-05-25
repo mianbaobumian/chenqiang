@@ -124,9 +124,9 @@ function doSearch_dd(){ //商品输入商品名,点击搜素,触发此函数
     var jyqssj=$('#jyqssj').val();
     var jyjssj=$('#jyjssj').val();
     var dgkh=$('#dgkh').val();
-    var user_type=${user.user_type};
+    var user_type="${user.user_type}";
     if(user_type=='1'){
-        dgkh=${user.user_id};
+        dgkh="${user.user_id}";
     }
     $("#ddList").datagrid({
         title:'订购单列表', singleSelect:false, collapsible:true, pagination:true, rownumbers:true, method:'post',
@@ -198,7 +198,7 @@ function doSearch_dd(){ //商品输入商品名,点击搜素,触发此函数
     
     function dd_add(){
         //var dgkh=$("#dgkh").val();
-        var dgkh=${user.user_id};
+        var dgkh="${user.user_id}";
         parent.openTab('新增订购单','Dd/addDdPage.do?dgkh='+dgkh,'icon-man');
        /* $.ajax({
             url : "${pageContext.request.contextPath}/Dd/getDdh.do",
@@ -223,7 +223,7 @@ function doSearch_dd(){ //商品输入商品名,点击搜素,触发此函数
        		if(data.msg != null){
        			$.messager.alert('提示', data.msg);
        		}else{*/
-                var dgkh=${user.user_id};
+                var dgkh="${user.user_id}";
        			var ids = getddSelectionsIds();
             	
             	if(ids.length == 0){
