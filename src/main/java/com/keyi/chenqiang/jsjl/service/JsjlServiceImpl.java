@@ -10,6 +10,7 @@ import com.keyi.chenqiang.jsjl.model.Skjl;
 import com.keyi.chenqiang.kc.dao.KcDao;
 import com.keyi.chenqiang.kc.model.Kc;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.text.ParseException;
@@ -68,6 +69,9 @@ public class JsjlServiceImpl implements JsjlService
         Dd dd=ddDao.selectByDdh(ddh);
         if(dd==null){
             throw new Exception(ddh+"订单号不存在");
+        }
+        if(StringUtils.isEmpty(paramMap.get("skfs"))){
+            paramMap.put("skfs","1");
         }
         paramMap.put("ddzje",dd.getDdzje());
         paramMap.put("user_id",dd.getDgkh());

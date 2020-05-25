@@ -56,6 +56,9 @@
     <if test="ddh !=null and ddh !=''">
       and b.ddh = #{ddh,jdbcType=VARCHAR}
     </if>
+    <if test="dgkh !=null and dgkh !=''">
+      and b.dgkh = #{dgkh,jdbcType=VARCHAR}
+    </if>
     <if test="item_id !=null and item_id !=''">
       and b.ddh in (select a.ddh from tb_dd_mx a where a.item_id = #{item_id,jdbcType=VARCHAR})
     </if>
@@ -73,6 +76,9 @@
     WHERE 1=1
     <if test="ddh !=null and ddh !=''">
       and b.ddh = #{ddh,jdbcType=VARCHAR}
+    </if>
+    <if test="dgkh !=null and dgkh !=''">
+      and b.dgkh = #{dgkh,jdbcType=VARCHAR}
     </if>
     <if test="item_id !=null and item_id !=''">
       and b.ddh in (select a.ddh from tb_dd_mx a where a.item_id = #{item_id,jdbcType=VARCHAR})

@@ -52,8 +52,8 @@
         <input id="item_id" style="line-height:26px;border:1px solid #ccc;width: 120px">
         商品名:
         <input id="item_name" style="line-height:26px;border:1px solid #ccc;width: 120px">
+         <c:if test="${user.user_type == '2' }">
         订购客户:
-        <c:if test="${user.user_type == '2' }">
             <input id="dgkh" style="line-height:26px;border:1px solid #ccc;width: 120px">
         </c:if>
         交易时间段:
