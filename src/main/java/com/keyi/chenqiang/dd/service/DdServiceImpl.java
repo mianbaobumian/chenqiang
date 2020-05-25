@@ -131,6 +131,9 @@ public class DdServiceImpl implements DdService {
             //订单作废
             dd.setDdzt(ddzt);
             ddDao.updateDdZt(dd);
+        }else if("05".equals(ddzt)){
+            dd.setDdzt(ddzt);
+            ddDao.updateDdZt(dd);
         }
         return "success";
     }
