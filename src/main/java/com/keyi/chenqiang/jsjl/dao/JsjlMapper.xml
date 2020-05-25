@@ -26,7 +26,7 @@
     </selectKey>
     insert into tb_jsjl(jylsh,jyrq,skfs,user_id,ddh,zfje,czr)
     values (#{jylsh,jdbcType=VARCHAR},sysdate(),#{skfs,jdbcType=VARCHAR},
-    #{user_id,jdbcType=VARCHAR}, #{ddh,jdbcType=VARCHAR},#{zfje,jdbcType=DOUBLE},#{skr,jdbcType=VARCHAR})
+    #{user_id,jdbcType=VARCHAR}, #{ddh,jdbcType=VARCHAR},#{zfje,jdbcType=DOUBLE},#{czr,jdbcType=VARCHAR})
   </insert>
 
   <update id="updateSkBySklsh" parameterType="java.util.HashMap" >

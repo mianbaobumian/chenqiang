@@ -17,7 +17,7 @@
     update tb_dd
     set ddzje = #{ddzje,jdbcType=DOUBLE}
     where ddh = #{ddh,jdbcType=VARCHAR}
-      and ddzt ='01' or ddzt ='00'
+      and (ddzt ='01' or ddzt ='00')
   </update>
   <select id="selectByDdh" resultType="com.keyi.chenqiang.dd.model.Dd" parameterType="java.lang.String" >
     select ddh, jyrq, ddzt, psfs,dgkh,ddzje

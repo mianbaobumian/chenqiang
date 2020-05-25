@@ -1,5 +1,6 @@
 package com.keyi.chenqiang.jsjl.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.keyi.chenqiang.common.model.Page;
 import com.keyi.chenqiang.jsjl.model.Jsjl;
 import com.keyi.chenqiang.jsjl.model.Skjl;
@@ -142,9 +143,12 @@ public class JsjlController
         Map<String, Object> result = new HashMap<String, Object>();
         try
         {
-            String sklsh=paramMap.get("sklsh");
+            String json=paramMap.get("json");
             String skzt=paramMap.get("skzt");
-            String str=jsjlService.updateSkZt(sklsh,skzt);
+            json= json.replace("["," ");
+            json= json.replace("]"," ");
+            Skjl skjl= JSONArray.parseObject(json,Skjl.class);
+            String str=jsjlService.updateSkZt(skjl.getSklsh(),skzt);
             result.put("msg",str);
             if("success".equals(str)){
                 result.put("status",200);

@@ -131,7 +131,7 @@ function doSearch_dd(){ //商品输入商品名,点击搜素,触发此函数
     $("#ddList").datagrid({
         title:'订购单列表', singleSelect:false, collapsible:true, pagination:true, rownumbers:true, method:'post',
         nowrap:true, toolbar:"toolbar_dd", url:'${pageContext.request.contextPath}/Dd/list.do',
-        queryParams: {ddh:ddh,item_id:item_id, item_name:item_name,user_id:user_id,dgkh:dgkh,jyqssj:jyqssj,jyjssj:jyjssj},
+        queryParams: {ddh:ddh,item_id:item_id, item_name:item_name,dgkh:dgkh,jyqssj:jyqssj,jyjssj:jyjssj},
         loadMsg:'数据加载中......', fitColumns:true,
         columns : [ [
             {field:'ck',checkbox:true},
@@ -350,13 +350,13 @@ function doSearch_dd(){ //商品输入商品名,点击搜素,触发此函数
             }
         }
         if("下单"==sels[0].ddzt){
-            if(ddzt!='02'||ddzt!='04'){
+            if(ddzt!='02'&&ddzt!='04'){
                 $.messager.alert('提示','下单状态的订购单'+sels[0].ddh+'不能做发货或撤销以外的操作!');
                 return ;
             }
         }
         if("发货"==sels[0].ddzt){
-            if(ddzt!='03'||ddzt!='05'){
+            if(ddzt!='03'&&ddzt!='05'){
                 $.messager.alert('提示','发货状态的订购单'+sels[0].ddh+'不能做退货或确认收货以外的操作!');
                 return ;
             }
@@ -378,6 +378,11 @@ function doSearch_dd(){ //商品输入商品名,点击搜素,触发此函数
             success : function(text) {
                 if (!text.success) {
                     //回显数据
+                    if(text.status=='200'){
+
+                    }else{
+                        $.messager.alert('提示',text.msg);
+                    }
                     var data = $("#ddList").datagrid("getSelections")[0];
                     $("#ddEditForm").form("load", data);
                 }

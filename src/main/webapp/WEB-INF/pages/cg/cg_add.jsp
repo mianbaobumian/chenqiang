@@ -20,7 +20,7 @@
 			<tr>
 				<td>采购数:</td>
 				<td colspan="10">
-					<input class="easyui-numberspinner" style="width:80px;" id="cgsl" name="cgsl" data-options="required:true"/>
+					<input class="easyui-numberspinner" style="width:80px;" id="cgsl" name="cgsl" data-options="required:true,min:1,max:100"/>
 				</td>
 			</tr>
 			<%--<tr>
@@ -44,6 +44,7 @@
 			$.messager.alert('提示','表单还未填写完成!');
 			return ;
 		}
+
 
 		//ajax的post方式提交表单
 		//$("#userAddForm").serialize()将表单序列号为key-value形式的字符串

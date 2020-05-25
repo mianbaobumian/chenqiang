@@ -61,7 +61,7 @@ public class JsjlServiceImpl implements JsjlService
     @Override
     public String saveSkInfo(Map<String, Object> paramMap) throws Exception{
         String ddh=paramMap.get("ddh").toString();
-        Skjl skjl=jsjlDao.selectSkBySklsh(ddh);
+        Skjl skjl=jsjlDao.selectSkjlByDdh(ddh);
         if(skjl!=null){
             throw new Exception(ddh+"订单已有收款记录请勿重复新增");
         }

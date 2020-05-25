@@ -26,7 +26,7 @@
 			<tr>
 				<td>采购数:</td>
 				<td colspan="10">
-					<input class="easyui-numberspinner" style="width:80px;" id="cgsl" name="cgsl" data-options="required:true"/>
+					<input class="easyui-numberspinner" style="width:80px;" id="cgsl" name="cgsl" data-options="required:true,min:1,max:100"/>
 				</td>
 			</tr>
 			<%--<tr>

@@ -308,6 +308,11 @@ function dosearch_skjl(sklsh,ddh,user_name,skzt,skqssj,skjssj){ //商品输入�
             success : function(text) {
                 if (!text.success) {
                     //回显数据
+                    if(text.status=='200'){
+
+                    }else{
+                        $.messager.alert('提示',text.msg);
+                    }
                     var data = $("#skjlList").datagrid("getSelections")[0];
                     $("#skjlEditForm").form("load", data);
                 }

@@ -91,6 +91,8 @@ public class DdServiceImpl implements DdService {
     public String updateDdzt(Map<String, String> paramMap) throws Exception
     {
         String json=paramMap.get("json");
+        json= json.replace("["," ");
+        json= json.replace("]"," ");
         String ddzt=paramMap.get("ddzt");
         Dd dd= JSONArray.parseObject(json,Dd.class);
         if("01".equals(ddzt)){//下单
@@ -109,7 +111,7 @@ public class DdServiceImpl implements DdService {
             for(DdMx ddMx:ddMxList){
                 Kc kc=kcDao.selectByItemId(ddMx.getItem_id());
                 //检查库存
-                if(kc.getKcs()<ddMx.getSl()){
+                if(kc.getKcs()>=ddMx.getSl()){
                     kc.setKcs(kc.getKcs()-ddMx.getSl());
                     kcDao.updateByItemId(kc);
                 }else {

@@ -20,7 +20,7 @@
 			<tr>
 				<td>数量:</td>
 				<td colspan="10">
-					<input class="easyui-numberspinner" style="width:80px;" id="sl" name="sl" data-options="required:true"/>
+					<input class="easyui-numberspinner" style="width:80px;" id="sl" name="sl" data-options="required:true,min:1,max:100"/>
 				</td>
                 <td><input type="hidden" id="ddh" name="ddh" value=${ddh}></td>
                 <td><input type="hidden" id="dgkh" name="dgkh" value=${dgkh}></td>

@@ -20,7 +20,7 @@
 			<tr>
 				<td>商品原有库存数:</td>
 				<td colspan="10">
-					<input class="easyui-numberspinner" style="width:80px;" id="kcs" name="kcs" readonly="true"/>
+					<input class="easyui-numberspinner" style="width:80px;" id="kcs" name="kcs" readonly="true" data-options="required:true,min:1,max:100"/>
 				</td>
 			</tr>
 			<tr>
@@ -37,7 +37,7 @@
 			<tr>
 				<td>数量:</td>
 				<td colspan="10">
-					<input class="easyui-numberspinner" style="width:80px;" id="sl" name="sl" data-options="required:true"/>
+					<input class="easyui-numberspinner" style="width:80px;" id="sl" name="sl" data-options="required:true,min:1,max:100"/>
 				</td>
 			</tr>
 		</table>

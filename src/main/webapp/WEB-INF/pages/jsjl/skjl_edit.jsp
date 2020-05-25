@@ -25,7 +25,7 @@
 			<tr>
 				<td>收款总金额:</td>
 				<td colspan="10">
-					<input id="skzje" name="skzje" data-options="required:true"/>
+					<input id="skzje" class="easyui-numberspinner" name="skzje" data-options="required:true,min:1,max:100,precision:2"/>
 				</td>
 			</tr>
             <tr>
@@ -41,6 +41,7 @@
                         editable:false,required:true">
 						<option value="1">银行转账</option>
 						<option value="2">支付宝收款</option>
+						<option value="3">微信收款</option>
 					</select>
 				</td>
 				<td><input type="hidden" id="skr" name="ddh" value="${user.user_id}"></td>
